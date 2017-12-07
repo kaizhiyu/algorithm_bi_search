@@ -1,8 +1,9 @@
 package com.algorithm.concurrent;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
 
 /**
  * 缓冲计算结果
@@ -12,23 +13,54 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 public class MyCacheMemorizer implements ICompute{
-    private final Map<Integer,BigDecimal> cache = new ConcurrentHashMap();
-
+    private final Map<Integer,Future<BigDecimal>> cache = new ConcurrentHashMap();
+    private final ICompute c;
+    public MyCacheMemorizer(ICompute c) {
+        this.c = c;
+    }
 
     @Override
-    public BigDecimal compute(int i) {
-        BigDecimal bigDecimal = cache.get(i);
-        if (bigDecimal ==null){
+    public BigDecimal compute(final int i) {
+        Future<BigDecimal> f = cache.get(i);
+        if (f ==null){
             //TODO to compute and put result into cache
-            bigDecimal = new BigDecimal(22);
-            cache.put(i,bigDecimal);
-            try {
-                Thread.sleep(1000L);
+            Callable<BigDecimal> callable = new Callable<BigDecimal>() {
 
+                @Override
+                public BigDecimal call() throws Exception {
+                    return c.compute(i);
+                }
+            };
+
+            FutureTask<BigDecimal> ft = new FutureTask<>(callable);
+            cache.putIfAbsent(i,ft);
+            if (f==null){
+                f=ft;
+                ft.run();
+            }
+
+
+            try {
+                return  f.get();
+            } catch (CancellationException e) {
+                cache.remove(i,f);
+                throw new RuntimeException();
+            } catch (ExecutionException e) {
+                throw new RuntimeException();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                throw new RuntimeException();
             }
         }
-        return  bigDecimal;
+        return null;
+    }
+
+
+    class ComputeFutureTask implements Runnable {
+
+        @Override
+        public void run() {
+
+        }
     }
 }

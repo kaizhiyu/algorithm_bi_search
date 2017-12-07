@@ -1,4 +1,4 @@
-package com.algorithm.java8;
+package com.algorithm.java8.collector;
 
 import java.util.*;
 import java.util.function.BiConsumer;
