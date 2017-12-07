@@ -1,11 +1,16 @@
 package com.algorithm.concurrent;
 
+import java.math.BigDecimal;
+
 /**
- * Title:xxxxx
+ *
  *
  * @author:v_fanhaibo on 2017/12/7.
  * @version:v1.0
  */
 
-public class ICompute {
+public interface ICompute {
+
+    BigDecimal compute(int i );
+
 }
