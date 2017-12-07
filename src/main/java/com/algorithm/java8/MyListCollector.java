@@ -14,8 +14,14 @@ import static java.util.stream.Collector.Characteristics.*;
  *
  * @author:v_fanhaibo on 2017/12/7.
  * @version:v1.0
+ *  new CollectorImpl<>(
+ *  1: (Supplier<List<T>>) ArrayList::new,
+ *  2:  List::add,
+ *  3: (left, right) -> { left.addAll(right); return left; },
+ *  4: CH_ID);
  */
-
+//
+//
 public class MyListCollector<T> implements Collector<T, List<T>, List<T>> {
     /**
      * <T> - input elements
