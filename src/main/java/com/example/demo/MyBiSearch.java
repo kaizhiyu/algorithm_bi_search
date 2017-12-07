@@ -41,7 +41,7 @@ public class MyBiSearch {
     public static int cycleBiSearch(int[] arr, int key) {
         int fromIdex = 0;
         int toIndex = arr.length;
-        while (fromIdex < toIndex) {
+        while (fromIdex <= toIndex) {
             int mid = (toIndex - fromIdex) / 2 + fromIdex;
             int num = arr[mid];
             if (key > num) {
