@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.algorithm.java8;
 
 /**
  * Title:xxxxx
