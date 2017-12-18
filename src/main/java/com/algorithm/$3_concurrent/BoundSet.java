@@ -1,4 +1,4 @@
-package com.algorithm.concurrent;
+package com.algorithm.$3_concurrent;
 
 import java.util.Collections;
 import java.util.HashSet;

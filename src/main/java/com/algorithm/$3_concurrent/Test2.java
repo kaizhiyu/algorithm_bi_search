@@ -1,4 +1,4 @@
-package com.algorithm.concurrent;
+package com.algorithm.$3_concurrent;
 
 /**
  * java Concurrency in Practice by Brian Goetz

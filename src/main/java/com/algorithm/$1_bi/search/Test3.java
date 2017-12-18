@@ -1,4 +1,4 @@
-package com.algorithm.bi.search;
+package com.algorithm.$1_bi.search;
 
 /**
 

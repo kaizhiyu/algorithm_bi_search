@@ -1,7 +1,6 @@
-package com.algorithm.java8.stream;
+package com.algorithm.$2_java8.stream;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**

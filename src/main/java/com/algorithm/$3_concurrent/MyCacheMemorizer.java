@@ -1,6 +1,5 @@
-package com.algorithm.concurrent;
+package com.algorithm.$3_concurrent;
 
-import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.*;

@@ -1,4 +1,4 @@
-package com.algorithm.java8.stream;
+package com.algorithm.$2_java8.stream;
 
 /**
  * Title:xxxxx

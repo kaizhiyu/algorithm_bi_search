@@ -1,4 +1,4 @@
-package com.algorithm.bi.search;
+package com.algorithm.$1_bi.search;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
