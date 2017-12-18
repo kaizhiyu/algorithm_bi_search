@@ -2,6 +2,7 @@ package com.algorithm.$1_bi.search;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import sun.font.TrueTypeFont;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -12,9 +13,6 @@ import java.util.Random;
  *
  * @author:v_fanhaibo on 2017/12/7.
  * @version:v1.0
- *
- *
-
  */
 
 public class MyBiSearch {
@@ -69,14 +67,18 @@ public class MyBiSearch {
      * This is a linear congruential pseudorandom number generator, as defined by D. H. Lehmer and described by Donald E.
      * Knuth in The Art of Computer Programming, Volume 3: Seminumerical Algorithms, section 3.2.1.
      */
-    public static int[] getArr(int length) {
-        Random radom = new Random();
-
+    public static int[] getArr(int length, boolean... isBigData) {
+        Random random = new Random();
         int[] arr = new int[length];
         for (int i = 0; i < length; i++) {
 
-            int ele = radom.nextInt();
-            arr[i]=ele;
+            int ele;
+            if (isBigData != null && isBigData.length != 0) {//
+                ele = random.nextInt();                 //big data
+            } else {
+                ele = random.nextInt(length<<3);//small data
+            }
+            arr[i] = ele;
         }
         Arrays.sort(arr);
         return arr;
@@ -88,7 +90,7 @@ public class MyBiSearch {
         int[] arr = getArr(20);
 //        int[] arr = {2,4,8,9,9,11,15,16,18,19,19,21,23,30,33,33,34,40,42,48};
         int ele = arr[0];
-        System.out.println("key: "+ele+",arr: "+mapper.writeValueAsString(arr));
+        System.out.println("key: " + ele + ",arr: " + mapper.writeValueAsString(arr));
         int i = biSearch(arr, ele);
         System.out.println(i);
     }

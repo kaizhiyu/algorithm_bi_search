@@ -1,5 +1,7 @@
 package com.algorithm.$1_bi.search;
 
+import com.algorithm.$5_json.JsonMapper;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -15,7 +17,7 @@ public class ThreadBinarySearch {
     private static ExecutorService service =  Executors.newCachedThreadPool();
     public static void main(String[] args) {
         int[] arr = MyBiSearch.getArr(20);
-        System.out.println(arr);
+        System.out.println(JsonMapper.toJson(arr));
     }
 
 }
