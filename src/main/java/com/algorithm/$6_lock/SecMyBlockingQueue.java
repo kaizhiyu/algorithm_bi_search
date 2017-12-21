@@ -27,8 +27,11 @@ public class SecMyBlockingQueue<T> extends BaseBlockingQueue<T> {
 
     protected synchronized T get() throws InterruptedException {
         System.out.println("SecMyBlockingQueue.get");
+        /**
+         *  试sleep不释放锁  Thread.sleep(100000);
+         */
         if (isEmpty())
-           Thread.sleep(100000);
+           Thread.sleep(10000);
         notifyAll();
         return super.doTake();
     }
