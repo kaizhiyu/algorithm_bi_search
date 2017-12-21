@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 
 /**
- * xxx
+ * 获取所有的非目录文件
  *
  * @author:v_fanhaibo on 2017/12/19.
  * @version:v1.0
@@ -38,10 +38,12 @@ public class RecurseFile_NotDirectory {
     public static List<File> getRecurseFiles(File file){
         File[] files = file.listFiles();
         List<File> list = new ArrayList<>();
+
         for (File file1 : files) {
             if (file1.isDirectory()){
-                list.add(file1);
                 list.addAll(getRecurseFiles(file1));
+            }else {
+                list.add(file1);
             }
         }
         return list;

@@ -76,7 +76,7 @@ public class MyBiSearch {
             if (isBigData != null && isBigData.length != 0) {//
                 ele = random.nextInt();                 //big data
             } else {
-                ele = random.nextInt(length<<3);//small data
+                ele = random.nextInt(length<<1);//small data
             }
             arr[i] = ele;
         }

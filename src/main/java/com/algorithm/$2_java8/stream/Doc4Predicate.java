@@ -12,6 +12,6 @@ public class Doc4Predicate {
     /**
      * Evaluates this predicate on the given argument.
      *
-     * java.util.function.Predicate#test(java.lang.Object)
+     * java.util.function.Predicate#RecurseFile_NotDirectory(java.lang.Object)
      */
 }
