@@ -5,7 +5,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 测试可重入锁的tryLock() method
+ * 测试可重入锁的 tryLock() method
  */
 public class TryLockOfReentrantLockForTest implements Runnable {
     private static Lock locks = new ReentrantLock();
