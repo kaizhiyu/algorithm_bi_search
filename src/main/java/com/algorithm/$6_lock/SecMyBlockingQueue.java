@@ -3,10 +3,13 @@ package com.algorithm.$6_lock;
 import java.util.Date;
 
 /**
- * xxx
+ * 14.1 状态依赖性的管理
+ * 1：可阻塞的状态依赖操作的结构
+ * 2：
  *
  * @author:v_fanhaibo on 2017/12/21.
  * @version:v1.0
+ * this topic: 状态依赖性有界限缓存管理
  */
 
 public class SecMyBlockingQueue<T> extends BaseBlockingQueue<T> {
@@ -18,7 +21,7 @@ public class SecMyBlockingQueue<T> extends BaseBlockingQueue<T> {
 
     protected synchronized void put(T item) throws InterruptedException {
         System.out.println("SecMyBlockingQueue.put");
-        if (isFull())
+        while (isFull())
             wait();
         super.doPut(item);
         notifyAll();
@@ -30,8 +33,8 @@ public class SecMyBlockingQueue<T> extends BaseBlockingQueue<T> {
         /**
          *  试sleep不释放锁  Thread.sleep(100000);
          */
-        if (isEmpty())
-           Thread.sleep(10000);
+        while (isEmpty())
+            wait();
         notifyAll();
         return super.doTake();
     }
@@ -52,12 +55,7 @@ public class SecMyBlockingQueue<T> extends BaseBlockingQueue<T> {
                 }
             }
         });
-        thread.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread t, Throwable e) {
-                e.printStackTrace();
-            }
-        });
+
 
         Thread thread2 = getThreadMethod(queue);
         Thread thread3 = getThreadMethod(queue);
