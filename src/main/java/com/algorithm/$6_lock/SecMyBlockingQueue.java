@@ -1,7 +1,5 @@
 package com.algorithm.$6_lock;
 
-import java.util.Date;
-
 /**
  * 14.1 状态依赖性的管理
  * 1：可阻塞的状态依赖操作的结构
