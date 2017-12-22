@@ -13,7 +13,11 @@ import java.util.Arrays;
 @GuardedBy("Annotation")
 @GuardedBy("van")
 public class AnnotationTest {
-    //@Retention(RetentionPolicy.RUNTIME)
+    /**
+     *  测试获取标签内容
+     * @param args
+     */
+    //must be @Retention(RetentionPolicy.RUNTIME)
     public static void main(String[] args) {
         AnnotationTest annotationTest = new AnnotationTest();
         GuardedBy[] annotationsByType = annotationTest.getClass().getAnnotationsByType(GuardedBy.class);
