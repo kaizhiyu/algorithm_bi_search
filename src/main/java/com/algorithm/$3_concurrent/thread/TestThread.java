@@ -20,7 +20,7 @@ public class TestThread {
                     e.printStackTrace();
                 }
             }
-        });
+        },"normal thread name: ");
         thread.start();
 
         try {
