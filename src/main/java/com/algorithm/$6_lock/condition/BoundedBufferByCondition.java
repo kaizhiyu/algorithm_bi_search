@@ -20,11 +20,13 @@ import java.util.concurrent.locks.ReentrantLock;
 @ThreadSafe
 public class BoundedBufferByCondition<T> {
     private ReentrantLock lock = new ReentrantLock();
-    @GuardedBy("lock")
+    private Condition notFull = lock.newCondition();
     private Condition notEmpty = lock.newCondition();
     @GuardedBy("lock")
-    private Condition notFull = lock.newCondition();
     private T[] buffer;
+    @GuardedBy("lock")
+    @GuardedBy("lock")
+    @GuardedBy("lock")
     private int head, tail, count;
 
     public BoundedBufferByCondition(int capacity) {
