@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
  * @version:v1.0
  */
 
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface GuardedBys {
     GuardedBy[] value();
 }

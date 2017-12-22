@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
  * @version:v1.0
  */
 @Repeatable(GuardedBys.class)
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface GuardedBy {
     String value();
 }
