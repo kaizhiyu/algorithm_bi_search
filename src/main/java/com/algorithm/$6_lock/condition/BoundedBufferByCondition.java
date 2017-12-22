@@ -11,7 +11,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * xxx
+ * java 并发编程实战
+ * PageNo:252,程序清单14-11
  *
  * @author:v_fanhaibo on 2017/12/22.
  * @version:v1.0
