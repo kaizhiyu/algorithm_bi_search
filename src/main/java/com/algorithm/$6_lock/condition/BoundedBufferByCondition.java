@@ -86,21 +86,19 @@ public class BoundedBufferByCondition<T> {
     }
 
     private static Thread putThreadBy2Seconds(BoundedBufferByCondition<Long> queue, String threadName) {
-        return new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Long i = 0L;
-                while (true) {
-                    try {
-                        queue.put(i++);
-                        System.out.println(Thread.currentThread().getName() + ": set n=" + i);
+        return new Thread(() -> {
+            Long i = 0L;
+            while (true) {
+                try {
+                    queue.put(i++);
+                    System.out.println(Thread.currentThread().getName() + ": set n=" + i);
 
-                        Thread.sleep(1000L);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    Thread.sleep(1000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
+
         }, threadName);
     }
 
