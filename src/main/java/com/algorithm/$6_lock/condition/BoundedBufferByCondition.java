@@ -3,9 +3,7 @@ package com.algorithm.$6_lock.condition;
 import com.algorithm.demo.GuardedBy;
 import com.algorithm.demo.ThreadSafe;
 import com.sun.corba.se.impl.orbutil.concurrent.Mutex;
-import com.sun.corba.se.impl.orbutil.concurrent.Sync;
 
-import java.util.Date;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
