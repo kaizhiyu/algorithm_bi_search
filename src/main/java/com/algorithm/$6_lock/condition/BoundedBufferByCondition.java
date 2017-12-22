@@ -30,13 +30,11 @@ public class BoundedBufferByCondition<T> {
     public void put(T item) throws InterruptedException {
         lock.lock();
         try {
-            while (count == buffer.length) {
+            while (count == buffer.length)
                 notFull.await();
-            }
             buffer[tail] = item;
-            if (++tail == buffer.length) {
+            if (++tail == buffer.length)
                 tail = 0;
-            }
             ++count;
             notEmpty.signal();
         } finally {
@@ -48,14 +46,12 @@ public class BoundedBufferByCondition<T> {
     public T get() throws InterruptedException {
         lock.lock();
         try {
-            while (count == 0) {//while //需要多次理解
+            while (count == 0)  //while //需要多次理解
                 notEmpty.await();
-            }
             T x = buffer[head];
             buffer[head] = null;
-            if (++head == buffer.length) {
+            if (++head == buffer.length)
                 head = 0;
-            }
             --count;
             notFull.signal();//If any threads are waiting on this condition then one is selected for waking up.
             return x;
@@ -87,7 +83,7 @@ public class BoundedBufferByCondition<T> {
 
     private static Thread putThreadBy2Seconds(BoundedBufferByCondition<Long> queue, String threadName) {
         return new Thread(() -> {
-            Long i = 0L;
+            Long i = 9L;
             while (true) {
                 try {
                     queue.put(i++);
@@ -107,7 +103,7 @@ public class BoundedBufferByCondition<T> {
             while (true) {
                 try {
                     Long integer = queue.get();
-                    Thread.sleep(1000L);
+                    Thread.sleep(2000L);
                     System.out.println(Thread.currentThread().getName() + ": get n=" + integer);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
