@@ -20,29 +20,25 @@ public class BoundedBufferByCondition<T> {
     private Condition notEmpty = lock.newCondition();
     @GuardedBy("lock")
     private Condition notFull = lock.newCondition();
-
-    private int capacity;
-    private T[] buffer = (T[]) new Object[capacity];
-    private int head;
-    private int tail;
-    private int count;
+    private T[] buffer;
+    private int head, tail, count;
 
     public BoundedBufferByCondition(int capacity) {
-        this.capacity = capacity;
+        buffer = (T[]) new Object[capacity];
     }
 
     public void put(T item) throws InterruptedException {
-        System.out.println("BoundedBufferByCondition.put-" + new Date());
         lock.lock();
         try {
-            while (count == buffer.length)//
+            while (count == buffer.length) {
                 notFull.await();
+            }
             buffer[tail] = item;
             if (++tail == buffer.length) {
                 tail = 0;
             }
+            ++count;
             notEmpty.signal();
-            count++;
         } finally {
             lock.unlock();
         }
@@ -50,16 +46,17 @@ public class BoundedBufferByCondition<T> {
     }
 
     public T get() throws InterruptedException {
-        System.out.println("BoundedBufferByCondition.get-" + new Date());
         lock.lock();
         try {
-            while (count == 0)//while //需要多次理解
+            while (count == 0) {//while //需要多次理解
                 notEmpty.await();
+            }
             T x = buffer[head];
+            buffer[head] = null;
             if (++head == buffer.length) {
                 head = 0;
             }
-            count--;
+            --count;
             notFull.signal();//If any threads are waiting on this condition then one is selected for waking up.
             return x;
         } finally {
@@ -76,7 +73,7 @@ public class BoundedBufferByCondition<T> {
 //        Thread thread2 = getThreadMethodBy1Second(queue);
 //        Thread thread3 = getThreadMethodBy1Second(queue);
 //        Thread thread4 = getThreadMethodBy1Second(queue);
-        Thread thread5 = getThreadMethodBy1Second(queue, "get 77 lines=======");
+        Thread thread5 = getThreadMethodBy1Second(queue, "get 77 lines==");
 
 
 //        thread2.start();
@@ -96,9 +93,9 @@ public class BoundedBufferByCondition<T> {
                 while (true) {
                     try {
                         queue.put(i++);
-                        System.out.println(Thread.currentThread().getName() + ": get n=" + i);
+                        System.out.println(Thread.currentThread().getName() + ": set n=" + i);
 
-                        Thread.sleep(2000L);
+                        Thread.sleep(1000L);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -108,19 +105,17 @@ public class BoundedBufferByCondition<T> {
     }
 
     private static Thread getThreadMethodBy1Second(BoundedBufferByCondition<Long> queue, String threadName) {
-        return new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        Long integer = queue.get();
-                        Thread.sleep(1000L);
-                        System.out.println(Thread.currentThread().getName() + ": get n=" + integer);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        return new Thread(() -> {
+            while (true) {
+                try {
+                    Long integer = queue.get();
+                    Thread.sleep(1000L);
+                    System.out.println(Thread.currentThread().getName() + ": get n=" + integer);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
+
         }, threadName);
     }
 }
