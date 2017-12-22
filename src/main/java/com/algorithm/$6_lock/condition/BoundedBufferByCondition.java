@@ -2,8 +2,11 @@ package com.algorithm.$6_lock.condition;
 
 import com.algorithm.demo.GuardedBy;
 import com.algorithm.demo.ThreadSafe;
+import com.sun.corba.se.impl.orbutil.concurrent.Mutex;
+import com.sun.corba.se.impl.orbutil.concurrent.Sync;
 
 import java.util.Date;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -61,11 +64,15 @@ public class BoundedBufferByCondition<T> {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         BoundedBufferByCondition<Long> queue = new BoundedBufferByCondition<>(3);
         Thread thread = putThreadBy2Seconds(queue, "put 71 lines=======");
 
-
+        Mutex sync = new Mutex();
+        ReentrantLock lock = new ReentrantLock();
+        Semaphore semaphore = new Semaphore(0);
+//        semaphore.acquire
+//        long oneCentury = Sync.ONE_CENTURY;
 //        Thread thread2 = getThreadMethodBy1Second(queue);
 //        Thread thread3 = getThreadMethodBy1Second(queue);
 //        Thread thread4 = getThreadMethodBy1Second(queue);
