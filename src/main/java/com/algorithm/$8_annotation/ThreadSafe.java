@@ -1,4 +1,4 @@
-package com.algorithm.demo;
+package com.algorithm.$8_annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -11,6 +11,5 @@ import java.lang.annotation.RetentionPolicy;
  */
 
 @Retention(RetentionPolicy.CLASS)
-public @interface GuardedBys {
-    GuardedBy[] value();
+public @interface ThreadSafe {
 }
