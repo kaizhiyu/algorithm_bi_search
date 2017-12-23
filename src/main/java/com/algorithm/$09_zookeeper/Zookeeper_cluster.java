@@ -1,10 +1,14 @@
 package com.algorithm.$09_zookeeper;
 
+import com.algorithm.$8_annotation.Doc4Desc;
+
 /**
  * @author fanhb on 2017/12/24
  * @desc xxxx
  */
-public class Zookeeper {
+
+@Doc4Desc("zk 伪集群")
+public class Zookeeper_cluster {
 
     /**
      * 为集群
@@ -17,10 +21,20 @@ public class Zookeeper {
      3: port
         clientPort=2183
      4: 通信地址等
-     server.1=127.0.0.1:2888:3888
-     server.2=127.0.0.1:2889:3889
-     server.3=127.0.0.1:2890:3890
-     server.4=127.0.0.1:2890:3891
+         server.1=127.0.0.1:2888:3888
+         server.2=127.0.0.1:2889:3889
+         server.3=127.0.0.1:2890:3890
+         server.4=127.0.0.1:2890:3891
+     5: 启动:
+         ##!bin/bash
+         /opt/sleeve/zookeeper1/bin/zkServer.sh start /opt/sleeve/zookeeper1/conf/zoo.cfg
+         /opt/sleeve/zookeeper2/bin/zkServer.sh start /opt/sleeve/zookeeper2/conf/zoo.cfg
+         /opt/sleeve/zookeeper3/bin/zkServer.sh start /opt/sleeve/zookeeper3/conf/zoo.cfg
+         /opt/sleeve/zookeeper4/bin/zkServer.sh start /opt/sleeve/zookeeper4/conf/zoo.cfg
+     6: 测试
+        /opt/sleeve/zookeeper1/bin/zkCli.sh -server localhost:2181
+
+     
 
      */
 
