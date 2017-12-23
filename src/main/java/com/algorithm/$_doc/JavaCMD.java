@@ -7,7 +7,7 @@ import com.algorithm.$8_annotation.Doc4Desc;
  * @desc xxxx
  */
 
-@Doc4Desc("java命令")
+@Doc4Desc("java命令 jar命令说明")
 public class JavaCMD {
 
     //first method
