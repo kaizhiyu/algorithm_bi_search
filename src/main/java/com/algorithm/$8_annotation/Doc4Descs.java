@@ -11,8 +11,6 @@ import java.lang.annotation.RetentionPolicy;
  * @version:v1.0
  */
 @Retention(RetentionPolicy.CLASS)
-@Repeatable(Doc4Descs.class)
-
-public @interface Doc4Desc {
-    String value();
+public @interface Doc4Descs {
+    Doc4Desc[] value();
 }
