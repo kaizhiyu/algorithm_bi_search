@@ -1,4 +1,4 @@
-package com.algorithm.$_java_tools.$2_short;
+package com.algorithm.$_java_tools.$2_shortkey;
 
 import com.algorithm.$8_annotation.Doc4Desc;
 
