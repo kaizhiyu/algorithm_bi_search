@@ -1,4 +1,4 @@
-package com.algorithm.$_doc;
+package com.algorithm.$_doc.jar_cmd;
 
 import com.algorithm.$8_annotation.Doc4Desc;
 

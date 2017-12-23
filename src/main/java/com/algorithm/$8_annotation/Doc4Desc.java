@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
  * @author:v_fanhaibo on 2017/12/22.
  * @version:v1.0
  */
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.RUNTIME)
 @Repeatable(Doc4Descs.class)
 
 public @interface Doc4Desc {
