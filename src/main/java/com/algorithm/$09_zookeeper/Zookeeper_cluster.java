@@ -34,7 +34,7 @@ public class Zookeeper_cluster {
      6: 测试
         /opt/sleeve/zookeeper1/bin/zkCli.sh -server localhost:2181
 
-     
+
 
      */
 

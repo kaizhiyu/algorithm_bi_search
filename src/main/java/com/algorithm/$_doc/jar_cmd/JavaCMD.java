@@ -72,7 +72,7 @@ public class JavaCMD {
      * http://blog.csdn.net/hudashi/article/details/7069416
      *
      *
-     * 1. jar -cef test.CardLayoutDemo CardLayoutDemo.jar test
+     * 1. jar -cef Dubbo.CardLayoutDemo CardLayoutDemo.jar Dubbo
      * 2. 以上命令及参数的含义如下：
      * 3. jar命令为java自带的专用打包工具；
      * 4. c代表生成新的jar包；
@@ -82,7 +82,7 @@ public class JavaCMD {
      *
      * 8. 打包class文件：
      * 主类                          jar包名称                       被打包的目标（class字节码）
-     * 9. jar -cef CardLayoutDemo CardLayoutDemo.jar test
+     * 9. jar -cef CardLayoutDemo CardLayoutDemo.jar Dubbo
      *
      * 10. 执行/运行jar包：java -jar main2.jar
      * 11. 编译到指定目录： javac Test2.java -d /opt/
