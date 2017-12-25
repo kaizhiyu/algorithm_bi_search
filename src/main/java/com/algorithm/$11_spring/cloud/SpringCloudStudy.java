@@ -12,6 +12,11 @@ public class SpringCloudStudy {
     //https://github.com/JeffLi1993/springcloud-learning-example
 
 
+    /**
+     * springcloud 中文文档
+     * https://springcloud.cc/spring-cloud-dalston.html#_spring_cloud_config
+     */
+
 
 
 }
