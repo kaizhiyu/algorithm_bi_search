@@ -1,4 +1,4 @@
-package com.algorithm.$4_spring.cloud;
+package com.algorithm.$4_maven;
 
 /**
  * 学习要有目的，并且有意识的应用所学的内容；
