@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+</head>
+
+<body>
+<ul id="ulDemo">
+    　　<li>aaa</li>
+    　　<li>bbb</li>
+    　　<li>ccc</li>
+    　　<li>ddd</li>
+    　　<li>eeee</li>
+</ul>
+
+
+<script type="text/javascript">
+    var list = document.getElementById("ulDemo").getElementsByTagName("li");
+    for (var i = 0; i < list.length; i++) {
+        var li = list[i];
+        li.onclick= function () {
+            alert("www" + (i + 1) + "ttt" + this.innerHTML);
+        }
+    }
+</script>
+</body>
+</html>
