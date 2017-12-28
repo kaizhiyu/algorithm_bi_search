@@ -1,10 +1,13 @@
-console.info("hello!!");
-var person1 = {id: 1, "firstname": "John", "lastname": "Doe", "age": 50, "eyecolor": "blue"};
-var person2 = {id: 2, "firstname": "John", "lastname": "Doe", "age": 50, "eyecolor": "blue"};
+function removeByValue(arr, val) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] == val) {
+            arr.splice(i, 1);
+            break;
+        }
+    }
+}
 
-var arr1 = [];
-var arr2 = [];
-
-person1.id.is
- // console.info(arr1.contains(person1.id))
-
+var somearray = ["mon", "tue", "wed", "thur"]
+removeByValue(somearray, "tue");
+console.info(somearray)
+//somearray will now have "mon", "wed", "thur"

@@ -19,7 +19,7 @@ public class RecurseFile_NotDirectory {
 
     public static void main(String[] args) {
 
-        getFiles(new File("C:\\shanlin\\Java8InAction\\src\\main\\java\\lambdasinaction\\RecurseFile_NotDirectory"));
+
 
     }
     //    获取所有的非目录文件
