@@ -1,4 +1,4 @@
-
+package com.algorithm.$_doc.luojisiwei;
 
 
 //1:  post-truth
@@ -18,4 +18,4 @@
 
 //创业者; 主动去建立共同体;
 
-//哥伦布: 
+//哥伦布:
