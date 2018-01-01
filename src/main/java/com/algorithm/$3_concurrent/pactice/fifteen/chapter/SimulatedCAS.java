@@ -1,7 +1,6 @@
-package com.algorithm.$3_concurrent.pactice;
+package com.algorithm.$3_concurrent.pactice.fifteen.chapter;
 
 import com.algorithm.$8_annotation.Doc4Desc;
-import com.algorithm.$8_annotation.GuardedBy;
 import com.algorithm.$8_annotation.ThreadSafe;
 
 /**

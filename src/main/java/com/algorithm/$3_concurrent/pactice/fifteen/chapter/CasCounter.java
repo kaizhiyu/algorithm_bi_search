@@ -1,4 +1,4 @@
-package com.algorithm.$3_concurrent.pactice;
+package com.algorithm.$3_concurrent.pactice.fifteen.chapter;
 
 import jdk.internal.org.objectweb.asm.TypeReference;
 

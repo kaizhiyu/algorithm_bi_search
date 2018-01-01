@@ -1,4 +1,4 @@
-package com.algorithm.$3_concurrent.pactice;
+package com.algorithm.$3_concurrent.pactice.fifteen.chapter;
 
 import com.algorithm.$8_annotation.CompareAndSwap;
 import com.algorithm.$8_annotation.ThreadSafe;
