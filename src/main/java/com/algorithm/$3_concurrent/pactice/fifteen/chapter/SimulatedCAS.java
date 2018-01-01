@@ -5,7 +5,7 @@ import com.algorithm.$8_annotation.ThreadSafe;
 
 /**
  * @author fanhb on 2018/1/1
- * @desc xxxx
+ * @desc 程序清单: 15-1
  */
 @Doc4Desc("模拟cas,只表示语义,不表示性能")
 @ThreadSafe
