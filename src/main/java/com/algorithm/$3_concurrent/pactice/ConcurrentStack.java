@@ -1,5 +1,8 @@
 package com.algorithm.$3_concurrent.pactice;
 
+import com.algorithm.$8_annotation.CompareAndSwap;
+import com.algorithm.$8_annotation.ThreadSafe;
+
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -7,7 +10,10 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author fanhb on 2017/12/31
  * @desc xxxx
  */
-public class ConcurrentStack<E> implements Serializable{
+
+@ThreadSafe
+public class ConcurrentStack<E> implements Serializable {
+    @CompareAndSwap
     private AtomicReference<Node<E>> top = new AtomicReference<>();
 
     public void push(E data) {
@@ -36,7 +42,7 @@ public class ConcurrentStack<E> implements Serializable{
     }
 
 
-    private static class Node<E> implements Serializable{
+    private static class Node<E> implements Serializable {
         private E data;
         private Node<E> nextNode;
 
@@ -57,8 +63,6 @@ public class ConcurrentStack<E> implements Serializable{
             this.nextNode = nextNode;
         }
     }
-
-
 
 
 }
