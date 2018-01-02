@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Doc4Desc("模拟cas,只表示语义,不表示性能")
 @ThreadSafe
-public class SimulatedCAS {
+public class C15_1_SimulatedCAS {
     private int value;
 
     public synchronized int get() {
@@ -34,7 +34,7 @@ public class SimulatedCAS {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        SimulatedCAS cas = new SimulatedCAS();
+        C15_1_SimulatedCAS cas = new C15_1_SimulatedCAS();
         for (int i = 0; i < count; i++) {
             incrementByThread(cas, arr, list);
         }
@@ -59,7 +59,7 @@ public class SimulatedCAS {
     private static AtomicInteger atomic = new AtomicInteger(0);
     private static CountDownLatch latch = new CountDownLatch(count);
 
-    public static void incrementByThread(SimulatedCAS cas, Integer[] set, List<Integer> list) {
+    public static void incrementByThread(C15_1_SimulatedCAS cas, Integer[] set, List<Integer> list) {
         Thread thread = new Thread(() -> {
             try {
                 int andIncrement = atomic.getAndIncrement();

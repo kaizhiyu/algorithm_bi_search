@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 
 @ThreadSafe
-public class ConcurrentStack<E> implements Serializable {
+public class ConcurrentStack_15_6<E> implements Serializable {
     @CompareAndSwap
     private AtomicReference<Node<E>> top = new AtomicReference<>();
 

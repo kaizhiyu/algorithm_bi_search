@@ -1,8 +1,5 @@
 package com.algorithm.$3_concurrent.pactice.fifteen.chapter.problem;
 
-import com.algorithm.$3_concurrent.pactice.fifteen.chapter.SimulatedCAS;
-import com.algorithm.$5_json.JsonMapper;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +9,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * xxx
+ * 第十五章末尾
  *
  * @author:v_fanhaibo on 2018/1/2.
  * @version:v1.0

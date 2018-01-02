@@ -2,7 +2,7 @@ package com.algorithm.$3_concurrent.pactice.fifteen.chapter;
 
 import java.util.concurrent.atomic.AtomicStampedReference;
 
-public class AtomicStampedReferenceTest {
+public class C15_END_AtomicStampedReferenceTest {
     static AtomicStampedReference<Integer> atomic = new AtomicStampedReference(0, 0);
 
     public static void main(String[] args) throws InterruptedException {
