@@ -1,6 +1,5 @@
 package com.algorithm.$3_concurrent.pactice.fifteen.chapter;
 
-import com.algorithm.$5_json.JsonMapper;
 import com.algorithm.$8_annotation.Doc4Desc;
 import com.algorithm.$8_annotation.ThreadSafe;
 
@@ -17,9 +16,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ThreadSafe
 public class SimulatedCAS {
     private int value;
+
     public synchronized int get() {
         return this.value;
     }
+
     public synchronized int compareAndSwap(int expectedValue, int newVal) {
         int oldValue = this.value;
         if (expectedValue == oldValue) {
@@ -29,33 +30,36 @@ public class SimulatedCAS {
     }
 
     public synchronized boolean compareAndSet(int expectedValue, int newVal) {
-
         return (expectedValue == compareAndSwap(expectedValue, newVal));
     }
 
-
     public static void main(String[] args) throws InterruptedException {
         SimulatedCAS cas = new SimulatedCAS();
-//        Set<Integer> set = new HashSet<>();
-
         for (int i = 0; i < count; i++) {
-//            incrementByThread(cas, list);
-
+            incrementByThread(cas, arr,list);
         }
         latch.await();
-
-        System.out.println("final =" + atomic.get());
-        System.out.println("set size = " + list.size());
+        System.out.println("final = " + atomic.get());
+        System.out.println("arr size = " + arr.length);
+        System.out.println("list size = " + list.size());
         System.out.println("concurrentHashMap.size = " + concur.size());
-        System.out.println(JsonMapper.toJson(concur));
+//        System.out.println(JsonMapper.toJson(arr));
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < arr.length; i++) {
+            set.add(arr[i]);
+        }
+        System.out.println("set.size = "+set.size());
+
     }
-    static volatile List<Integer> list = new ArrayList<>();
+
     static int count = 100000;
-    static ConcurrentHashMap<Integer,Integer> concur= new ConcurrentHashMap<>();
+    static volatile Integer[] arr = new Integer[count];
+    static volatile List<Integer> list = new ArrayList<>(count);
+    static ConcurrentHashMap<Integer, Integer> concur = new ConcurrentHashMap<>();
     private static AtomicInteger atomic = new AtomicInteger(0);
     private static CountDownLatch latch = new CountDownLatch(count);
 
-    public static void incrementByThread(SimulatedCAS cas, List<Integer> set) {
+    public static void incrementByThread(SimulatedCAS cas, Integer[] set ,List<Integer> list) {
         Thread thread = new Thread(() -> {
             try {
                 int andIncrement = atomic.getAndIncrement();
@@ -65,8 +69,9 @@ public class SimulatedCAS {
                     oldValue = cas.get();
                     newValue = oldValue + 1;
                 } while (cas.compareAndSwap(oldValue, newValue) != oldValue);
-                set.add(newValue);
-                concur.put(andIncrement,oldValue);
+                set[oldValue] = oldValue;
+                list.add(oldValue);
+                concur.put(andIncrement, oldValue);
 //                System.out.println("atomic Integer = " + andIncrement + ", old Value = " +  oldValue);
             } finally {
                 latch.countDown();
