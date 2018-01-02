@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author fanhb on 2018/1/1
  * @desc xxxx
  */
-public class LinkedQueue<E> {
+public class C15_7_LinkedQueue_AtomicReference<E> {
 
 
     private static class Node<E> {

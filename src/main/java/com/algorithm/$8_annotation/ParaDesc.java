@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 
 @Repeatable(ParaDescs.class)
 @Retention(RetentionPolicy.SOURCE)
-@Target(ElementType.LOCAL_VARIABLE)
+@Target({ElementType.LOCAL_VARIABLE,ElementType.METHOD})
 public @interface ParaDesc {
     String value() default "";
 }
