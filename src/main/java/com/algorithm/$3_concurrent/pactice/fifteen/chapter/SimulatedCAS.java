@@ -17,13 +17,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ThreadSafe
 public class SimulatedCAS {
     private int value;
-
     public synchronized int get() {
         return this.value;
     }
-
     public synchronized int compareAndSwap(int expectedValue, int newVal) {
-
         int oldValue = this.value;
         if (expectedValue == oldValue) {
             this.value = newVal;
@@ -31,11 +28,11 @@ public class SimulatedCAS {
         return oldValue;
     }
 
-
     public synchronized boolean compareAndSet(int expectedValue, int newVal) {
 
         return (expectedValue == compareAndSwap(expectedValue, newVal));
     }
+
 
     public static void main(String[] args) throws InterruptedException {
         SimulatedCAS cas = new SimulatedCAS();
