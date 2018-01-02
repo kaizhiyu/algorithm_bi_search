@@ -36,7 +36,7 @@ public class SimulatedCAS {
     public static void main(String[] args) throws InterruptedException {
         SimulatedCAS cas = new SimulatedCAS();
         for (int i = 0; i < count; i++) {
-            incrementByThread(cas, arr,list);
+            incrementByThread(cas, arr, list);
         }
         latch.await();
         System.out.println("final = " + atomic.get());
@@ -48,7 +48,7 @@ public class SimulatedCAS {
         for (int i = 0; i < arr.length; i++) {
             set.add(arr[i]);
         }
-        System.out.println("set.size = "+set.size());
+        System.out.println("set.size = " + set.size());
 
     }
 
@@ -59,7 +59,7 @@ public class SimulatedCAS {
     private static AtomicInteger atomic = new AtomicInteger(0);
     private static CountDownLatch latch = new CountDownLatch(count);
 
-    public static void incrementByThread(SimulatedCAS cas, Integer[] set ,List<Integer> list) {
+    public static void incrementByThread(SimulatedCAS cas, Integer[] set, List<Integer> list) {
         Thread thread = new Thread(() -> {
             try {
                 int andIncrement = atomic.getAndIncrement();
