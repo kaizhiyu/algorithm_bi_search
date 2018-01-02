@@ -38,7 +38,7 @@ public class CasCounter {
 //        }
         Set<Integer> set = new HashSet<>();
         for (int i = 0; i < 100000; i++) {
-            incrementByThread(casCounter,set);
+            incrementByThread(casCounter, set);
         }
         latch.await();
         System.out.println("final number = " + atomic.get());
@@ -48,12 +48,13 @@ public class CasCounter {
 
     private static AtomicInteger atomic = new AtomicInteger(0);
     private static CountDownLatch latch = new CountDownLatch(100000);
-    public static void incrementByThread(CasCounter casCounter,Set<Integer> set) {
+
+    public static void incrementByThread(CasCounter casCounter, Set<Integer> set) {
         Thread thread = new Thread(() -> {
             try {
                 int andIncrement = atomic.getAndIncrement();
                 int casNumber = casCounter.get();
-                System.out.println(casNumber + " == " + andIncrement);
+                System.out.println(Thread.currentThread().getName() + casNumber + " == " + andIncrement);
                 int increment = casCounter.increment();
                 set.add(increment);
 
