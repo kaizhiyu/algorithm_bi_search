@@ -6,6 +6,7 @@ import com.algorithm.$5_json.JsonMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -21,15 +22,17 @@ public class TestListAdd {
 
     public static void main(String[] args) throws InterruptedException {
         for (int i = 0; i < count; i++) {
-            incrementByThreadAndAtomicInteger(list);
+            incrementByThreadAndAtomicInteger(vector);
         }
         latch.await();
         System.out.println("final =" + atomic.get());
         System.out.println("list.size = " + list.size());
+        System.out.println("vector.size = " + vector.size());
         System.out.println("concurrentHashMap.size = " + concur.size());
     }
 
     private static volatile List<Integer> list = new ArrayList<>();
+    private static volatile Vector<Integer> vector = new Vector<>();
     private static int count = 100000;
     private static ConcurrentHashMap<Integer, Integer> concur = new ConcurrentHashMap<>();
     private static AtomicInteger atomic = new AtomicInteger(0);

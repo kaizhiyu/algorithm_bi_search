@@ -47,7 +47,7 @@ public class CasCounter {
     }
 
     private static AtomicInteger atomic = new AtomicInteger(0);
-    private static CountDownLatch latch = new CountDownLatch(100000);
+    private static CountDownLatch latch = new CountDownLatch(10000);
 
     public static void incrementByThread(CasCounter casCounter, Set<Integer> set) {
         Thread thread = new Thread(() -> {
