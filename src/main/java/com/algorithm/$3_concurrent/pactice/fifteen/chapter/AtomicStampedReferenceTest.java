@@ -6,6 +6,8 @@ public class AtomicStampedReferenceTest {
     static AtomicStampedReference<Integer> atomic = new AtomicStampedReference(0, 0);
 
     public static void main(String[] args) throws InterruptedException {
+
+//        http://blog.csdn.net/zhaozhirongfree1111/article/details/72781758
         final int stamp = atomic.getStamp();
         final Integer reference = atomic.getReference();
         System.out.println(reference + "============" + stamp);
