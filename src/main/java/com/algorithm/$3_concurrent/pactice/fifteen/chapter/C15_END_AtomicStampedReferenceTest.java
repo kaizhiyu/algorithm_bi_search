@@ -19,11 +19,13 @@ public class C15_END_AtomicStampedReferenceTest {
         System.out.println(obj + "============" + stamp);
 
 
-        @ParaDesc("expectedReference：预期应用，newReference:新引用")
+        @ParaDesc("expectedReference：预期引用，newReference:新引用")
+        @ParaDesc("expectedStamp：预期标记，newStamp:新标记")
+        @ParaDesc("newStamp：the new value for the stamp")
         Thread t1 = new Thread(() -> System.out.println(atomic.compareAndSet(obj, obj + 10, stamp, stamp + 1)));
         Integer obj2 = atomic.getReference();
         Integer stamp2 = atomic.getStamp();
-        Thread t2 = new Thread(()-> System.out.println(atomic.compareAndSet(obj2, obj2 + 10, stamp2, stamp2 + 1)));
+        Thread t2 = new Thread(() -> System.out.println(atomic.compareAndSet(obj2, obj2 + 10, stamp2, stamp2 + 1)));
         t1.start();
         t1.join();
         t2.start();
