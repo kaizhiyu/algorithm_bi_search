@@ -26,7 +26,8 @@ public class CasCounter {
         do {
             oldValue = cas.get();
             newValue = oldValue + 1;
-        } while (!cas.compareAndSet(oldValue, newValue));
+        } while (!cas.compareAndSet(oldValue, newValue));//不成功，继续循环尝试
+        // } while (oldValue != cas.compareAndSwap(oldValue, newValue));//源码
         return newValue;
     }
 
