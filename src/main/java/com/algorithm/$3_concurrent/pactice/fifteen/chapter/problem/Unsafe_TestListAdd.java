@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 @Doc4Desc("DONE ArrayList.add.size++ is unsafe in multi threads.")
-public class TestListAdd {
+public class Unsafe_TestListAdd {
 
     public static void main(String[] args) throws InterruptedException {
         for (int i = 0; i < count; i++) {
