@@ -28,7 +28,6 @@ public class HashMap_Method {
     //                    if (e.hash == hash && ((k = e.key) == key || (key != null && key.equals(k)))) return e;
     //                } while ((e = e.next) != null);
     //            }
-    //
     //        }
     //        return null;
     //    }
