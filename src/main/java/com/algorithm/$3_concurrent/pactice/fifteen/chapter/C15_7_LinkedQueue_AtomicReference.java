@@ -28,20 +28,17 @@ public class C15_7_LinkedQueue_AtomicReference<E> {
         Node<E> newNode = new Node<>(item, null);
 
         while (true) {
-
             Node<E> curTail = tail.get();
             Node<E> nextTail = curTail.nextNode.get();
             if (curTail == tail.get()) {
                 if (nextTail != null) {
                     tail.compareAndSet(curTail, nextTail);
                 } else {
-                    if (curTail.nextNode.compareAndSet(null,newNode)){
-                        tail.compareAndSet(curTail,newNode);
+                    if (curTail.nextNode.compareAndSet(null, newNode)) {
+                        tail.compareAndSet(curTail, newNode);
                         return true;
                     }
                 }
-
-
             }
         }
 
