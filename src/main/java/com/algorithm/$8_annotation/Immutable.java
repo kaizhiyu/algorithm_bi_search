@@ -28,6 +28,7 @@ import java.lang.annotation.*;
  * Immutable objects are inherently thread-safe; they may be passed between threads or
  * published without synchronization.
  */
+@Doc4Desc("immutable: 一成不变")
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
