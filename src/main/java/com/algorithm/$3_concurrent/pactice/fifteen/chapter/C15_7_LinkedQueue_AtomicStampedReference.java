@@ -1,7 +1,8 @@
 package com.algorithm.$3_concurrent.pactice.fifteen.chapter;
 
-import com.algorithm.$8_annotation.ParaDesc;
+import com.algorithm.$8_annotation.Doc4Desc;
 
+import java.util.concurrent.atomic.AtomicMarkableReference;
 import java.util.concurrent.atomic.AtomicStampedReference;
 
 /**
@@ -31,28 +32,30 @@ public class C15_7_LinkedQueue_AtomicStampedReference<E> {
 
     public boolean put(E item) {
         Node<E> newNode = new Node<>(item, null);
-        Node<E> curReference = tail.getReference();
-        int curStamp = tail.getStamp();
-        Node<E> nextNode = curReference.nextNode.getReference();
-        if (curReference == tail.getReference() && curStamp == tail.getStamp()) {
-            if (nextNode != null) {
-                tail.compareAndSet(curReference, nextNode, curStamp, curStamp + 1);
-            } else {
-                if (curReference.nextNode.compareAndSet(null, newNode, 0, 1)) {
-                    tail.compareAndSet(curReference, newNode, curStamp, curStamp + 1);
+        while (true) {
+            Node<E> curReference = tail.getReference();
+            int curStamp = tail.getStamp();
+            Node<E> nextNode = curReference.nextNode.getReference();
+            if (curReference == tail.getReference() && curStamp == tail.getStamp()) {
+                if (nextNode != null) {
+                    tail.compareAndSet(curReference, nextNode, curStamp, curStamp + 1);
+                } else {
+                    if (curReference.nextNode.compareAndSet(null, newNode, 0, 1)) {
+                        tail.compareAndSet(curReference, newNode, curStamp, curStamp + 1);
+                        return true;
+                    }
                 }
             }
         }
 
-//        do {
-//            stamp = tail.getStamp();
-//            ref = tail.getReference();
-//        }while (tail.compareAndSet(ref,newNode,stamp,stamp+1));
-        while (true) {
+    }
 
+    @Doc4Desc("http://blog.csdn.net/xiaoxufox/article/details/51312354")//http://blog.csdn.net/xiaoxufox/article/details/51312354
+    private AtomicMarkableReference<Node> mark = new AtomicMarkableReference<>(null, true);
 
-        }
-
+    public void testMarkable() {
+        Node item = new Node(null, null);
+        mark.compareAndSet(item, item, true, false);
     }
 
 
