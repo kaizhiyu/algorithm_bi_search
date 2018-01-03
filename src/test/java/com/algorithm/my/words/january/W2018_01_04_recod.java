@@ -1,4 +1,4 @@
-package com.algorithm.my.words;
+package com.algorithm.my.words.january;
 
 /**
  * xxx
