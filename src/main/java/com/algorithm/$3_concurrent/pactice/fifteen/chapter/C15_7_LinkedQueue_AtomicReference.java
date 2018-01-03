@@ -31,9 +31,9 @@ public class C15_7_LinkedQueue_AtomicReference<E> {
             Node<E> curTail = tail.get();
             Node<E> nextTail = curTail.nextNode.get();
             if (curTail == tail.get()) {
-                if (nextTail != null) {
+                if (nextTail != null) {//中间状态，帮助推进数据
                     tail.compareAndSet(curTail, nextTail);
-                } else {
+                } else {//稳定状态，处理数据
                     if (curTail.nextNode.compareAndSet(null, newNode)) {
                         tail.compareAndSet(curTail, newNode);
                         return true;

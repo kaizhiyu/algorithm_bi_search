@@ -23,9 +23,9 @@ public class C15_1_SimulatedCAS {
 
     public synchronized int compareAndSwap(int expectedValue, int newVal) {
         int oldValue = this.value;
-        if (expectedValue == oldValue) {
+        if (expectedValue == oldValue)
             this.value = newVal;
-        }//
+ 
         return oldValue;
     }
 
