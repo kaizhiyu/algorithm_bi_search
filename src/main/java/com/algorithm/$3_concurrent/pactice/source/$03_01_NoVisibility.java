@@ -34,6 +34,7 @@ public class $03_01_NoVisibility {
                    java.util.concurrent.locks包。
 
                  */
+//                Character
                 Thread.yield();
                 System.out.print("--");
                 System.out.println(number);
