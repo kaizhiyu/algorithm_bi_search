@@ -14,7 +14,7 @@ import com.algorithm.$8_annotation.Doc4Desc;
 public class W2018_01_04_recod {
 
     //english:
-    //00: enabled                               ,使能
+    //00: critical                              ,adj,关键的，极其重要的；
     //01: enabled                               ,使能
     //02: enabled                               ,使能
     //03: enabled                               ,使能
