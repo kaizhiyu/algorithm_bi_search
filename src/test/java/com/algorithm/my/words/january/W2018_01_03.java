@@ -23,8 +23,8 @@ public class W2018_01_03 {
     //07: unmarshaled                                   散集
     //08: scrap                                         ，n，碎片；adj,废弃的；
     //09: mutable                                       ,adj,可变的；
-    //10:
-    //11:
+    //10: tremendous                                    ,巨大的，tremendous living pressure;
+    //11: university Avenue                             ,大学大道
 
 
     /** 中文:

@@ -1,12 +1,16 @@
 package com.algorithm.my.words.january;
 
+import com.algorithm.$8_annotation.Doc4Desc;
+
 /**
  * xxx
  *
  * @author:v_fanhaibo on 2018/1/3.
  * @version:v1.0
  */
-
+@Doc4Desc(" 汉语词典 ")  //http://cidian.xpcha.com/pinyin_A.html
+@Doc4Desc(" 5156edu ")   // http://xh.5156edu.com/page/z5809m8006j18799.html
+@Doc4Desc(" 汉词网 ")   // http://www.hydcd.com/cd/htm13/ci259693w.htm
 public class W2018_01_05_recod {
 
     //english:
