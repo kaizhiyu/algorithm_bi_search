@@ -10,7 +10,7 @@ import com.algorithm.$8_annotation.Doc4Desc;
  */
 
 @Doc4Desc("基本数据类型")
-public class BaseNumber {
+public class $Java_8_BaseNumber {
 
     /**
      * java八大基本类型：
