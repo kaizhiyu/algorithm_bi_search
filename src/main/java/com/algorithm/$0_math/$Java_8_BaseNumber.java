@@ -3,7 +3,10 @@ package com.algorithm.$0_math;
 import com.algorithm.$8_annotation.Doc4Desc;
 
 /**
- * xxx
+ * java8中基本数据类型
+ * Integer 、Long、Short、Byte、Character、Double、Float、Boolean、BigInteger、BigDecmail
+ * 其中BigInteger、BigDecimal没有相对应的基本类型，主要应用于高精度的运算，BigInteger 支持任意精度的整数，
+ * BigDecimal支持任意精度带小数点的运算。
  *
  * @author:v_fanhaibo on 2018/1/4.
  * @version:v1.0
@@ -76,11 +79,7 @@ public class $Java_8_BaseNumber {
      *      注意：String不是基本类型。
      *      基本类型的包装类
 
-     Integer 、Long、Short、Byte、Character、Double、Float、Boolean、BigInteger、BigDecmail
 
-     其中BigInteger、BigDecimal没有相对应的基本类型，主要应用于高精度的运算，BigInteger 支持任意精度的整数，
-
-     BigDecimal支持任意精度带小数点的运算。
      *
      */
 }
