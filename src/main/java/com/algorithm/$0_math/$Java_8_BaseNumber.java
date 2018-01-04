@@ -63,7 +63,7 @@ public class $Java_8_BaseNumber {
      *      后面加D或者d,表示double类型；
      *      例子：double d1 = 123.4。
      * 布尔型：
-     * boolean：
+     * boolean：(1位)
      *      boolean数据类型表示一位的信息；
      *      只有两个取值：true和false；
      *      这种类型只作为一种标志来记录true/false情况；
