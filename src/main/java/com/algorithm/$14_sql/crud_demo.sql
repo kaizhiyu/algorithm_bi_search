@@ -11,5 +11,10 @@
 -- mysql联合修改
 -- UPDATE user_left AS ul , dept_left dl SET ul.`name`="update111" WHERE ul.dept_id = dl.dept_id AND  dl.dept_id = 1
 
+-- update tableName tn set tn.property1 = "x1 ",tn.property2 = "x2 ",  where tn.property3 = "x3 "
+
 -- 4: oracle 联合修改
+
+
+-- <if test="roleName != null and roleName.trim() != ''">   -- 调用的是java的trim()方法；
 
