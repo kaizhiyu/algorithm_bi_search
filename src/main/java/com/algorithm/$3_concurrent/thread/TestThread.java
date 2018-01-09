@@ -1,5 +1,14 @@
 package com.algorithm.$3_concurrent.thread;
 
+import com.google.common.util.concurrent.*;
+import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
  * xxx
  *
@@ -31,5 +40,45 @@ public class TestThread {
         }
 
         System.out.println(thread.getName()+" is dead!!!");
+    }
+
+
+    @Test
+    public void test1() throws InterruptedException {
+        ExecutorService threadPool = Executors.newFixedThreadPool(3, new ThreadFactory() {
+            private AtomicLong index = new AtomicLong(0);
+            @Override
+            public Thread newThread(Runnable runnable) {
+                return new Thread(runnable, "commons-thread-" + index.incrementAndGet());
+            }
+        });
+        ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(threadPool);
+        ListenableFuture<String> listenableFuture = listeningExecutorService.submit(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                Thread.sleep(3000);
+                //System.out.println(1 / 0);
+                return "world";
+            }
+        });
+        //1)监听
+        listenableFuture.addListener(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("can't get return value");
+            }
+        }, MoreExecutors.directExecutor());
+        //2)回调
+        Futures.addCallback(listenableFuture, new FutureCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                System.out.println("the result of future is: " + result);
+            }
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("exception:" + t.getMessage());
+            }
+        });
+        Thread.sleep(5000);
     }
 }
