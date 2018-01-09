@@ -29,7 +29,7 @@ public class TestThread {
                     e.printStackTrace();
                 }
             }
-        },"normal thread name: ");
+        }, "normal thread name: ");
         thread.start();
 
         try {
@@ -39,45 +39,24 @@ public class TestThread {
             e.printStackTrace();
         }
 
-        System.out.println(thread.getName()+" is dead!!!");
+        System.out.println(thread.getName() + " is dead!!!");
     }
 
 
     @Test
     public void test1() throws InterruptedException {
-        ExecutorService threadPool = Executors.newFixedThreadPool(3, new ThreadFactory() {
-            private AtomicLong index = new AtomicLong(0);
-            @Override
-            public Thread newThread(Runnable runnable) {
-                return new Thread(runnable, "commons-thread-" + index.incrementAndGet());
-            }
+        ExecutorService threadPool = Executors.newFixedThreadPool(3,(runnable)-> {
+            AtomicLong index = new AtomicLong(0);
+            return new Thread(runnable, "commons-thread-" + index.incrementAndGet());
         });
         ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(threadPool);
-        ListenableFuture<String> listenableFuture = listeningExecutorService.submit(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                Thread.sleep(3000);
-                //System.out.println(1 / 0);
-                return "world";
-            }
-        });
+        ListenableFuture<String> listenableFuture = listeningExecutorService.submit(() -> { Thread.sleep(3000);/*System.out.println(1 / 0);*/return "world"; });
         //1)监听
-        listenableFuture.addListener(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("can't get return value");
-            }
-        }, MoreExecutors.directExecutor());
+        listenableFuture.addListener(()-> System.out.println("can't get return value"), MoreExecutors.directExecutor());
         //2)回调
         Futures.addCallback(listenableFuture, new FutureCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                System.out.println("the result of future is: " + result);
-            }
-            @Override
-            public void onFailure(Throwable t) {
-                System.out.println("exception:" + t.getMessage());
-            }
+            @Override public void onSuccess(String result) { System.out.println("the result of future is: " + result); }
+            @Override public void onFailure(Throwable t) { System.out.println("exception:" + t.getMessage()); }
         });
         Thread.sleep(5000);
     }
