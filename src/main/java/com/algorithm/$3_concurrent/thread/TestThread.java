@@ -50,7 +50,11 @@ public class TestThread {
             return new Thread(runnable, "commons-thread-" + index.incrementAndGet());
         });
         ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(threadPool);
-        ListenableFuture<String> listenableFuture = listeningExecutorService.submit(() -> { Thread.sleep(3000);/*System.out.println(1 / 0);*/return "world"; });
+        ListenableFuture<String> listenableFuture = listeningExecutorService.submit(() -> {
+            Thread.sleep(3000);
+//            System.out.println(1 / 0);
+                    return "world"; }
+            );
         //1)监听
         listenableFuture.addListener(()-> System.out.println("can't get return value"), MoreExecutors.directExecutor());
         //2)回调
