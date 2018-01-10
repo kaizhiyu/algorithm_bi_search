@@ -29,7 +29,7 @@ public class ThreadExceptionalTest {
             public void run() {
                 System.out.println(1 / 0);
             }
-        },"sss");
+        },"$3_1_O_log_n");
         thread.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread t, Throwable e) {

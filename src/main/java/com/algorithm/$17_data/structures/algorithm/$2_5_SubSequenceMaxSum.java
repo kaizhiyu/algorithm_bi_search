@@ -12,16 +12,16 @@ public class $2_5_SubSequenceMaxSum {
      */
 
 
-    public int getMaxSubSequence(int[] arr) {
+    public int getMaxSubSequence(int[] a) {
 
         int maxSum = 0;
 
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < a.length; i++) {
 
             int thisSum = 0;
-            for (int j = i; j < arr.length; j++) {
+            for (int j = i; j < a.length; j++) {
 
-                thisSum += arr[j];
+                thisSum += a[j];
                 if (thisSum > maxSum)
                     maxSum = thisSum;
 
@@ -60,7 +60,8 @@ public class $2_5_SubSequenceMaxSum {
     }
 
     public static void main(String[] args) {
-        int[] arr = {-5,0,1,-1, 4, -3, 5, -2, -1, 2, 6, -2,11};
+        int[] arr = {-5, -1, -1, -1, -4, 3, -5, -2, -1, -2, -6, -2, -0};
+//        int[] arr = {-5, 0, 1, -1, 4, -3, 5, -2, -1, 2, 6, -2, 11};
         new $2_5_SubSequenceMaxSum().getForthAlgorithm(arr);
 
     }
