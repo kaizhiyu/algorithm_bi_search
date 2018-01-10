@@ -1,4 +1,4 @@
-package com.algorithm.$_doc.jar_cmd;
+package com.algorithm.$_java_tools.$4_java.cmd;
 
 import com.algorithm.$8_annotation.Doc4Desc;
 
@@ -8,6 +8,10 @@ import com.algorithm.$8_annotation.Doc4Desc;
  */
 
 @Doc4Desc("java命令 jar命令说明")
+@Doc4Desc("* =======================================================================================================   ")
+@Doc4Desc("                指定main函数所在的主类      jar包名称                       被打包的目标（class字节码）     ")
+@Doc4Desc("9. jar -cef     CardLayoutDemo              CardLayoutDemo.jar              test                            ")
+@Doc4Desc("* =======================================================================================================   ")
 public class JavaCMD {
 
     //first method
@@ -81,9 +85,11 @@ public class JavaCMD {
      * 7. test最后面的这个参数表示将test目录下的所有文件都打包放到新的jar包中。
      *
      * 8. 打包class文件：
-     * 主类                          jar包名称                       被打包的目标（class字节码）
-     * 9. jar -cef CardLayoutDemo CardLayoutDemo.jar Dubbo
      *
+     * =======================================================================================================
+                    指定main函数所在的主类      jar包名称                       被打包的目标（class字节码）
+     9. jar -cef    CardLayoutDemo              CardLayoutDemo.jar              test
+     * =======================================================================================================
      * 10. 执行/运行jar包：java -jar main2.jar
      * 11. 编译到指定目录： javac Test2.java -d /opt/
      */

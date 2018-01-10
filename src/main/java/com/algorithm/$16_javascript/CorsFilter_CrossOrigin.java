@@ -1,4 +1,4 @@
-﻿package com.algorithm.$16_javascript;
+package com.algorithm.$16_javascript;
 
 import org.springframework.stereotype.Component;
 
