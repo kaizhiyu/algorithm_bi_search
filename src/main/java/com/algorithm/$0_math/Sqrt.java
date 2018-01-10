@@ -1,12 +1,14 @@
 package com.algorithm.$0_math;
 
+import com.algorithm.$8_annotation.Doc4Desc;
+
 /**
  * 手算开方
  *
  * @author:v_fanhaibo on 2018/1/10.
  * @version:v1.0
  */
-
+@Doc4Desc(" SQuare RooT  : sqrt")
 public class Sqrt {
     // 被开方数从小数点起向左（整数位）、向右（小数位）两位为段分组，从最左侧的两位数
     // （，第一段，也可能是一位数，如3.21）开始计算。第一段开出其最大整数根
