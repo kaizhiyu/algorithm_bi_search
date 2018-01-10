@@ -13,6 +13,27 @@ public class $2_10_GreatestCommonDivisor {
     public static void main(String[] args) {
         System.out.println(gcd(1989L, 1590L));
         System.out.println(gcd(33L, 22L));
+
+        /** 取出两个数的和等于15的所有组合； */
+        int[] a = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+        int count = 0;
+        for (int i = 0; i < a.length; i++) {
+            ++count;
+            int b = a.length;
+            for (int j = i + 1; j < b; j++) {
+                ++count;
+                int sum = a[i] + a[j];
+                if (sum == 15) {
+                    --b;
+                    System.out.println(a[i] + "--" + a[j]);
+                    break;
+                } else if (sum > 15) {
+                    break;
+                }
+            }
+
+        }
+        System.out.println("count = " + count);
     }
 
     /**
@@ -37,6 +58,15 @@ public class $2_10_GreatestCommonDivisor {
         } else {
             return divisor(y, x % y);
         }
+    }
+
+    /**
+     * 欧几里得算法，求两个数的最大公约数
+     */
+    public static int gcdMy(int m, int n) {
+        if (m % n == 0)
+            return n;
+        return gcdMy(n, m % n);
     }
 //    定理：两个整数的最大公约数等于其中较小的那个数和两数相除余数的最大公约数。最大公约数（Greatest Common Divisor）缩写为GCD。
 //     a可以表示成a = kb + r（a，b，k，r皆为正整数，且r<b），则r = a mod b

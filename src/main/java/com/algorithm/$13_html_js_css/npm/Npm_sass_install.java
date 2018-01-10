@@ -19,4 +19,5 @@ public class Npm_sass_install {
      *
      *
      */
+    //vue 启动命令：npm run dev
 }
