@@ -1,4 +1,4 @@
-package com.algorithm.$_java_tools_cmd.$5_job.cmd;
+package com.algorithm.$_java_tools_cmd.$tc5_job.cmd;
 
 import com.algorithm.$8_annotation.Doc4Desc;
 

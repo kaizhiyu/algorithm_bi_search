@@ -1,4 +1,4 @@
-package com.algorithm.$_java_tools_cmd.$3_code_tools;
+package com.algorithm.$_java_tools_cmd.$tc3_code_tools;
 
 /**
  * @author fanhb on 2017/12/23
