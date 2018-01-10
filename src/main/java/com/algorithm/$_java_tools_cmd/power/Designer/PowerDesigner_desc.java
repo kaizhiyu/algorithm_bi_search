@@ -1,4 +1,4 @@
-package com.algorithm.$_java_tools.power.Designer;
+package com.algorithm.$_java_tools_cmd.power.Designer;
 
 import com.algorithm.$8_annotation.Doc4Desc;
 

@@ -1,4 +1,4 @@
-package com.algorithm.$_java_tools.$1_devtools;
+package com.algorithm.$_java_tools_cmd.$1_devtools;
 
 import com.algorithm.$8_annotation.Doc4Desc;
 

@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.algorithm.$_java_tools.$3_code_tools;
+package com.algorithm.$_java_tools_cmd.$3_code_tools;
 
 import com.algorithm.$8_annotation.Doc4Desc;
 
