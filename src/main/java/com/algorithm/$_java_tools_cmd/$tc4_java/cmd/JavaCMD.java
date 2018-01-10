@@ -4,7 +4,7 @@ import com.algorithm.$8_annotation.Doc4Desc;
 
 /**
  * @author fanhb on 2017/12/24
- * @desc xxxx
+ * @desc java jar 打包命令等
  */
 
 @Doc4Desc("java命令 jar命令说明")
