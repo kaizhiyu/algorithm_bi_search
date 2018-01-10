@@ -1,11 +1,10 @@
-package com.test.demo;
+package com.algorithm.$0_math;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * xxx
- *
+ * 谷歌方法论 两个球和三个球
  * @author:v_fanhaibo on 2018/1/10.
  * @version:v1.0
  */
