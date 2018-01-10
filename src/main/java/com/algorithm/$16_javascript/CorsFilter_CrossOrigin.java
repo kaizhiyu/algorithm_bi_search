@@ -16,7 +16,7 @@ import java.io.IOException;
 
 // http://www.makaidong.com/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E9%97%AE%E7%AD%94/13205.shtml
 @Component
-public class CorsFilter implements Filter {
+public class CorsFilter_CrossOrigin implements Filter {
     public static final String HEADER_ERROR = "X-tjmjApp-error";
     public static final String HEADER_ALERT = "X-tjmjApp-alert";
     public static final String HEADER_PARAM = "X-tjmjApp-param";
