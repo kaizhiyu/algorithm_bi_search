@@ -7,7 +7,7 @@ import com.algorithm.$8_annotation.Doc4Desc;
  * @version:v1.0
  */
 
-@Doc4Desc("昨日文件")
+@Doc4Desc("昨日文件 for translation")
 @Doc4Desc("Java_cmd_cef_desc")
 public class $2018_01_10_cef {
 
