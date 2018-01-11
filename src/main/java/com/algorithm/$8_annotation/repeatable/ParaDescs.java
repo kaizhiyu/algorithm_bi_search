@@ -1,4 +1,6 @@
-package com.algorithm.$8_annotation;
+package com.algorithm.$8_annotation.repeatable;
+
+import com.algorithm.$8_annotation.ParaDesc;
 
 import java.lang.annotation.*;
 

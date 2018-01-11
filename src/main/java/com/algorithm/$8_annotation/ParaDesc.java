@@ -1,9 +1,11 @@
 package com.algorithm.$8_annotation;
 
+import com.algorithm.$8_annotation.repeatable.ParaDescs;
+
 import java.lang.annotation.*;
 
 /**
- * xxx
+ * 变量描述 parameter  variable
  *
  * @author:v_fanhaibo on 2017/12/22.
  * @version:v1.0

@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * xxx
+ * CAS
  *
  * @author:v_fanhaibo on 2017/12/22.
  * @version:v1.0
