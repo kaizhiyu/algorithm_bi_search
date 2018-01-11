@@ -1,1 +1,1 @@
-//tc for tools and cmd of java
+//TC: tc for tools and cmd of java
