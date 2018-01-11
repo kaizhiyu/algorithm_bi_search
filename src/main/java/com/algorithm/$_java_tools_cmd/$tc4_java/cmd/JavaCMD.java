@@ -1,17 +1,25 @@
 package com.algorithm.$_java_tools_cmd.$tc4_java.cmd;
 
 import com.algorithm.$8_annotation.Doc4Desc;
+import com.algorithm.$8_annotation.SearchKeyWord;
 
 /**
  * @author fanhb on 2017/12/24
  * @desc java jar 打包命令等
  */
 
-@Doc4Desc("java命令 jar命令说明")
+@SearchKeyWord("java_cmd  java cmd ")//search key words
+
+
+@Doc4Desc("java命令 jar命令说明")//executable jar
 @Doc4Desc("* =======================================================================================================   ")
 @Doc4Desc("                指定main函数所在的主类      jar包名称                       被打包的目标（class字节码）     ")
 @Doc4Desc("9. jar -cef     CardLayoutDemo              CardLayoutDemo.jar              test                            ")
 @Doc4Desc("* =======================================================================================================   ")
+
+
+@Doc4Desc("jar -xf xxx.zip 解压zip命令  ")
+@Doc4Desc("jar -cvfM xxx.zip 压缩zip命令")
 public class JavaCMD {
 
     //first method

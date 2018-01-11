@@ -12,7 +12,6 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(Doc4Descs.class)
-
 public @interface Doc4Desc {
     String value();
 }
