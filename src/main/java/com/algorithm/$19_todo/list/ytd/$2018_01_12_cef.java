@@ -8,7 +8,7 @@ package com.algorithm.$19_todo.list.ytd;
 public class $2018_01_12_cef {
 
     /** 1:
-     *  sssss:
+     *  $10DigitPrime:
      *
      */
 

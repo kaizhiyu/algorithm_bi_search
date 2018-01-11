@@ -39,7 +39,7 @@ public class Test3 {
 //        int[] arr = Test3.parallel(20);
 //        System.out.println(JsonMapper.toJson(arr));
 
-        boolean primeByParallel = isPrimeByParallel(4);
+        boolean primeByParallel = isPrimeByParallel(7427466391L);
         System.out.println(primeByParallel);
     }
 
@@ -71,6 +71,11 @@ public class Test3 {
         //平方根的情况下，闭合，必须包涵最后一个数字，
         return IntStream.rangeClosed(2, sqrt).noneMatch(i -> candidate % i == 0);
     }
+    public static boolean isPrimeByParallel(long candidate) {
+        int sqrt = (int) Math.sqrt(candidate);
+        //平方根的情况下，闭合，必须包涵最后一个数字，
+        return IntStream.rangeClosed(2, sqrt).noneMatch(i -> candidate % i == 0);
+    }
 
     public <T>List<T> takeWhile(List<T> list, Predicate predicate){
         int i = 0 ;
@@ -82,6 +87,5 @@ public class Test3 {
         }
         return list;
     }
-
 
 }
