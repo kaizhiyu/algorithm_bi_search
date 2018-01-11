@@ -5,7 +5,8 @@ import java.math.BigInteger;
 import java.util.*;
 import java.util.concurrent.*;
 
-import com.algorithm.$8_annotation.*;
+import com.algorithm.$8_annotation.single.ann.GuardedBy;
+import com.algorithm.$8_annotation.single.ann.ThreadSafe;
 
 /**
  * PrimeGenerator

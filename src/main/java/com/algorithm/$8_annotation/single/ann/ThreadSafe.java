@@ -1,4 +1,4 @@
-package com.algorithm.$8_annotation;
+package com.algorithm.$8_annotation.single.ann;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

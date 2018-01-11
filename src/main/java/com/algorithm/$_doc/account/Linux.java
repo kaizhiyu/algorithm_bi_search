@@ -1,6 +1,6 @@
 package com.algorithm.$_doc.account;
 
-import com.algorithm.$8_annotation.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.Doc4Desc;
 
 /**
  * @author fanhb on 2017/12/24

@@ -1,6 +1,8 @@
 package com.algorithm.$3_concurrent.pactice.source;
 
-import com.algorithm.$8_annotation.*;
+import com.algorithm.$8_annotation.single.ann.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.GuardedBy;
+import com.algorithm.$8_annotation.single.ann.ThreadSafe;
 
 /**
  * $01_02_Sequence

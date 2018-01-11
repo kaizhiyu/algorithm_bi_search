@@ -1,6 +1,6 @@
 package com.algorithm.$3_concurrent.pactice.fifteen.chapter;
 
-import com.algorithm.$8_annotation.ParaDesc;
+import com.algorithm.$8_annotation.single.ann.ParaDesc;
 
 import java.util.concurrent.atomic.AtomicStampedReference;
 

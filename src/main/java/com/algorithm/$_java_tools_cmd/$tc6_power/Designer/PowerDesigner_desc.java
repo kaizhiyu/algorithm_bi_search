@@ -1,6 +1,6 @@
 package com.algorithm.$_java_tools_cmd.$tc6_power.Designer;
 
-import com.algorithm.$8_annotation.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.Doc4Desc;
 
 /**
  * //http://blog.csdn.net/shandalue/article/details/39031563

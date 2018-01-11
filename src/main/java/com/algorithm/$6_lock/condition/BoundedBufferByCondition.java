@@ -1,7 +1,7 @@
 package com.algorithm.$6_lock.condition;
 
-import com.algorithm.$8_annotation.GuardedBy;
-import com.algorithm.$8_annotation.ThreadSafe;
+import com.algorithm.$8_annotation.single.ann.GuardedBy;
+import com.algorithm.$8_annotation.single.ann.ThreadSafe;
 import com.sun.corba.se.impl.orbutil.concurrent.Mutex;
 
 import java.util.concurrent.Semaphore;

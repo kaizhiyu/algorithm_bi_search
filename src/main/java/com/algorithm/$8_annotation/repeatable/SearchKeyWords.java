@@ -1,6 +1,6 @@
 package com.algorithm.$8_annotation.repeatable;
 
-import com.algorithm.$8_annotation.SearchKeyWord;
+import com.algorithm.$8_annotation.single.ann.SearchKeyWord;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

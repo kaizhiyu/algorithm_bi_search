@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.*;
 
-import com.algorithm.$8_annotation.*;
+import com.algorithm.$8_annotation.single.ann.GuardedBy;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 

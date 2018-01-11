@@ -1,6 +1,7 @@
 package com.algorithm.$3_concurrent.pactice.source;
 
-import com.algorithm.$8_annotation.*;
+import com.algorithm.$8_annotation.single.ann.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.NotThreadSafe;
 
 /**
  * $01_01_UnsafeSequence

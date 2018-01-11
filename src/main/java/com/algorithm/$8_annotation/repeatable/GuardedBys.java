@@ -1,6 +1,6 @@
 package com.algorithm.$8_annotation.repeatable;
 
-import com.algorithm.$8_annotation.GuardedBy;
+import com.algorithm.$8_annotation.single.ann.GuardedBy;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

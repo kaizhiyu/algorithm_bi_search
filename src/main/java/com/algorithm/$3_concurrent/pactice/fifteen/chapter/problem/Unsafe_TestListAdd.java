@@ -1,6 +1,6 @@
 package com.algorithm.$3_concurrent.pactice.fifteen.chapter.problem;
 
-import com.algorithm.$8_annotation.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.Doc4Desc;
 
 import java.util.ArrayList;
 import java.util.List;

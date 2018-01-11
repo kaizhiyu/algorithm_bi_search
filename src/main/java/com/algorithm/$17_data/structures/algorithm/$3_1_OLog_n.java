@@ -1,6 +1,6 @@
 package com.algorithm.$17_data.structures.algorithm;
 
-import com.algorithm.$8_annotation.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.Doc4Desc;
 
 /**
  * @author fanhb on 2018/1/10

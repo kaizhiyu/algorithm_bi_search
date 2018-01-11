@@ -1,7 +1,7 @@
 package com.algorithm.$3_concurrent.pactice.fifteen.chapter;
 
-import com.algorithm.$8_annotation.Doc4Desc;
-import com.algorithm.$8_annotation.ThreadSafe;
+import com.algorithm.$8_annotation.single.ann.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.ThreadSafe;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

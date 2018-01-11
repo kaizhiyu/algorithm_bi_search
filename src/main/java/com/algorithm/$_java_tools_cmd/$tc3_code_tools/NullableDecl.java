@@ -1,6 +1,6 @@
 package com.algorithm.$_java_tools_cmd.$tc3_code_tools;
 
-import com.algorithm.$8_annotation.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.Doc4Desc;
 
 import java.lang.annotation.*;
 

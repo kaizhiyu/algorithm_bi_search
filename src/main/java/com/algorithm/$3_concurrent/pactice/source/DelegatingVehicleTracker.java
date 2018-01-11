@@ -2,10 +2,9 @@ package com.algorithm.$3_concurrent.pactice.source;
 
 import java.util.*;
 import java.util.concurrent.*;
-import java.awt.*;
 import java.awt.Point;
 
-import com.algorithm.$8_annotation.*;
+import com.algorithm.$8_annotation.single.ann.ThreadSafe;
 
 /**
  * DelegatingVehicleTracker

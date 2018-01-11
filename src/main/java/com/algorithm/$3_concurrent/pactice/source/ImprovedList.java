@@ -2,7 +2,7 @@ package com.algorithm.$3_concurrent.pactice.source;
 
 import java.util.*;
 
-import com.algorithm.$8_annotation.*;
+import com.algorithm.$8_annotation.single.ann.ThreadSafe;
 
 /**
  * ImprovedList

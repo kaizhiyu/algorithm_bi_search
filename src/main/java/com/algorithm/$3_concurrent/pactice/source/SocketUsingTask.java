@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.*;
 
-import com.algorithm.$8_annotation.*;
+import com.algorithm.$8_annotation.single.ann.GuardedBy;
+import com.algorithm.$8_annotation.single.ann.ThreadSafe;
 
 /**
  * SocketUsingTask

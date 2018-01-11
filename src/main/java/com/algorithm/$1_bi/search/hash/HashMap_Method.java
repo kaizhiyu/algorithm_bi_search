@@ -1,6 +1,6 @@
 package com.algorithm.$1_bi.search.hash;
 
-import com.algorithm.$8_annotation.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.Doc4Desc;
 
 /**
  * xxx

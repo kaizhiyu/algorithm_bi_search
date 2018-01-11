@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.concurrent.*;
 
-import com.algorithm.$8_annotation.*;
+import com.algorithm.$8_annotation.single.ann.GuardedBy;
 
 /**
  * LogService

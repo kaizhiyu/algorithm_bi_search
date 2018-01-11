@@ -1,7 +1,7 @@
 package com.algorithm.$_java_tools_cmd.$tc4_java.cmd;
 
-import com.algorithm.$8_annotation.Doc4Desc;
-import com.algorithm.$8_annotation.SearchKeyWord;
+import com.algorithm.$8_annotation.single.ann.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.SearchKeyWord;
 
 /**
  * @author fanhb on 2017/12/24

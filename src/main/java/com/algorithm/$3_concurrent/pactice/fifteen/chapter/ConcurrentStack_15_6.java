@@ -1,7 +1,7 @@
 package com.algorithm.$3_concurrent.pactice.fifteen.chapter;
 
-import com.algorithm.$8_annotation.CompareAndSwap;
-import com.algorithm.$8_annotation.ThreadSafe;
+import com.algorithm.$8_annotation.single.ann.CompareAndSwap;
+import com.algorithm.$8_annotation.single.ann.ThreadSafe;
 
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicReference;

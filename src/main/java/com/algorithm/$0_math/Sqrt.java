@@ -1,6 +1,6 @@
 package com.algorithm.$0_math;
 
-import com.algorithm.$8_annotation.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.Doc4Desc;
 
 /**
  * 手算开方
