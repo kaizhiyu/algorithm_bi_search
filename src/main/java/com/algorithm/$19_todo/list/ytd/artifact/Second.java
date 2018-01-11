@@ -1,6 +1,5 @@
-package com.algorithm.$19_todo.list.ytd.atifact;
+package com.algorithm.$19_todo.list.ytd.artifact;
 
-import com.algorithm.$8_annotation.single.ann.Doc4Desc;
 import com.algorithm.$8_annotation.single.ann.ETT;
 
 import java.util.HashMap;
