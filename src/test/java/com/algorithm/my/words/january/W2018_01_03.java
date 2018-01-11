@@ -11,6 +11,8 @@ import com.algorithm.$8_annotation.single.ann.Doc4Desc;
  */
 
 @Doc4Desc("《java并发编程实践》 第二章，线程安全性")
+@Doc4Desc(" ")
+@Deprecated
 public class W2018_01_03 {
 
     //english:

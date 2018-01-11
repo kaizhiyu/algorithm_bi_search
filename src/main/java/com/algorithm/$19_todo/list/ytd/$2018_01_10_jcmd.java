@@ -8,7 +8,7 @@ import com.algorithm.$8_annotation.single.ann.Doc4Desc;
  */
 
 @Doc4Desc("昨日文件 for translation")
-@Doc4Desc("Java_cmd_cef_desc")
+@Doc4Desc("Java_cmd_cef_desc  for short jcmd")
 public class $2018_01_10_jcmd {
 
     /** 1:
