@@ -1,6 +1,7 @@
 package com.algorithm.$19_todo.list;
 
-import com.algorithm.$8_annotation.single.ann.Doc4Desc;
+import com.algorithm.$8_annotation.single.ann.SearchKeyWord;
+import com.algorithm.$8_annotation.single.ann.TODOList;
 
 /**
  * xxx
@@ -8,8 +9,9 @@ import com.algorithm.$8_annotation.single.ann.Doc4Desc;
  * @author:v_fanhaibo on 2018/1/3.
  * @version:v1.0
  */
+@SearchKeyWord("菜鸟要飞")
 
-@Doc4Desc("TODOLIST 待看视频or BOOKS")
+@TODOList("TODOLIST 待看视频or BOOKS")
 public class TOListCaiNiaoYaoFei {
 
 
