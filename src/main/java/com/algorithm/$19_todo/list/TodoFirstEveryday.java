@@ -7,6 +7,7 @@ import com.algorithm.$8_annotation.single.ann.TODOList;
 
 @TODOList("Daily mission Daily tasks")
 @TODOList("1: algorithm")
-@TODOList("2: 2 words")
+@TODOList("2: 2 kinds of words such as  en, zh  ")
+@TODOList("3: anything of ytd   ytd yesterday   ")
 public class TodoFirstEveryday {
 }
