@@ -14,5 +14,5 @@ import java.lang.annotation.RetentionPolicy;
 @Repeatable(SearchKeyWords.class)
 public @interface SearchKeyWord {
 
-    String value() default "";
+    String value() ;
 }

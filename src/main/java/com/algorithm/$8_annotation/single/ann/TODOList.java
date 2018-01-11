@@ -15,5 +15,5 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.SOURCE)
 @Repeatable(TODOLists.class)
 public @interface TODOList {
-    String value() default "";
+    String value();
 }

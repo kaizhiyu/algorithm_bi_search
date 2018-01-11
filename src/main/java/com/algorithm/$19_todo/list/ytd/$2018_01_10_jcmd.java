@@ -1,4 +1,4 @@
-package com.test.ytd;
+package com.algorithm.$19_todo.list.ytd;
 
 import com.algorithm.$8_annotation.single.ann.Doc4Desc;
 
@@ -9,7 +9,7 @@ import com.algorithm.$8_annotation.single.ann.Doc4Desc;
 
 @Doc4Desc("昨日文件 for translation")
 @Doc4Desc("Java_cmd_cef_desc")
-public class $2018_01_10_cef {
+public class $2018_01_10_jcmd {
 
     /** 1:
      *  archive: v.	存档; n.	档案文件; 档案室;
