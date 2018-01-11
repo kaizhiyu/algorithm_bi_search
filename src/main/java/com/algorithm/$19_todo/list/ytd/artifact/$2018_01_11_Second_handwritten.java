@@ -9,7 +9,7 @@ import java.util.Map;
  * @auth v_fanhaibo on   2018/1/11
  */
 @ETT("algorithm")
-public class Second {
+public class $2018_01_11_Second_handwritten {
     public static void main(String[] args) {
         int[] a = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15};
         summation(a, 15);
