@@ -15,7 +15,7 @@ public class $2018_01_11_Second_handwritten {
         summation(a, 15);
     }
 
-    @ETT("欧几里算法 2018年1月11日10:16:22")
+    @ETT("欧几里算法 2018年1月11日10:16:22")//the greatest common divisor
     public static int gcd(int m, int n) {
         if (m % n == 0)
             return n;
