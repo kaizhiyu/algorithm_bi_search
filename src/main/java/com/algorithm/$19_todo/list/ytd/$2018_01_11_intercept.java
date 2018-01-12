@@ -5,7 +5,7 @@ package com.algorithm.$19_todo.list.ytd;
  * @version:v1.0
  */
 
-public class $2018_01_11_cef {
+public class $2018_01_11_intercept {
 
     /** 1:
      *  archive: v.	存档; n.	档案文件; 档案室;
@@ -26,8 +26,11 @@ public class $2018_01_11_cef {
 
      * 5：primarily： 主要的
      *
-     * 6:
-         Intercept the execution of a handler. Called after HandlerMapping determined an appropriate handler object, but before HandlerAdapter invokes the handler.
+     * 6: Intercept 英[ˌɪntəˈsept];
+     * appropriate: adj.	适当的; 合适的; 恰当的; v.	盗用; 侵吞; 拨（专款等）;
+     *
+     *
+        Intercept the execution of a handler. Called after HandlerMapping determined an appropriate handler object, but before HandlerAdapter invokes the handler.
          DispatcherServlet processes a handler in an execution chain, consisting of any number of interceptors,
          with the handler itself at the end. With this method, each interceptor can decide to abort the execution chain,
          typically sending a HTTP error or writing a custom response.
@@ -61,7 +64,7 @@ public class $2018_01_11_cef {
      handler - handler (or HandlerMethod) that started asynchronous execution, for type and/or instance examination
      modelAndView - the ModelAndView that the handler returned (can also be null)
      *
-     * 8: Credentials 凭证
+     * 8: credentials	英[krəˈdenʃlz] 美[krəˈdenʃlz] n.	证书; 凭证，证件;
      * Whether user credentials are supported. By default this is set to true in which case user credentials are supported.
      * 是否支持用户凭据。 默认情况下，这被设置为true，在这种情况下支持用户凭证。
      *
