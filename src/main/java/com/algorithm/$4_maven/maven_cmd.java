@@ -9,3 +9,10 @@
  https://www.cnblogs.com/softidea/p/5631763.html
  */
 
+
+
+//mvn -Dmaven.test.skip -U clean package //-U是更新第三方包
+//build->plugins-plugin-configuration->mainClass
+
+//http://maven.apache.org/plugins/maven-shade-plugin/examples/executable-jar.html
+

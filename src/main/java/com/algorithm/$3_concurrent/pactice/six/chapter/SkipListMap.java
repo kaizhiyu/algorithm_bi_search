@@ -20,4 +20,12 @@ public class SkipListMap {
      *
      *
      */
+
+//    ooo2
+    
+    /** ss */
+    private String sss;
+    /** ss */
+    private String sssf;
+    
 }
