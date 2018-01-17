@@ -8,6 +8,7 @@ import com.algorithm.$8_annotation.single.ann.SearchKeyWord;
  */
 
 @SearchKeyWord(" mock test code ")
+@SearchKeyWord(" NIO selector的原理 ")  //https://www.jianshu.com/p/0d497fe5484a
 public class $2018_01_17_binarySystem {
     public static void main(String[] args) {
 
@@ -16,17 +17,19 @@ public class $2018_01_17_binarySystem {
         printFormat(129);
         printFormat(127);
         printFormat(-1);
-        printFormat((byte) 0b00000000);
+        printFormat(255);
+//        printFormat((byte) 0b00000000);
 
-
-        String fs = String.format("身高体重(%.2f , %d)", 173.2, 65);
-        System.out.println(fs);
-        String s = "abc";
-        System.out.println(s + String.format("%1$01d", 0));
+//        String fs = String.format("身高体重(%.2f , %d)", 173.2, 65);
+//        System.out.println(fs);
+//        String s = "abc";
+//        System.out.println(s + String.format("%1$01d", 0));
     }
 
     private static void printFormat(int num) {
-        System.out.printf("%32d, binary code=%32s, %s", (byte) num, Integer.toBinaryString(num), "\n");
+        String format = "%32d, binary_code=%32s  ,hexString=%9s ,0xff=%8s";
+        System.out.printf(format, (byte) num, Integer.toBinaryString(num), num & 0xff, 0xff);
+        System.out.println();
     }
 
     public static void ssss() {
