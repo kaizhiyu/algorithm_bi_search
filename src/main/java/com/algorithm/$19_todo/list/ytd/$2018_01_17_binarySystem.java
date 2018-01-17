@@ -8,7 +8,9 @@ import com.algorithm.$8_annotation.single.ann.SearchKeyWord;
  */
 
 @SearchKeyWord(" mock test code ")
-@SearchKeyWord(" NIO selector的原理 ")  //https://www.jianshu.com/p/0d497fe5484a
+@SearchKeyWord(" NIO selector的原理 ")
+//1: https://www.jianshu.com/p/0d497fe5484a
+//2: https://www.jianshu.com/p/052035037297
 public class $2018_01_17_binarySystem {
     public static void main(String[] args) {
 
