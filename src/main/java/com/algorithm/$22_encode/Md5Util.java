@@ -48,7 +48,7 @@ public class Md5Util {
 //        System.out.println(in);
 //        String st = Integer.toHexString(in).toUpperCase();
 //        st = String.format("%2s",st);
-//        st= st.replaceAll(" ","0");
+//        st= st.replaceAll(" ","0");//取巧
 //        System.out.println(st);
     }
 }
