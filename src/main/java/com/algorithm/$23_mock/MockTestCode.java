@@ -1,7 +1,7 @@
 //package com.algorithm.$23_mock;
 //
 //import org.junit.Before;
-//import org.junit.Test;
+//import org.junit.TestNio;
 //import org.junit.runner.RunWith;
 //import org.mockito.Mockito;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@
 //		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
 //	}
 //
-//	@Test
+//	@TestNio
 //	public void testHello() throws Exception {
 //		MvcResult perform = mockMvc
 //				.perform(
@@ -48,7 +48,7 @@
 //		System.out.println(perform.getResponse().getContentAsString());
 //
 //	}
-//	@Test
+//	@TestNio
 //	public void testHelloByRequestJson() throws Exception {
 //		MvcResult json = mockMvc.perform(
 //				post("/json/test")
