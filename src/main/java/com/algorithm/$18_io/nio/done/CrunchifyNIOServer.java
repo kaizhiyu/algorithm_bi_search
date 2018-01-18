@@ -23,17 +23,17 @@ public class CrunchifyNIOServer {
         Selector selector = Selector.open(); // selector is open here  ,The new selector is created by invoking the openSelector method of the system-wide default SelectorProvider object.
         Set<SelectionKey> keys = selector.keys();
         // ServerSocketChannel: selectable channel for stream-oriented listening sockets
-        ServerSocketChannel crunchifySocket = ServerSocketChannel.open();
+        ServerSocketChannel socketChannel = ServerSocketChannel.open();
         InetSocketAddress crunchifyAddr = new InetSocketAddress("localhost", 1111);
 
         // Binds the channel's socket to a local address and configures the socket to listen for connections
-        crunchifySocket.bind(crunchifyAddr);
+        socketChannel.bind(crunchifyAddr);
 
         // Adjusts this channel's blocking mode.
-        crunchifySocket.configureBlocking(false);
+        socketChannel.configureBlocking(false);
 
-        int ops = crunchifySocket.validOps();
-        SelectionKey selectKy = crunchifySocket.register(selector, ops, null);
+        int ops = socketChannel.validOps();
+        SelectionKey selectKy = socketChannel.register(selector, ops, null);
 
         // Infinite loop..
         // Keep server running
@@ -41,18 +41,19 @@ public class CrunchifyNIOServer {
 
             log("i'm a server and i'm waiting for new connection and buffer select...");
             // Selects a set of keys whose corresponding channels are ready for I/O operations
-            selector.select();
+            int select = selector.select();
 
             // token representing the registration of a SelectableChannel with a Selector
             Set<SelectionKey> crunchifyKeys = selector.selectedKeys();
             Iterator<SelectionKey> crunchifyIterator = crunchifyKeys.iterator();
 
-            while (crunchifyIterator.hasNext()) {
+            while ( select > 0 && crunchifyIterator.hasNext()) {
+                //foreach all operation(read,write,connect,accept)
                 SelectionKey myKey = crunchifyIterator.next();
 
                 // Tests whether this key's channel is ready to accept a new socket connection
                 if (myKey.isAcceptable()) {
-                    SocketChannel crunchifyClient = crunchifySocket.accept();
+                    SocketChannel crunchifyClient = socketChannel.accept();
 
                     // Adjusts this channel's blocking mode to false
                     crunchifyClient.configureBlocking(false);

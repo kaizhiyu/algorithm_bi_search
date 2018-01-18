@@ -23,10 +23,10 @@ public class CrunchifyNIOClient {
 
         // create a ArrayList with companyName list
         companyDetails.add("Facebook");
-        companyDetails.add("Twitter");
-        companyDetails.add("IBM");
-        companyDetails.add("Google");
-        companyDetails.add("Crunchify");
+//        companyDetails.add("Twitter");
+//        companyDetails.add("IBM");
+//        companyDetails.add("Google");
+//        companyDetails.add("Crunchify");
 
         for (String companyName : companyDetails) {
 

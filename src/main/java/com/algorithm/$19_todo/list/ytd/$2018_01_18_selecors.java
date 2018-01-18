@@ -10,13 +10,20 @@ import com.algorithm.$8_annotation.single.ann.SearchKeyWord;
 @SearchKeyWord(" NIO selectors ")
 public class $2018_01_18_selecors {
 
-    /** 1: They were detected at depths of more than a kilometre in the sea. 它们是在海面下超过一公里深的地方被检测出来的。 */
+    /** 1: They were detected at depths of more than a kilometre in the sea.
+     *      它们是在海面下超过一公里深的地方被检测出来的。 */
 
-    /** 2: 美团code_web */
-    
-    /**  */
-    
+    /** 2: 美团code_web,google bookmark */
 
+    /** 3: The number of keys whose ready-operation sets were updated
+     *      就绪操作集已更新的密钥数
+     *   ready-operation: 就绪操作
+     */
+
+/**
+ * 4:
+ *
+ */
 
 
 }
