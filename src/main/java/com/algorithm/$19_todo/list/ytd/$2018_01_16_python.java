@@ -11,8 +11,13 @@ import com.algorithm.$8_annotation.single.ann.SearchKeyWord;
 public class $2018_01_16_python {
 
     /**
-     * 男儿何不带吴钩，收取关山五十州，请君暂上凌烟阁，若个书生万户侯。
+     * 一: 男儿何不带吴钩，收取关山五十州，请君暂上凌烟阁，若个书生万户侯。
      * 窃钩者诛窃国者侯；
+     */
+    /**
+     * 二: local variable "ss" referenced before assigned
+            分配之前引用的局部变量“ss”
+
      */
 
 
@@ -34,6 +39,7 @@ public class $2018_01_16_python {
      *
      *
      */
+    
 
 
 }
