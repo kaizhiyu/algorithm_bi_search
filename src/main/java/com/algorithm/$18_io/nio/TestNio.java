@@ -45,7 +45,7 @@ public class TestNio {
                 while (selectedKeys.hasNext()) {
                     SelectionKey key = selectedKeys.next();
                     if (key.isAcceptable()) {
-                            SelectableChannel channel = key.channel();
+//                            SelectableChannel channel = key.channel();
                         // 处理 accept 事件
                     } else if (key.isReadable()) {
                         // 处理 read 事件
