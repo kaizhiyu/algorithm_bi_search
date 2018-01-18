@@ -18,64 +18,35 @@ public class CrunchifyNIOServer {
 
     @SuppressWarnings("unused")
     public static void main(String[] args) throws IOException {
-
-        // Selector: multiplexer of SelectableChannel objects
-        Selector selector = Selector.open(); // selector is open here  ,The new selector is created by invoking the openSelector method of the system-wide default SelectorProvider object.
-        Set<SelectionKey> keys = selector.keys();
-        // ServerSocketChannel: selectable channel for stream-oriented listening sockets
+        Selector selector = Selector.open();
         ServerSocketChannel socketChannel = ServerSocketChannel.open();
         InetSocketAddress crunchifyAddr = new InetSocketAddress("localhost", 1111);
-
-        // Binds the channel's socket to a local address and configures the socket to listen for connections
         socketChannel.bind(crunchifyAddr);
-
-        // Adjusts this channel's blocking mode.
         socketChannel.configureBlocking(false);
 
         int ops = socketChannel.validOps();
         SelectionKey selectKy = socketChannel.register(selector, ops, null);
-
-        // Infinite loop..
-        // Keep server running
         while (true) {
-
-            log("i'm a server and i'm waiting for new connection and buffer select...");
-            // Selects a set of keys whose corresponding channels are ready for I/O operations
+            System.out.println("======================");
             int select = selector.select();
-
-            // token representing the registration of a SelectableChannel with a Selector
             Set<SelectionKey> crunchifyKeys = selector.selectedKeys();
             Iterator<SelectionKey> crunchifyIterator = crunchifyKeys.iterator();
 
             while ( select > 0 && crunchifyIterator.hasNext()) {
-                //foreach all operation(read,write,connect,accept)
                 SelectionKey myKey = crunchifyIterator.next();
-
-                // Tests whether this key's channel is ready to accept a new socket connection
                 if (myKey.isAcceptable()) {
                     SocketChannel crunchifyClient = socketChannel.accept();
-
-                    // Adjusts this channel's blocking mode to false
                     crunchifyClient.configureBlocking(false);
-
-                    // Operation-set bit for read operations
                     crunchifyClient.register(selector, SelectionKey.OP_READ);
-                    log("Connection Accepted: " + crunchifyClient.getLocalAddress() + "\n");
-
-                    // Tests whether this key's channel is ready for reading
                 } else if (myKey.isReadable()) {
 
                     SocketChannel crunchifyClient = (SocketChannel) myKey.channel();
                     ByteBuffer crunchifyBuffer = ByteBuffer.allocate(256);
                     crunchifyClient.read(crunchifyBuffer);
                     String result = new String(crunchifyBuffer.array()).trim();
-
-                    log("Message received: " + result);
-
+                    System.out.println("accept " + result);
                     if (result.equals("Crunchify")) {
                         crunchifyClient.close();
-                        log("\nIt's time to close connection as we got last company name 'Crunchify'");
-                        log("\nServer will keep running. Try running client again to establish new connection");
                     }
                 }
                 crunchifyIterator.remove();

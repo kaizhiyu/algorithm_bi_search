@@ -14,7 +14,8 @@ public class CrunchifyNIOClient {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        InetSocketAddress crunchifyAddr = new InetSocketAddress("localhost", 1111);
+        InetSocketAddress crunchifyAddr = new InetSocketAddress("localhost", 8090);
+//        InetSocketAddress crunchifyAddr = new InetSocketAddress("localhost", 1111);
         SocketChannel crunchifyClient = SocketChannel.open(crunchifyAddr);
 
         log("Connecting to Server on port 1111...");
@@ -26,7 +27,8 @@ public class CrunchifyNIOClient {
 //        companyDetails.add("Twitter");
 //        companyDetails.add("IBM");
 //        companyDetails.add("Google");
-//        companyDetails.add("Crunchify");
+        companyDetails.add("Crunchify");
+        companyDetails.add("end$");
 
         for (String companyName : companyDetails) {
 

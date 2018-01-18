@@ -63,13 +63,29 @@ public class BufferToText {
         //Read and display
         FileChannel channel5 = new FileInputStream("data.txt").getChannel();
         ByteBuffer allocate2 = ByteBuffer.allocate(1024);
-        allocate2.clear(); //prepare for writing
+        allocate2.clear(); //prepare for read
         channel5.read(allocate2);
-        allocate2.flip(); // prepare for read
+        allocate2.flip(); // prepare for write
+        channel5.close();
+        System.out.println("channel5 = "+allocate2.asCharBuffer());
 
-        System.out.println(allocate2.asCharBuffer());
 //        printnb
+        //now try reading again
+        FileChannel channel6 = new FileInputStream("data.txt").getChannel();
+        ByteBuffer allocate3 = ByteBuffer.allocate(1024);
+        allocate3.clear();
+        channel6.read(allocate3);
+        allocate3.flip();
+        channel6.close();
+        System.out.println("channel6 = " + allocate3.asCharBuffer());
 
+        //now try reading again
+        FileChannel channel7 = new FileInputStream("data.txt").getChannel();
+        allocate.clear();
+        channel7.read(allocate);
+        allocate.flip();
+        channel7.close();
 
+        System.out.println("channel7 = "+ allocate.asCharBuffer());
     }
 }
