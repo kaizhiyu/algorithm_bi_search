@@ -1,0 +1,1404 @@
+
+
+
+
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="//www.ibm.com/favicon.ico"/>
+    <link rel="canonical" href="http://www.ibm.com/developerworks/java/tutorials/j-nio/j-nio.html"/>
+    <meta name="geo.country" content="ZZ"/>
+    <meta name="dcterms.rights" content="© Copyright IBM Corporation 2003"/>
+    <meta name="dcterms.date" content="2003-07-09"/>
+    <meta name="description" content="The new input/output (NIO) library, introduced with JDK 1.4, provides high-speed, block-oriented I/O in standard Java code. This hands-on tutorial covers the NIO library in great detail, from the high-level concepts to under-the-hood programming detail. You'll learn about crucial I/O elements like buffers and channels, and examine how standard I/O works in the updated library. You'll also learn about things you can do only with NIO, such as asynchronous I/O and direct buffers."/>
+    <meta name="keywords" content="I/O, tttjca"/>
+    <meta name="robots" content="index,follow"/>
+    <title>Getting started with new I/O (NIO)</title>
+
+    <script>
+        digitalData = {
+            "page":{
+                "category":{
+                    "primaryCategory":"SOFDCJVAZZ"
+                },
+                "pageInfo":{
+                    "effectiveDate":"2003-07-09",
+                    "language":"en",
+                    "publishDate":"2003-07-09",
+                    "publisher":"IBM Corporation",
+                    "version":"v18",
+                    "ibm":{
+                        "contentDelivery":"IBM developerWorks template",
+                        "contentProducer":"IBM developerWorks",
+                        "country":"ZZ",
+                        "owner":"developerWorks Content/Raleigh/IBM",
+                        "subject":"TT300",
+                        "type":"CT321",
+                        "topic":"Application development",
+                        "topicId":"263",
+                        "contentArea":"java",
+                        "contentAreaId":"1",
+                        "contentType":"article",
+                        "contentId":"482400",
+                    },
+                    "keywords":"I/O, tttjca",
+                    "description":"The new input/output (NIO) library, introduced with JDK 1.4, provides high-speed, block-oriented I/O in standard Java code. This hands-on tutorial covers the NIO library in great detail, from the high-level concepts to under-the-hood programming detail. You'll learn about crucial I/O elements like buffers and channels, and examine how standard I/O works in the updated library. You'll also learn about things you can do only with NIO, such as asynchronous I/O and direct buffers."
+                }
+            }
+        };
+        window._analytics = {
+            "coremetrics": false,
+            "optimizely": false,
+            "googleAddServices": false,
+            "addRoll": false,
+            "intercom": false,
+            "fullStory": false,
+            "hotjar": false,
+            "tealeaf": false,
+            "nps": false,
+            "segment_key": 'HU3dbkAG5wE0F1IkRf9S1RexlAqo3jby'
+        };
+    </script>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@developerworks"/>
+    <meta property="og:title" content="Getting started with new I/O (NIO)"/>
+    <meta property="og:description" content="The new input/output (NIO) library, introduced with JDK 1.4, provides high-speed, block-oriented I/O in standard Java code. This hands-on tutorial covers the NIO library in great detail, from the high-level concepts to under-the-hood programming detail. You'll learn about crucial I/O elements like buffers and channels, and examine how standard I/O works in the updated library. You'll also learn about things you can do only with NIO, such as asynchronous I/O and direct buffers."/>
+    <meta property="og:image" content="http://www.ibm.com/developerworks/i/dw-social-201508.png"/>
+    <!-- Segment meta tag -->
+    <meta name="segment" property="developerWorks (developerWorks)" productTitle="developerWorks" value="Java English (developerWorks)"/>
+    <!-- SITE MON : START (DO NOT DELETE) -->
+    <!-- developerWorks monitoring token -->
+    <!-- SITE MON : END (DO NOT DELETE) -->
+
+    <!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+    <!-- <script src="//cdn.optimizely.com/js/5399420604.js"></script> -->
+    <!-- BEGIN: Use this section to set page specific variables for the Page Tag -->
+    <script language="JavaScript">var NTPT_PGEXTRA="ibmSkillLevel=2&ibmCmaId=482400&ibmContentAreas=java";</script>
+    <!--END -->
+    <script src="//1.www.s81c.com/common/stats/ida_stats.js"></script>
+    <link href="//1.www.s81c.com/common/v18/css/www.css" rel="stylesheet">
+    <link href="//1.www.s81c.com/common/v18/css/syntaxhighlighter.css" rel="stylesheet">
+    <script src="//1.www.s81c.com/common/v18/js/www.js"></script>
+    <script src="//1.www.s81c.com/common/v18/js/syntaxhighlighter.js"></script>
+    <link href="//1.www.s81c.com/common/v18/css/tables.css" rel="stylesheet">
+    <script src="//1.www.s81c.com/common/v18/js/tables.js"></script>
+    <!--  Masthead/footer  -->
+    <link href="//dw1.s81c.com/developerworks/css/dw-mf/v18/dw-mf-v18.css?v=110117a" rel="stylesheet">
+    <!-- <link href="//dw1.s81c.com/developerworks/css/dw-mf/v18/alt-signedin-ux.css" rel="stylesheet" /> -->
+    <!--[if lt IE 9]>
+    <link href="//dw1.s81c.com/developerworks/css/dw-mf/v18/dw-mf-ie8fix.css?v=022216" rel="stylesheet" />
+    <![endif]-->
+    <link href="//dw1.s81c.com/developerworks/css/v18/dw-article.css?v=010318" rel="stylesheet">
+    <script src="//dw1.s81c.com/developerworks/js/v18/dw-auth-properties.js?v=041017"></script>
+    <script src="//dw1.s81c.com/developerworks/js/v18/dw-auth.js?v=062717"></script>
+    <script src="//dw1.s81c.com/developerworks/js/dw-mf/v18/dw-mf.js?v=103117"></script>
+    <script src="//dw1.s81c.com/developerworks/js/v18/dw-include.js"></script>
+    <script src="//dw1.s81c.com/developerworks/js/v18/dw-article.js?v=121217"></script>
+    <script src="//dw1.s81c.com/developerworks/js/v18/dw-auto-links.js?v=121217"></script>
+    <script src="//www.ibm.com/software/info/js/tactic.js"></script>
+    <script src="//www.ibm.com/software/info/js/tacticbindlinks.js"></script>
+    <!-- Segment -->
+    <script src="//console-regional.cdn.us-south.s-bluemix.net/analytics/build/bluemix-analytics.min.js"></script>
+
+    <!--
+    <PageMap>
+        <DataObject type="document">
+            <Attribute name="topic">Application development</Attribute>
+            <Attribute name="topicId">263</Attribute>
+            <Attribute name="contentArea">java</Attribute>
+            <Attribute name="contentAreaId">1</Attribute>
+            <Attribute name="abstract">The new input/output (NIO) library, introduced with JDK 1.4, provides
+                high-speed, block-oriented I/O in standard Java code. This hands-on tutorial
+                covers the NIO library in great detail, from the high-level concepts to
+                under-the-hood programming detail. You'll learn about crucial I/O elements
+                like buffers and channels, and examine how standard I/O works in the updated
+                library. You'll also learn about things you can do only with NIO, such as
+                asynchronous I/O and direct buffers.</Attribute>
+            <Attribute name="pub.date">2003-07-09</Attribute>
+            <Attribute name="contentType">article</Attribute>
+        </DataObject>
+    </PageMap>
+    -->
+
+</head>
+<body id="ibm-com" class="ibm-type dw-js-disabled">
+
+<div id="ibm-top" class="ibm-landing-page">
+
+    <!-- MASTHEAD_BEGIN -->
+    <div id="ibm-masthead" role="banner" aria-label="IBM">
+        <div id="ibm-mast-options">
+            <ul role="toolbar" aria-labelledby="ibm-masthead">
+                <li id="ibm-geo" role="presentation"><a href="http://www.ibm.com/planetwide/select/selector.html" role="button" aria-label="United States selected - Choose a country">United States</a></li>
+            </ul>
+        </div>
+        <div id="ibm-universal-nav">
+
+            <nav role="navigation" aria-label="IBM">
+                <div id="ibm-home"><a href="http://www.ibm.com/us/en/">IBM®</a></div>
+                <ul id="ibm-menu-links" role="toolbar" aria-label="Site map">
+                    <li><a href="http://www.ibm.com/sitemap/us/en/">Site map</a></li>
+                </ul>
+            </nav>
+
+            <div id="ibm-search-module" role="search" aria-labelledby="ibm-masthead">
+                <form id="ibm-search-form" action="https://www.ibm.com/Search/" method="get">
+                    <p>
+                        <label for="q">IBM</label>
+                        <input type="text" maxlength="100" value="" placeholder="Search" name="q" id="q" aria-label="Search developerWorks"/>
+                        <input type="hidden" value="18" name="v"/>
+                        <input type="hidden" value="utf" name="en"/>
+                        <input type="hidden" value="en" name="lang"/>
+                        <input type="hidden" value="us" name="cc"/>
+                        <input type="hidden" name="sn" value="dw" />
+                        <input type="hidden" name="dws" value="dw" />
+                        <input type="hidden" name="hpp" value="20" />
+                        <input type="submit" id="ibm-search" class="ibm-btn-search" value="Submit"/>
+                    </p>
+                </form>
+            </div>
+
+        </div>
+    </div><!-- MASTHEAD_END -->
+
+    <!-- LAYOUT -->
+    <div id="ibm-content-wrapper">
+        <!-- LEADSPACE_BEGIN -->
+        <header role="banner" aria-labelledby="ibm-pagetitle-h1">
+
+            <!-- MASTHEAD_SITENAV_BEGIN -->
+            <div class="ibm-sitenav-menu-container">
+                <div class="ibm-sitenav-menu-name">
+                    <a href="//www.ibm.com/developerworks/">
+                        <img width="186" height="24" alt="developerWorks®" src="//dw1.s81c.com/developerworks/i/mf/dw-mf-wordmark.svg"/>
+                    </a>
+                </div>
+                <div class="ibm-sitenav-menu-list">
+                    <ul role="menubar">
+                        <li class="dw-navpage-learn ibm-haschildlist" role="presentation">
+                            <span role="menuitem"><a href="//www.ibm.com/developerworks/learn/">Learn</a></span>
+                            <ul role="menu" aria-label="Learn" id="dw-mega-learn">
+                                <li role="presentation">
+                                    <div class="ibm-columns">
+                                        <div class="ibm-col-5-3 dw-mega-main">
+                                            <h2>Learn with our tutorials and training</h2>
+                                            <p class="dw-mega-main-p">developerWorks provides tutorials, articles and other
+                                                technical resources to help you grow your development skills
+                                                on a wide variety of topics and products. Learn about a specific
+                                                product or take a course and get certified. So, what do you want to learn
+                                                about?</p>
+                                            <p class="ibm-button-link">
+                                                <a href="//www.ibm.com/developerworks/learn/" class="ibm-btn-pri">Choose a topic</a>
+                                            </p>
+                                        </div>
+                                        <div class="ibm-col-5-1 dw-mega-nav">
+                                            <h3>Featured topics</h3>
+
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-java.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/java/">Java</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-bigdata.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//www.ibm.com/developerworks/learn/analytics">Data and analytics</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-cognitive.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//www.ibm.com/developerworks/learn/cognitive">Cognitive computing</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-cloud.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//www.ibm.com/developerworks/learn/cloud">Cloud</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ibm-col-5-1 dw-mega-nav">
+                                            <h3>Featured destinations</h3>
+
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-swift.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/swift/?lnk=hm">Swift @ IBM</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-blockchain.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/blockchain/">Blockchain</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-api-dest.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/api/list/">API Explorer</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li role="presentation" class="dw-navpage-develop ibm-haschildlist">
+                            <span role="menuitem"><a href="//www.ibm.com/developerworks/develop/">Develop</a></span>
+                            <ul role="menu" aria-label="Develop" id="dw-mega-develop">
+                                <li role="presentation">
+                                    <div class="ibm-columns">
+                                        <div class="ibm-col-5-3 dw-mega-main">
+                                            <h2>Develop with our trials &amp; downloads</h2>
+                                            <p class="dw-mega-main-p">Start developing with product trials, free downloads, and IBM Cloud services.
+                                                Sort by topic or product name and find everything we have to offer.</p>
+                                            <p class="ibm-button-link">
+                                                <a href="//www.ibm.com/developerworks/develop/" class="ibm-btn-pri">View all downloads &amp; trials</a>
+                                            </p>
+                                        </div>
+                                        <div class="ibm-col-5-1 dw-mega-nav">
+                                            <h3>Featured products</h3>
+
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt=""
+                                                         src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-bluemix.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//console.bluemix.net/registration?cm_sp=dw-bluemix-_-masthead-_-megamenu">IBM Cloud</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt=""
+                                                         src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-websphere.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//www.ibm.com/developerworks/downloads/ws/was/">WebSphere Application Server</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt=""
+                                                         src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-db2express.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//www.ibm.com/developerworks/downloads/im/db2express/">DB2 Express C</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt=""
+                                                         src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-watson.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//www.ibm.com/watson/">Watson</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ibm-col-5-1 dw-mega-nav">
+                                            <h3>Featured destinations</h3>
+
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-swift.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/swift/?lnk=hm">Swift @ IBM</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-code.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/code/">IBM Code</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-api-dest.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/api/list/">API Explorer</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li role="presentation" class="dw-navpage-connect ibm-haschildlist">
+                            <span role="menuitem"><a href="//www.ibm.com/developerworks/connect/">Connect</a></span>
+                            <ul role="menu" aria-label="Connect" id="dw-mega-connect">
+                                <li role="presentation">
+                                    <div class="ibm-columns">
+                                        <div class="ibm-col-5-3 dw-mega-main">
+                                            <h2>Find a community and connect</h2>
+                                            <p class="dw-mega-main-p">Learn from the experts and share with other developers in one of our
+                                                dev centers.  Ask questions and get answers with dW answers.  Search for local events
+                                                in your area.  All in developerWorks communities.</p>
+                                            <p class="ibm-button-link">
+                                                <a href="//www.ibm.com/developerworks/connect/" class="ibm-btn-pri">View communities</a>
+                                            </p>
+                                        </div>
+                                        <div class="ibm-col-5-1 dw-mega-nav">
+                                            <h3>Featured Developer Centers</h3>
+
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt=""
+                                                         src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-blockchain.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/blockchain/">Blockchain</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt=""
+                                                         src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-bluemix-dev.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/bluemix/">IBM Cloud</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt=""
+                                                         src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-was-dev.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/wasdev/">WebSphere Application Server</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ibm-col-5-1 dw-mega-nav">
+                                            <h3>Featured destinations</h3>
+
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-code.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/code/">IBM Code</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-swift.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/swift/?lnk=hm">Swift @ IBM</a>
+                                                </div>
+                                            </div>
+                                            <div class="dw-mega-nav-item">
+                                                <div class="dw-mega-nav-img">
+                                                    <img width="30" height="30" alt="" src="//dw1.s81c.com/developerworks/i/v18/mega/dw-mplist-api-dest.png">
+                                                </div>
+                                                <div class="dw-mega-nav-link">
+                                                    <a href="//developer.ibm.com/api/list/">API Explorer</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- dW featured -->
+                        <!-- <li role="presentation" class="dw-navpage-devcenter"><strong>Subheading</strong></li> -->
+                        <li role="presentation" class="dw-navpage-devcenter"><a role="menuitem" href="//www.ibm.com/developerworks/learn/cognitive/">Cognitive</a></li>
+                        <li role="presentation" class="dw-navpage-devcenter"><a role="menuitem" href="//www.ibm.com/developerworks/learn/cloud/">Cloud</a></li>
+                        <li role="presentation" class="dw-navpage-devcenter"><a role="menuitem" href="//www.ibm.com/developerworks/learn/analytics/">Data</a></li>
+                        <li role="presentation" class="dw-navpage-devcenter"><a role="menuitem" href="//www.ibm.com/developerworks/learn/iot/">Internet of Things</a></li>
+                        <li role="presentation" class="dw-navpage-devcenter"><a role="menuitem" href="//www.ibm.com/developerworks/learn/java/">Java</a></li>
+                        <li role="presentation" class="dw-navpage-devcenter"><a role="menuitem" href="//www.ibm.com/developerworks/learn/">All topics</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- MASTHEAD_SITENAV_END -->
+
+            <!-- NAVIGATION_TRAIL_BEGIN -->
+            <div id="ibm-leadspace-head" class="ibm-alternate">
+                <div id="ibm-leadspace-body">
+                    <nav aria-label="Breadcrumb" role="navigation">
+                        <ul id="dw-navigation-trail" itemscope="" itemtype="http://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a itemprop="item" href="http://www.ibm.com/developerworks/learn/"><span itemprop="name">Learn</span></a><meta itemprop="position" content="1"/></li><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a itemprop="item" href="http://www.ibm.com/developerworks/java/"><span itemprop="name">Java development</span></a><meta itemprop="position" content="2"/></li></ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- NAVIGATION_TRAIL_END -->
+
+        </header>
+        <!-- LEADSPACE_END -->
+
+        <!-- MAIN_CONTENT_BEGIN -->
+        <main role="main" aria-labelledby="ibm-pagetitle-h1">
+            <div id="ibm-pcon">
+                <!-- BEGIN_IBM-CONTENT -->
+                <div id="ibm-content">
+                    <!-- BEGIN_IBM-CONTENT-BODY -->
+                    <div id="ibm-content-body">
+                        <!-- BEGIN_IBM-CONTENT-MAIN -->
+                        <div id="ibm-content-main" class="dw-article">
+                            <!-- BEGIN_INTERIOR-COLUMNS -->
+                            <div class="ibm-columns dw-article-toc">
+                                <!-- LEFT_6_2_CONTENT_COLUMN_BEGIN -->
+                                <div id="dw-article-toc-container" class="ibm-col-6-2">
+                                    <div id="dw-article-toc-body">
+                                        <h2>Contents</h2><div class="ibm-alternate-rule"><hr/></div><ul role="directory" aria-label="Table of contents" class="ibm-plain-list"><li><a href="#ibm-pagetitle-h1">Introduction</a></li><li><a href="#N100B3">Before you start</a></li><li><a href="#N100E2">Input/output: A conceptual
+                                        overview</a></li><li><a href="#N10124">Channels and buffers</a></li><li><a href="#N101C2">From theory to practice: Reading and
+                                        writing in NIO</a></li><li><a href="#N10295">Buffer internals</a></li><li><a href="#N10528">More about buffers</a></li><li><a href="#N1061D">Scattering and gathering</a></li><li><a href="#N10673">File locking</a></li><li><a href="#N106AE">Networking and asynchronous I/O</a></li><li><a href="#N1083F">Character sets</a></li><li><a href="#N108E4">Summary</a></li><li><a href="#artdownload">Downloadable resources</a></li><li><a href="#artrelatedtopics">Related topics</a></li><li><a href="#icomments">Comments</a></li></ul>
+                                    </div>
+                                </div>
+                                <!-- LEFT_6_2_CONTENT_COLUMN_END -->
+
+                                <!-- CENTER_6_4_CONTENT_COLUMN_BEGIN -->
+                                <div class="ibm-col-6-4">
+                                    <h1 id="ibm-pagetitle-h1" class="ibm-h1">Getting started with new I/O (NIO)</h1>
+                                    <!-- Article Top Bar -->
+                                    <div class="ibm-columns dw-article-topbar">
+                                        <!-- Author and article info. -->
+                                        <div class="ibm-col-6-2 ibm-col-medium-6-4 dw-article-metadata">
+                                            <div class="dw-article-avatar"><img width="42" height="42" src="//dw1.s81c.com/developerworks/i/v18/article/dw-author.png" alt=""/></div><div class="dw-article-authordate"> Greg Travis<br /><span class="dw-article-pubdate">Published on July 09,  2003</span></div>
+                                        </div>
+                                        <!-- Social -->
+                                        <div class="ibm-col-6-2 ibm-col-medium-6-4 ibm-col-small-6-2 dw-article-social">
+                                            <!-- Sharing links -->
+                                            <div id="dw-article-share-inline">
+                                                <div class="dw-article-sharelink-inline">
+                                                    <div class="ibm-sharethispage"></div>
+                                                </div>
+                                            </div>
+                                            <!-- Number of comments and link to comments -->
+                                            <div id="dw-article-cmts">
+                                                <div class="dw-article-cmtslink">
+                                                    <a onclick="tocLink('#icomments')" href="#icomments" role="link" tabindex="0" aria-label="Comments">
+                                                        <img src="//dw1.s81c.com/developerworks/i/v18/article/dw-article-cmt-icon.png" width="29" height="29" alt="Comments"/>
+                                                    </a>
+                                                </div>
+                                                <div class="dw-article-cmtslink">
+                                                    <a onclick="tocLink('#icomments')" href="#icomments" role="link" tabindex="0">
+                                                        <div id="nCmts"></div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Article Body -->
+
+                                    <h2 id="N100B3" class="ibm-h2">Before you start</h2><h3 id="N10049" class="ibm-h3">About this tutorial</h3><p> The new input/output (NIO) library was introduced with JDK 1.4. Picking up
+                                    where original I/O leaves off, NIO provides high-speed, block-oriented I/O
+                                    in standard Java code. By defining classes to hold data, and by processing
+                                    that data in blocks, NIO takes advantage of low-level optimizations in a
+                                    way that the original I/O package could not, without using native
+                                    code.</p><p> In this tutorial, we'll cover almost every aspect of the NIO library, from
+                                    the high-level conceptual stuff to under-the-hood programming detail. In
+                                    addition to learning about crucial I/O elements like buffers and channels,
+                                    you'll have the opportunity to see how standard I/O works in the updated
+                                    library. You'll also learn about things you can <em> only</em> do with
+                                    NIO, such as asynchronous I/O and direct buffers.</p><p> Throughout the tutorial, we'll work with code samples that illustrate
+                                    different aspects of the NIO library. Almost every code sample is part of
+                                    an extended Java program, which you'll find in <a href="#artrelatedtopics">Related topics</a>. As you are working through the exercises, you're
+                                    encouraged to download, compile, and run these programs on your own
+                                    system. The code will also come in handy when you're done with the
+                                    tutorial, providing a starting point for your NIO programming efforts.</p><p> This tutorial is intended for any programmer who wants to learn more about
+                                    the JDK 1.4 NIO library. To get the most from the discussion you should
+                                    understand basic Java programming concepts such as classes, inheritance,
+                                    and using packages. Some familiarity with the original I/O library (from
+                                    the <code> java.io.*</code> package) will also be helpful.</p><p> While this tutorial does require a working vocabulary and conceptual
+                                    understanding of the Java language, it does not require a lot of actual
+                                    programming experience. In addition to explaining thoroughly all the
+                                    concepts relevant to the tutorial, I've kept the code examples fairly
+                                    small and simple. The goal is to provide an easy entry point for learning
+                                    about NIO, even for those who don't have much Java programming
+                                    experience.</p><h3 id="N10061" class="ibm-h3">How to run the code</h3><p> The source code archive (available in <a href="#artrelatedtopics">Related topics</a> )
+                                    contains all of the programs used in this tutorial. Each program consists
+                                    of a single Java file. Each file is identified by name and easily related
+                                    to the programming concept it illustrates. </p><p> Some of the programs in the tutorial require command-line arguments to
+                                    run. To run a program from the command line, simply go to your nearest
+                                    command-line prompt. Under Windows, the command-line prompt is the
+                                    "Command" or "command.com" program. Under UNIX, any shell will do.</p><p> You will need to have JDK 1.4 installed and in your path to complete the
+                                    exercises in the tutorial. See <a href="#artrelatedtopics">Related topics</a> if you
+                                    need help installing and configuring JDK 1.4.</p><h2 id="N100E2" class="ibm-h2">Input/output: A conceptual
+                                    overview</h2><h3 id="N10077" class="ibm-h3">Intro to I/O</h3><p> I/O -- or input/output -- refers to the interface between a computer and
+                                    the rest of the world, or between a single program and the rest of the
+                                    computer. It is such a crucial element of any computer system that the
+                                    bulk of any I/O is actually built into the operating system. Individual
+                                    programs generally have most of their work done for them.</p><p> In Java programming, I/O has until recently been carried out using a <em>
+                                    stream</em> metaphor. All I/O is viewed as the movement of single
+                                    bytes, one at a time, through an object called a <code> Stream</code>.
+                                    Stream I/O is used for contacting the outside world. It is also used
+                                    internally, for turning objects into bytes and then back into objects.</p><p> NIO has the same role and purpose as original I/O, but it uses a different
+                                    metaphor -- <em> block I/O</em>. As you will learn in this tutorial, block
+                                    I/O can be a lot more efficient than stream I/O.</p><h3 id="N1008A" class="ibm-h3">Why NIO?</h3><p> NIO was created to allow Java programmers to implement high-speed I/O
+                                    without having to write custom native code. NIO moves the most
+                                    time-consuming I/O activities (namely, filling and draining buffers) back
+                                    into the operating system, thus allowing for a great increase in
+                                    speed.</p><h3 id="N10090" class="ibm-h3">Streams versus blocks</h3><p> The most important distinction between the original I/O library (found in
+                                    <code> java.io.*</code> ) and NIO has to do with how data is packaged and
+                                    transmitted. As previously mentioned, original I/O deals with data in
+                                    streams, whereas NIO deals with data in blocks.</p><p> A <em> stream-oriented</em> I/O system deals with data one byte at a time.
+                                    An input stream produces one byte of data, and an output stream consumes
+                                    one byte of data. It is very easy to create filters for streamed data. It
+                                    is also relatively simply to chain several filters together so that each
+                                    one does its part in what amounts to a single, sophisticated processing
+                                    mechanism. On the flip side, stream-oriented I/O is often rather slow.</p><p> A <em> block-oriented</em> I/O system deals with data in blocks. Each
+                                    operation produces or consumes a block of data in one step. Processing
+                                    data by the block can be much faster than processing it by the (streamed)
+                                    byte. But block-oriented I/O lacks some of the elegance and simplicity of
+                                    stream-oriented I/O.</p><h3 id="N100A3" class="ibm-h3">Integrated I/O</h3><p> The original I/O package and NIO have been well integrated in JDK 1.4.
+                                    <code> java.io.*</code> has been reimplemented using NIO as its base, so
+                                    it can now take advantage of some features of NIO. For example, some of
+                                    the classes in the <code> java.io.*</code> package contain methods to read
+                                    and write data in blocks, which leads to faster processing even in more
+                                    stream-oriented systems.</p><p> It is also possible to use the NIO library to implement standard I/O
+                                    functions. For example, you could easily use block I/O to move data one
+                                    byte at a time. But as you will see, NIO also offers many advantages that
+                                    are not available from the original I/O package.</p><h2 id="N10124" class="ibm-h2">Channels and buffers</h2><h3 id="N100B5" class="ibm-h3">Channels and buffers overview</h3><p><code> Channel</code> s and <code> Buffer</code> s are the central objects
+                                    in NIO, and are used for just about every I/O operation.</p><p> Channels are analogous to streams in the original I/O package. All data
+                                    that goes anywhere (or comes from anywhere) must pass through a
+                                    <code> Channel</code> object. A <code> Buffer</code> is essentially a
+                                    container object. All data that is sent to a channel must first be placed
+                                    in a buffer; likewise, any data that is read from a channel is read into a
+                                    buffer.</p><p> In this section, you will learn about working with channels and buffers in
+                                    NIO.</p><h3 id="N100CA" class="ibm-h3">What is a buffer?</h3><p> A <code> Buffer</code> is an object, which holds some data, that is to be
+                                    written to or that has just been read from. The addition of the
+                                    <code> Buffer</code> object in NIO marks one of the most significant
+                                    differences between the new library and original I/O. In stream-oriented
+                                    I/O, you wrote data directly to, and read data directly from,
+                                    <code> Stream</code> objects.</p><p> In the NIO library, all data is handled with buffers. When data is read,
+                                    it is read directly into a buffer. When data is written, it is written
+                                    into a buffer. Anytime you access data in NIO, you are pulling it out of
+                                    the buffer.</p><p> A buffer is essentially an array. Generally, it is an array of bytes, but
+                                    other kinds of arrays can be used. But a buffer is more than <em>
+                                        just</em> an array. A buffer provides structured access to data and
+                                    also keeps track of the system's read/write processes. </p><h3 id="N100E0" class="ibm-h3">Kinds of buffers</h3><p> The most commonly used kind of buffer is the <code> ByteBuffer</code>. A
+                                    <code> ByteBuffer</code> allows get/set operations (that is, the getting
+                                    and setting of bytes) on its underlying byte array. </p><p><code> ByteBuffer</code> is not the only type of buffer in NIO. In fact,
+                                    there is a buffer type for each of the primitive Java types:</p><ul class="ibm-bullet-list"><li><code> ByteBuffer</code></li><li><code> CharBuffer</code></li><li><code> ShortBuffer</code></li><li><code> IntBuffer</code></li><li><code> LongBuffer</code></li><li><code> FloatBuffer</code></li><li><code> DoubleBuffer</code></li></ul><p> Each of the <code> Buffer</code> classes is an instance of the
+                                    <code> Buffer</code> interface. With the exception of
+                                    <code> ByteBuffer</code>, each one has the exact same operations,
+                                    differing only in the type of data it deals with. Because
+                                    <code> ByteBuffer</code> is used for most standard I/O operations it has
+                                    all of the shared buffer operations as well as some that are unique. </p><p> You may want to take a moment now to run the UseFloatBuffer.java, which
+                                    contains an example of typed buffers in action. </p><h3 id="N10116" class="ibm-h3">What is a channel?</h3><p> A <code> Channel</code> is an object from which you can read data and to
+                                    which you can write data. Comparing NIO with original I/O, a channel is
+                                    like a stream. </p><p> As previously mentioned, all data is handled through <code> Buffer</code>
+                                    objects. You never write a byte directly to a channel; instead you write
+                                    to a buffer containing one or more bytes. Likewise, you don't read a byte
+                                    directly from a channel; you read from a channel into a buffer, and then
+                                    get the bytes from the buffer. </p><h3 id="N10124" class="ibm-h3">Kinds of channels</h3><p> Channels differ from streams in that they are bi-directional. Whereas
+                                    streams only go in one direction (a stream must be a subclass of either
+                                    <code> InputStream</code> or <code> OutputStream</code> ), a
+                                    <code> Channel</code> can be opened for reading, for writing, or for
+                                    both.</p><p> Because they are bi-directional, channels better reflect the reality of
+                                    the underlying operating system than streams do. In the UNIX model in
+                                    particular, the underlying operating system channels are
+                                    bi-directional.</p><h2 id="N101C2" class="ibm-h2">From theory to practice: Reading and
+                                    writing in NIO</h2><h3 id="N10139" class="ibm-h3"> NIO overview</h3><p> Reading and writing are the fundamental processes of I/O. Reading from a
+                                    channel is simple: we simply create a buffer and then ask a channel to
+                                    read data into it. Writing is also fairly simply: we create a buffer, fill
+                                    it with data, and then ask a channel to write from it.</p><p> In this section, we'll learn a little bit about reading and writing data
+                                    in Java programs. We'll go over the main components of NIO (buffers,
+                                    channels, and some related methods) and see how they interact for reading
+                                    and writing. In the sections that follow, we will look at each of these
+                                    components and interactions in more detail.</p><h3 id="N10141" class="ibm-h3">Reading from a file</h3><p> For our first exercise, we'll read some data from a file. If we were using
+                                    original I/O, we would simply create a <code> FileInputStream</code> and
+                                    read from that. In NIO, however, things work a little differently: we
+                                    first get a <code> Channel</code> object from the
+                                    <code> FileInputStream</code>, and then use that channel to read the
+                                    data.</p><p> Any time you perform a read operation in an NIO system, you are reading
+                                    from a channel, but you don't read <em> directly</em> from a channel.
+                                    Since all data ultimately resides in the buffer, you read from a channel
+                                    into a buffer.</p><p> So reading from a file involves three steps: (1) getting the
+                                    <code> Channel</code> from <code> FileInputStream</code>; (2) creating the
+                                    <code> Buffer</code>; and (3) reading from the <code> Channel</code> into
+                                    the <code> Buffer</code>. </p><p> Now, let's see how this works.</p><h3 id="N10168" class="ibm-h3">Three easy steps</h3><p> Our first step is to get a channel. We get the channel from the
+                                    <code> FileInputStream</code>: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">FileInputStream fin = new FileInputStream( "readandshow.txt" );
+FileChannel fc = fin.getChannel();</pre></span><p> The next step is to create a buffer:</p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">ByteBuffer buffer = ByteBuffer.allocate( 1024 );</pre></span><p> And, finally, we need to read from the channel into the buffer, as shown
+                                    here: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">fc.read( buffer );</pre></span><p> You'll notice that we didn't need to tell the channel <em> how much</em>
+                                    to read into the buffer. Each buffer has a sophisticated internal
+                                    accounting system that keeps track of how much data has been read and how
+                                    much room there is for more data. We'll talk more about the buffer
+                                    accounting system in the <a href="#bufferinternal">Buffer internals
+                                        overview</a>. </p><h3 id="N1018A" class="ibm-h3">Writing to a file</h3><p> Writing to a file in NIO is similar to reading from one. We start by
+                                    getting a channel from a <code> FileOutputStream</code>: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">FileOutputStream fout = new FileOutputStream( "writesomebytes.txt" );
+FileChannel fc = fout.getChannel();</pre></span><p> Our next step is to create a buffer and put some data in it -- in this
+                                    case, the data will be taken from an array called <code> message</code>
+                                    which contains the ASCII bytes for the string "Some bytes." (The
+                                    <code> buffer.flip()</code> and <code> buffer.put()</code> calls will be
+                                    explained later in the tutorial.)</p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">ByteBuffer buffer = ByteBuffer.allocate( 1024 );
+
+for (int i=0; i&lt;message.length; ++i) {
+     buffer.put( message[i] );
+}
+buffer.flip();</pre></span><p> Our final step is to write to the buffer: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">fc.write( buffer );</pre></span><p> Notice that once again we did not need to tell the channel how much data
+                                    we wanted to write. The buffer's internal accounting system keeps track of
+                                    how much data it contains and how much is left to be written. </p><h3 id="N101AE" class="ibm-h3">Reading and writing together</h3><p> Next we'll see what happens when we combine reading and writing. We'll
+                                    base this exercise on a simple program called CopyFile.java, which copies
+                                    all the data from one file to another one. CopyFile.java carries out three
+                                    basic operations: it first creates a <code> Buffer</code>, then reads data
+                                    from the source file into this buffer, and then writes the buffer to the
+                                    destination file. The program repeats -- read, write, read, write -- until
+                                    the source file is exhausted.</p><p> The CopyFile program will let you see how we check the status of an
+                                    operation, as well as how we use the <code> clear()</code> and
+                                    <code> flip()</code> methods to reset the buffer and prepare it to have
+                                    newly read data written to another channel.</p><h3 id="N101BF" class="ibm-h3">Running the CopyFile example</h3><p> Because the buffer tracks its own data, the inner loop of the CopyFile
+                                    program is very simple, as shown below: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">fcin.read( buffer );
+fcout.write( buffer );</pre></span><p> The first line reads data into the buffer from the input channel,
+                                    <code> fcin</code>, and the second line writes the data to the output
+                                    channel, <code> fcout</code>. </p><h3 id="N101D1" class="ibm-h3">Checking the status</h3><p> Our next step is to check to see when we're done copying. We're done when
+                                    there's no more data, and we can tell this when the <code> read()</code>
+                                    method returns <code> -1</code>, as shown below: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">int r = fcin.read( buffer );
+
+if (r==-1) {
+     break;
+}</pre></span><h3 id="N101E1" class="ibm-h3">Resetting the buffer</h3><p> And, finally, we call the <code> clear()</code> method before we read into
+                                    a buffer from the input channel. Likewise, we call the
+                                    <code> flip()</code> method before we write a buffer to the output
+                                    channel, as shown below: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">buffer.clear();
+int r = fcin.read( buffer );
+
+if (r==-1) {
+     break;
+}
+
+buffer.flip();
+fcout.write( buffer );</pre></span><p> The <code> clear()</code> method resets the buffer, making it ready to
+                                    have data read into it. The <code> flip()</code> method prepares the
+                                    buffer to have the newly-read data written to another channel.</p><h2 id="N10295" class="ibm-h2">Buffer internals</h2><h3 id="bufferinternal" class="ibm-h3">Buffer internals
+                                    overview</h3><p> In this section, we'll look at two important components of buffers in NIO:
+                                    state variables and accessor methods.</p><p> State variables are key to the "internal accounting system" mentioned in
+                                    the previous section. With each read/write operation, the buffer's state
+                                    changes. By recording and tracking those changes, a buffer is able to
+                                    internally manage its own resources.</p><p> When you read data from a channel, the data is placed in a buffer. In some
+                                    cases, you can write this buffer directly to another channel, but often,
+                                    you'll want to look at the data itself. This is accomplished using the
+                                    <em> accessor method</em><code> get()</code>. Likewise, when you want
+                                    to put raw data in a buffer, you use the accessor method
+                                    <code> put()</code>. </p><p> In this section, you'll learn about state variables and accessor methods
+                                    in NIO. Each component will be described, and then you'll have the
+                                    opportunity to see it in action. While NIO's internal accounting system
+                                    might seem complicated at first, you'll quickly see that most of the real
+                                    work is done for you. The bookkeeping you're probably accustomed to coding
+                                    by hand -- using byte arrays and index variables -- is handled internally
+                                    in NIO.</p><h3 id="N10211" class="ibm-h3">State variables</h3><p> Three values can be used to specify the state of a buffer at any given
+                                    moment in time: </p><ul class="ibm-bullet-list"><li><code> position</code></li><li><code> limit</code></li><li><code> capacity</code></li></ul><p> Together, these three variables track the state of the buffer and the data
+                                    it contains. We'll examine each one in detail, and also see how they fit
+                                    into a typical read/write (input/output) process. For the sake of the
+                                    example, we'll assume that we are copying data from an input channel to an
+                                    output channel.</p><h3 id="N10223" class="ibm-h3">Position</h3><p> You will recall that a buffer is really just a glorified array. When you
+                                    read from a channel, you put the data that you read into an underlying
+                                    array. The <code> position</code> variable keeps track of how much data
+                                    you have written. More precisely, it specifies into which array element
+                                    the next byte will go. Thus, if you've read three bytes from a channel
+                                    into a buffer, that buffer's <code> position</code> will be set to 3,
+                                    referring to the fourth element of the array. </p><p> Likewise, when you are writing to a channel, you get the data from a
+                                    buffer. The <code> position</code> value keeps track of how much you have
+                                    gotten from the buffer. More precisely, it specifies from which array
+                                    element the next byte will come. Thus, if you've written 5 bytes to a
+                                    channel from a buffer, that buffer's <code> position</code> will be set to
+                                    5, referring to the sixth element of the array. </p><h3 id="N10237" class="ibm-h3">Limit</h3><p> The <code> limit</code> variable specifies how much data there is left to
+                                    get (in the case of writing from a buffer into a channel), or how much
+                                    room there is left to put data into (in the case of reading from a channel
+                                    into a buffer). </p><p> The <code> position</code> is always less than, or equal to, the
+                                    <code> limit</code>. </p><h3 id="N10248" class="ibm-h3">Capacity</h3><p> The <code> capacity</code> of a buffer specifies the maximum amount of
+                                    data that can be stored therein. In effect, it specifies the size of the
+                                    underlying array -- or, at least, the amount of the underlying array that
+                                    we are permitted to use. </p><p> The <code> limit</code> can never be larger than the
+                                    <code> capacity</code>. </p><h3 id="N10259" class="ibm-h3">Observing the variables</h3><p> We'll start with a newly created buffer. For the sake of the example,
+                                    let's assume that our buffer has a total <code> capacity</code> of eight
+                                    bytes. The <code> Buffer</code> 's state is shown here: </p><h5 id="figure1" class="ibm-h5">React operations</h5><img src="figure1.gif" class="ibm-downsize" alt="Buffer's state" height="58" width="381"/><p class="ibm-ind-link"><a class="ibm-popup-link" onclick="IBMCore.common.widget.overlay.show('N1026A');return false;" href="#N1026A">View image at full size</a></p><div class="ibm-common-overlay ibm-overlay-alt-three" data-widget="overlay" id="N1026A"><img alt="Buffer's state" src="figure1.gif" width="381" /></div><p> Recall that the <code> limit</code> can never be larger than the
+                                    <code> capacity</code>, and in this case both values are set to 8. We show
+                                    this by pointing them off the end of the array (which is where slot 8
+                                    would be if there were a slot 8): </p><h5 id="figure2" class="ibm-h5">React operations</h5><img src="figure2.gif" class="ibm-downsize" alt="Buffer limit" height="226" width="441"/><p class="ibm-ind-link"><a class="ibm-popup-link" onclick="IBMCore.common.widget.overlay.show('N1027C');return false;" href="#N1027C">View image at full size</a></p><div class="ibm-common-overlay ibm-overlay-alt-three" data-widget="overlay" id="N1027C"><img alt="Buffer limit" src="figure2.gif" width="441" /></div><p> The <code> position</code> is set to 0. If we read some data into the
+                                    buffer, the next byte read will go into slot 0. If we write from the
+                                    buffer, the next byte taken from the buffer will be taken from slot 0. The
+                                    <code>position</code> setting is shown here:</p><h5 id="figure3" class="ibm-h5">React operations</h5><img src="figure3.gif" class="ibm-downsize" alt="Position setting" height="143" width="442"/><p class="ibm-ind-link"><a class="ibm-popup-link" onclick="IBMCore.common.widget.overlay.show('N1028E');return false;" href="#N1028E">View image at full size</a></p><div class="ibm-common-overlay ibm-overlay-alt-three" data-widget="overlay" id="N1028E"><img alt="Position setting" src="figure3.gif" width="442" /></div><p> Because the <code> capacity</code> is not going to change, we can omit it
+                                    from the discussion that follows. </p><h3 id="N10298" class="ibm-h3">The first read</h3><p> Now we are ready to begin read/write operations on our newly created
+                                    buffer. We start by reading some data from our input channel into the
+                                    buffer. The first read gets three bytes. These are put into the array
+                                    starting at the <code> position</code>, which was set to 0. After this
+                                    read, the position is increased to 3, as shown here:</p><h5 id="figure4" class="ibm-h5">React operations</h5><img src="figure4.gif" class="ibm-downsize" alt="Position increased to 3" height="124" width="430"/><p class="ibm-ind-link"><a class="ibm-popup-link" onclick="IBMCore.common.widget.overlay.show('N102A6');return false;" href="#N102A6">View image at full size</a></p><div class="ibm-common-overlay ibm-overlay-alt-three" data-widget="overlay" id="N102A6"><img alt="Position increased to 3" src="figure4.gif" width="430" /></div><p> The <code> limit</code> is unchanged. </p><h3 id="N102B0" class="ibm-h3">The second read</h3><p> For our second read, we read two more bytes from the input channel into
+                                    our buffer. The two bytes are stored at the location pointed to by
+                                    <code> position</code>; <code> position</code> is thus increased by
+                                    two:</p><h5 id="figure5" class="ibm-h5">React operations</h5><img src="figure5.gif" class="ibm-downsize" alt="Position increased by 2" height="124" width="430"/><p class="ibm-ind-link"><a class="ibm-popup-link" onclick="IBMCore.common.widget.overlay.show('N102C1');return false;" href="#N102C1">View image at full size</a></p><div class="ibm-common-overlay ibm-overlay-alt-three" data-widget="overlay" id="N102C1"><img alt="Position increased by 2" src="figure5.gif" width="430" /></div><p> The <code> limit</code> is unchanged.</p><h3 id="N102CB" class="ibm-h3">The flip</h3><p> Now we are ready to write our data to an output channel. Before we can do
+                                    this, we must call the <code> flip()</code> method. This method does two
+                                    crucial things:</p><ol><li> It sets the <code> limit</code> to the current
+                                    <code> position</code>. </li><li> It sets the <code> position</code> to 0. </li></ol><p> The figure on the section shows our buffer before the flip. Here is the
+                                    buffer after the flip:</p><h5 id="figure6" class="ibm-h5">React operations</h5><img src="figure6.gif" class="ibm-downsize" alt="Buffer after the flip" height="124" width="433"/><p class="ibm-ind-link"><a class="ibm-popup-link" onclick="IBMCore.common.widget.overlay.show('N102E9');return false;" href="#N102E9">View image at full size</a></p><div class="ibm-common-overlay ibm-overlay-alt-three" data-widget="overlay" id="N102E9"><img alt="Buffer after the flip" src="figure6.gif" width="433" /></div><p> We are now ready to begin writing data to a channel from the buffer. The
+                                    <code> position</code> has been set to 0, which means the next byte we get
+                                    will be the first one. And the <code> limit</code> has been set to the old
+                                    <code> position</code>, which means that it just includes all the bytes we
+                                    read before, and no more.</p><h3 id="N102F9" class="ibm-h3">The first write</h3><p> In our first write, we take four bytes from the buffer and write them to
+                                    our output channel. This advances the <code> position</code> to 4, and
+                                    leaves the <code> limit</code> unchanged, as shown here:</p><h5 id="figure7" class="ibm-h5">React operations</h5><img src="figure7.gif" class="ibm-downsize" alt="Code limit unchanged" height="124" width="430"/><p class="ibm-ind-link"><a class="ibm-popup-link" onclick="IBMCore.common.widget.overlay.show('N1030A');return false;" href="#N1030A">View image at full size</a></p><div class="ibm-common-overlay ibm-overlay-alt-three" data-widget="overlay" id="N1030A"><img alt="Code limit unchanged" src="figure7.gif" width="430" /></div><h3 id="N1030F" class="ibm-h3">The second write</h3><p> We only have one byte left to write. The <code> limit</code> was set to 5
+                                    when we did our <code> flip()</code>, and the <code> position</code>
+                                    cannot go past the <code> limit</code>. So the last write takes one byte
+                                    from our buffer and writes it to the output channel. This advances the
+                                    <code> position</code> to 5, and leaves the <code> limit</code> unchanged,
+                                    as shown here:</p><h5 id="figure8" class="ibm-h5">React operations</h5><img src="figure8.gif" class="ibm-downsize" alt="Code limit unchanged" height="124" width="430"/><p class="ibm-ind-link"><a class="ibm-popup-link" onclick="IBMCore.common.widget.overlay.show('N1032C');return false;" href="#N1032C">View image at full size</a></p><div class="ibm-common-overlay ibm-overlay-alt-three" data-widget="overlay" id="N1032C"><img alt="Code limit unchanged" src="figure8.gif" width="430" /></div><h3 id="N10331" class="ibm-h3">The clear</h3><p> Our final step is to call the buffer's <code> clear()</code> method. This
+                                    method resets the buffer in preparation for receiving more bytes.
+                                    <code> Clear</code> does two crucial things:</p><ol><li> It sets the <code> limit</code> to match the <code> capacity</code>. </li><li> It sets the <code> position</code> to 0. </li></ol><p> This figure shows the state of the buffer after <code> clear()</code> has
+                                    been called:</p><h5 id="figure9" class="ibm-h5">React operations</h5><img src="figure9.gif" class="ibm-downsize" alt="Buffer after clear has been called" height="128" width="434"/><p class="ibm-ind-link"><a class="ibm-popup-link" onclick="IBMCore.common.widget.overlay.show('N10355');return false;" href="#N10355">View image at full size</a></p><div class="ibm-common-overlay ibm-overlay-alt-three" data-widget="overlay" id="N10355"><img alt="Buffer after clear has been called" src="figure9.gif" width="434" /></div><p> The buffer is now ready to receive fresh data.</p><h3 id="N1035C" class="ibm-h3">Accessor methods</h3><p> So far, we've only used buffers to move data from one channel to another.
+                                    Frequently, however, your program will need to deal directly with the
+                                    data. For example, you might want to save user data to disk. In this case,
+                                    you'll have to put that data directly into a buffer, and then write the
+                                    buffer to disk using a channel. </p><p> Or, you might want to read user data back in from disk. In this case, you
+                                    would read the data into a buffer from a channel, and then examine the
+                                    data in the buffer. </p><p> We'll close this section with a detailed look at accessing data directly
+                                    in the buffer, using the <code> get()</code> and <code> put()</code>
+                                    methods for the <code> ByteBuffer</code> class.</p><h3 id="N1036F" class="ibm-h3">The get() methods</h3><p> In the <code> ByteBuffer</code> class, there are four <code> get()</code>
+                                    methods:</p><ol><li><code> byte get();</code></li><li><code> ByteBuffer get( byte dst[] );</code></li><li><code> ByteBuffer get( byte dst[], int offset, int length );</code></li><li><code> byte get( int index );</code></li></ol><p> The first method gets a single byte. The second and third methods read a
+                                    group of bytes into an array. The fourth method gets the byte from a
+                                    particular position in the buffer. The methods that return a
+                                    <code> ByteBuffer</code> simply return the <code> this</code> value on
+                                    which they are called.</p><p> Additionally, we say that the first three <code> get()</code> methods are
+                                    relative, while the last one is absolute. <em> Relative</em> means that
+                                    the <code> limit</code> and <code> position</code> values are respected by
+                                    the <code> get()</code> operation -- specifically, the byte is read from
+                                    the current <code> position</code>, and the <code> position</code> is
+                                    incremented after the <code> get</code>. An <em> absolute</em> method, on
+                                    the other hand, ignores the <code> limit</code> and <code> position</code>
+                                    values, and does not affect them. In effect, it bypasses the buffer's
+                                    accounting methods entirely.</p><p> The methods shown above correspond to the <code> ByteBuffer</code> class.
+                                    The other classes have equivalent <code> get()</code> methods that are
+                                    identical except that rather than dealing with bytes, they deal with the
+                                    type appropriate for that buffer class.</p><h3 id="N103BB" class="ibm-h3">The put() methods</h3><p> In the <code> ByteBuffer</code> class, there are five <code> put()</code>
+                                    methods:</p><ol><li><code> ByteBuffer put( byte b );</code></li><li><code> ByteBuffer put( byte src[] );</code></li><li><code> ByteBuffer put( byte src[], int offset, int length );</code></li><li><code> ByteBuffer put( ByteBuffer src );</code></li><li><code> ByteBuffer put( int index, byte b );</code></li></ol><p> The first method <code> put</code> s a single byte. The second and third
+                                    methods write a group of bytes from an array. The fourth method copies
+                                    data from the given source <code> ByteBuffer</code> into this
+                                    <code> ByteBuffer</code>. The fifth method puts the byte into the buffer
+                                    at a particular <code> position</code>. The methods that return a
+                                    <code> ByteBuffer</code> simply return the <code> this</code> value on
+                                    which they are called.</p><p> As with the <code> get()</code> methods, we characterize the
+                                    <code> put()</code> methods as being <em> relative</em> or <em>
+                                        absolute</em>. The first four methods are relative, while the fifth
+                                    one is absolute.</p><p> The methods shown above correspond to the <code> ByteBuffer</code> class.
+                                    The other classes have equivalent <code> put()</code> methods that are
+                                    identical except that rather than dealing with bytes, they deal with the
+                                    type appropriate for that buffer class.</p><h3 id="N10401" class="ibm-h3">Typed get() and put() methods</h3><p> In addition to the <code> get()</code> and <code> put()</code> methods
+                                    described previously, <code>ByteBuffer</code> also has extra methods for
+                                    reading and writing values of different types, as follows:</p><ul class="ibm-bullet-list"><li><code> getByte()</code></li><li><code> getChar()</code></li><li><code> getShort()</code></li><li><code> getInt()</code></li><li><code> getLong()</code></li><li><code> getFloat()</code></li><li><code> getDouble()</code></li><li><code> putByte()</code></li><li><code> putChar()</code></li><li><code> putShort()</code></li><li><code> putInt()</code></li><li><code> putLong()</code></li><li><code> putFloat()</code></li><li><code> putDouble()</code></li></ul><p> Each of these methods, in fact, comes in two varieties -- one relative and
+                                    one absolute. They are useful for reading formatted binary data, such as
+                                    the header of an image file.</p><p> You can see these methods in action in the example program
+                                    TypesInByteBuffer.java. </p><h3 id="N1043F" class="ibm-h3">The buffer at work: An inner loop</h3><p> The following inner loop summarizes the process of using a buffer to copy
+                                    data from an input channel to an output channel.</p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">while (true) {
+     buffer.clear();
+     int r = fcin.read( buffer );
+
+     if (r==-1) {
+       break;
+     }
+
+     buffer.flip();
+     fcout.write( buffer );
+}</pre></span><p> The <code> read()</code> and <code> write()</code> calls are greatly
+                                    simplified because the buffer takes care of many of the details. The
+                                    <code> clear()</code> and <code> flip()</code> methods are used to switch
+                                    the buffer between reading and writing.</p><h2 id="N10528" class="ibm-h2">More about buffers</h2><h3 id="N1045B" class="ibm-h3">Buffers overview</h3><p> Thus far, you have learned most of what you need to know about buffers to
+                                    use them on a day-to-day basis. Our examples haven't strayed much beyond
+                                    the kind of standard read/write procedures you could just as easily
+                                    implement in original I/O as in NIO.</p><p> In this section, we'll get into some of the more complex aspects of
+                                    working with buffers, such as buffer allocation, wrapping, and slicing.
+                                    We'll also talk about some of the new features NIO brings to the Java
+                                    platform. You'll learn how to create different types of buffers to meet
+                                    different goals, such as <em> read-only</em> buffers, which protect data
+                                    from modification, and <em> direct</em> buffers, which map directly onto
+                                    the underlying OS buffers. We'll close the section with an introduction to
+                                    creating memory-mapped files in NIO. </p><h3 id="N10469" class="ibm-h3">Buffer allocation and wrapping</h3><p> Before you can read or write, you must have a buffer. To create a buffer,
+                                    you must <em> allocate</em> it. We allocate a buffer using the static
+                                    method of <code> allocate()</code>: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">ByteBuffer buffer = ByteBuffer.allocate( 1024 );</pre></span><p> The <code> allocate()</code> method allocates an underlying array of the
+                                    specified size and wraps it in a buffer object -- in this case a
+                                    <code> ByteBuffer</code>. </p><p> You can also turn an existing array into a buffer, as shown here:</p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">byte array[] = new byte[1024];
+ByteBuffer buffer = ByteBuffer.wrap( array );</pre></span><p> In this case, you've used the <code> wrap()</code> method to wrap a buffer
+                                    around an array. You must be very careful about performing this type of
+                                    operation. Once you've done it, the underlying data can be accessed
+                                    through the buffer as well as directly.</p><h3 id="N1048C" class="ibm-h3">Buffer slicing</h3><p> The <code> slice()</code> method creates a kind of <em> sub-buffer</em>
+                                    from an existing buffer. That is, it creates a new buffer that shares its
+                                    data with a portion of the original buffer. </p><p> This is best explained with an example. Let's start by creating a
+                                    <code> ByteBuffer</code> of length 10:</p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">ByteBuffer buffer = ByteBuffer.allocate( 10 );</pre></span><p> We fill this buffer with data, putting the number <em> n</em> in slot <em>
+                                    n</em>: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">for (int i=0; i&lt;buffer.capacity(); ++i) {
+     buffer.put( (byte)i );
+}</pre></span><p> Now we'll <em> slice</em> the buffer to create a sub-buffer that covers
+                                    slots 3 through 6. In a sense, the sub-buffer is like a <em> window</em>
+                                    onto the original buffer.</p><p> You specify the start and end of the window by setting the
+                                    <code> position</code> and <code> limit</code> values, and then call the
+                                    <code> Buffer's</code><code> slice()</code> method:</p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">buffer.position( 3 );
+buffer.limit( 7 );
+ByteBuffer slice = buffer.slice();</pre></span><p><code> slice</code> is a sub-buffer of <code> buffer</code>. However,
+                                    <code> slice</code> and <code> buffer</code> share the same underlying
+                                    data array, as we'll see in the next section.</p><h3 id="N104D3" class="ibm-h3">Buffer slicing and data sharing</h3><p> We've created a sub-buffer of our original buffer, and we know that the
+                                    two buffers and the sub-buffers share the same underlying data array.
+                                    Let's see what this means.</p><p> We run through the sub-buffer, and alter each element by multiplying it by
+                                    11. This changes, for example, a 5 into a 55.</p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">for (int i=0; i&lt;slice.capacity(); ++i) {
+     byte b = slice.get( i );
+     b *= 11;
+     slice.put( i, b );
+}</pre></span><p> Finally, let's take a look at the contents of the original buffer:</p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">buffer.position( 0 );
+buffer.limit( buffer.capacity() );
+
+while (buffer.remaining()&gt; 0) {
+     System.out.println( buffer.get() );
+}</pre></span><p> The result shows that only the elements in the window of the sub-buffer
+                                    were changed:</p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">$ java SliceBuffer
+0
+1
+2
+33
+44
+55
+66
+7
+8
+9</pre></span><p> Slice buffers are excellent for facilitating abstraction. You can write
+                                    your functions to process an entire buffer, and if you find you want to
+                                    apply that process to a sub-buffer, you can just take a slice of the main
+                                    buffer and pass that to your function. This is easier than writing your
+                                    functions to take additional parameters specifying what portion of the
+                                    buffer should be acted upon.</p><h3 id="N104ED" class="ibm-h3">Read-only buffers</h3><p> Read-only buffers are very simple -- you can read them, but you can't
+                                    write to them. You can turn any regular buffer into a read-only buffer by
+                                    calling its <code> asReadOnlyBuffer()</code> method, which returns a new
+                                    buffer that is identical to the first (and shares data with it), but is
+                                    read-only.</p><p> Read-only buffers are useful for protecting data. When you pass a buffer
+                                    to a method of some object, you really have no way of knowing if that
+                                    method is going to try to modify the data in the buffer. Creating a
+                                    read-only buffer <em> guarantees</em> that the buffer won't be
+                                    modified.</p><p> You cannot convert a read-only buffer to a writable buffer.</p><h3 id="N104FD" class="ibm-h3">Direct and indirect buffers</h3><p> Another useful kind of <code> ByteBuffer</code> is the direct buffer. A
+                                    <em> direct buffer</em> is one whose memory is allocated in a special
+                                    way to increase I/O speed.</p><p> Actually, the exact definition of a direct buffer is
+                                    implementation-dependent. Sun's documentation has this to say about direct
+                                    buffers:</p><p><em> Given a direct byte buffer, the Java virtual machine will make a best
+                                    effort to perform native I/O operations directly upon it. That is, it
+                                    will attempt to avoid copying the buffer's content to (or from) an
+                                    intermediate buffer before (or after) each invocation of one of the
+                                    underlying operating system's native I/O operations. </em></p><p> You can see direct buffers in action in the example program
+                                    FastCopyFile.java, which is a version of CopyFile.java that uses direct
+                                    buffers for increased speed.</p><p> You can also create a direct buffer using memory-mapped files.</p><h3 id="N10512" class="ibm-h3">Memory-mapped file I/O</h3><p> Memory-mapped file I/O is a method for reading and writing file data that
+                                    can be a great deal faster than regular stream- or channel-based I/O. </p><p> Memory-mapped file I/O is accomplished by causing the data in a file to
+                                    magically appear as the contents of a memory array. At first, this sounds
+                                    like it simply means reading the entire file into memory, but in fact it
+                                    does not. In general, only the parts of the file that you actually read or
+                                    write are brought, or <em> mapped</em>, into memory. </p><p> Memory-mapping isn't really magical, or all that uncommon. Modern
+                                    operating systems generally implement filesystems by mapping portions of a
+                                    file into portions of memory, doing so on demand. The Java memory-mapping
+                                    system simply provides access to this facility if it is available in the
+                                    underlying operating system. </p><p> Although they are fairly simple to create, writing to memory-mapped files
+                                    can be dangerous. By the simple act of changing a single element of an
+                                    array, you are directly modifying the file on disk. There is no separation
+                                    between modifying the data and saving it to a disk. </p><h3 id="N10521" class="ibm-h3">Mapping a file into memory</h3><p> The easiest way to learn about memory mapping is by example. In the
+                                    example below, we want to map a <code> FileChannel</code> (all or a
+                                    portion of it) into memory. For this we use the
+                                    <code> FileChannel.map()</code> method. The following line of code maps
+                                    the first 1024 bytes of a file into memory: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">MappedByteBuffer mbb = fc.map( FileChannel.MapMode.READ_WRITE,
+     0, 1024 );</pre></span><p> The <code> map()</code> method returns a <code> MappedByteBuffer</code>,
+                                    which is a subclass of <code> ByteBuffer</code>. Thus, you can use the
+                                    newly-mapped buffer as you would any other <code> ByteBuffer</code>, and
+                                    the operating system will take care of doing the mapping for you, on
+                                    demand. </p><h2 id="N1061D" class="ibm-h2">Scattering and gathering</h2><h3 id="N10543" class="ibm-h3">Scattering and gathering overview</h3><p> Scatter/gather I/O is a method of reading and writing that uses multiple
+                                    buffers, rather than a single buffer, to hold data.</p><p> A scattering read is like a regular channel read, except that it reads
+                                    data into an array of buffers rather than a single buffer. Likewise, a
+                                    gathering write writes data from an array of buffers rather than a single
+                                    buffer.</p><p> Scatter/gather I/O is useful for dividing a data stream into separate
+                                    sections, which can help implement complicated data formats.</p><h3 id="N1054D" class="ibm-h3">Scatter/gather I/O</h3><p> Channels can optionally implement two new interfaces:
+                                    <code> ScatteringByteChannel</code> and
+                                    <code> GatheringByteChannel</code>. A <code> ScatteringByteChannel</code>
+                                    is a channel that has two additional read methods: </p><ul class="ibm-bullet-list"><li><code> long read( ByteBuffer[] dsts );</code></li><li><code> long read( ByteBuffer[] dsts, int offset, int length );</code></li></ul><p> These <code> long read()</code> methods are rather like the standard
+                                    <code> read</code> methods, except that instead of taking a single buffer
+                                    they take an array of buffers. </p><p> In a <em> scattering read</em>, the channel fills up each buffer in turn.
+                                    When it fills up one buffer, it starts filling the next one. In a sense,
+                                    the array of buffers is treated like one big buffer. </p><h3 id="N10570" class="ibm-h3">Applications of scatter/gather</h3><p> Scatter/gather I/O is useful for dividing a piece of data into sections.
+                                    For example, you might be writing a networking application that uses
+                                    message objects, and each message is divided into a fixed-length header
+                                    and a fixed-length body. You create one buffer that's just big enough for
+                                    the header, and another buffer that's just big enough for the body. When
+                                    you put these two in an array and read into them using a scattering read
+                                    the header and body will be neatly divided between two buffers. </p><p> The convenience that we already get from buffers applies to buffer arrays
+                                    as well. Because each buffer keeps track of how much room it has for more
+                                    data, the scattering read will automatically find the first buffer with
+                                    room in it. After that's filled up, it moves onto the next one. </p><h3 id="N10578" class="ibm-h3">Gathering writes</h3><p> A <em> gathering write</em> is like a scattering read, only for writing.
+                                    It too has methods that take an array of buffers: </p><ul class="ibm-bullet-list"><li><code> long write( ByteBuffer[] srcs );</code></li><li><code> long write( ByteBuffer[] srcs, int offset, int length );</code></li></ul><p> A gathering write is useful for forming a single data stream from a group
+                                    of separate buffers. In keeping with the message example described above,
+                                    you could use a gathering write to automatically assemble the components
+                                    of a network message into a single data stream for transmission across a
+                                    network. </p><p> You can see scattering reads and gathering writes in action in the example
+                                    program UseScatterGather.java. </p><h2 id="N10673" class="ibm-h2">File locking</h2><h3 id="N10590" class="ibm-h3">File locking overview</h3><p> File-locking can be confusing at first. It <em> sounds</em> like it refers
+                                    to preventing programs or users from accessing a particular file. In fact,
+                                    file locks are just like regular Java object locks -- they are <em>
+                                        advisory</em> locks. They don't prevent any kind of data access;
+                                    instead, they allow different parts of a system to coordinate through the
+                                    sharing and acquisition of locks.</p><p> You can lock an entire file or a portion of a file. If you acquire an
+                                    exclusive lock, then no one else can acquire a lock on that same file or
+                                    portion of a file. If you acquire a shared lock, then others can acquire
+                                    shared locks, but not exclusive locks, on that same file or portion of a
+                                    file. File locking is not always done for the purpose of protecting data.
+                                    For example, you might temporarily lock a file to ensure that a particular
+                                    write operation is made atomically, without interference from other
+                                    programs. </p><p> Most operating systems provide filesystem locks, but they don't all do it
+                                    in the same way. Some implementations provide shared locks, while others
+                                    provide only exclusive locks. And some implementations do, in fact, make a
+                                    locked portion of a file inaccessible, although most do not. </p><p> In this section, you'll learn how to do a simple file locking procedure in
+                                    NIO, and we'll also talk about some of the ways you can ensure your locked
+                                    files are as portable as they can be.</p><h3 id="N105A2" class="ibm-h3">Locking a file</h3><p> To acquire a lock on a portion of a file, you call the
+                                    <code> lock()</code> method on an open <code> FileChannel</code>. Note
+                                    that you must open the file for writing if you want to acquire an
+                                    exclusive lock. </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">RandomAccessFile raf = new RandomAccessFile( "usefilelocks.txt", "rw" );
+FileChannel fc = raf.getChannel();
+FileLock lock = fc.lock( start, end, false );</pre></span><p> After you have the lock, you can carry out any sensitive operations that
+                                    you need to, and then release the lock: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">lock.release();</pre></span><p> After you have released the lock, any other programs trying to acquire the
+                                    lock will have a chance to do so. </p><p> The example program, UseFileLocks.java, is meant to be run in parallel
+                                    with itself. This program acquires a lock on a file, holds it for three
+                                    seconds, and then releases it. If you run several instances of this
+                                    program at the same time, you can see each one acquiring the lock in turn. </p><h3 id="N105BC" class="ibm-h3">File locking and portability</h3><p> File locking can be tricky business, especially given the fact that
+                                    different operating systems implement locks differently. The following
+                                    guidelines will help you keep your code as portable as possible: </p><ul class="ibm-bullet-list"><li> Only use exclusive locks. </li><li> Treat all locks as advisory. </li></ul><h2 id="N106AE" class="ibm-h2">Networking and asynchronous I/O</h2><h3 id="N105CB" class="ibm-h3">Networking and asynchronous I/O
+                                    overview</h3><p> Networking is an excellent foundation for learning about asynchronous I/O,
+                                    which is of course essential knowledge for anyone doing input/output
+                                    procedures in the Java language. Networking in NIO isn't much different
+                                    from any other operation in NIO -- it relies on channels and buffers, and
+                                    you acquire the channels from the usual <code> InputStream</code> s and
+                                    <code> OutputStream</code> s.</p><p> In this section we'll start with the fundamentals of asynchronous I/O --
+                                    what it is and what it is not -- and then move on to a more hands-on,
+                                    procedural example.</p><h3 id="N105D9" class="ibm-h3">Asynchronous I/O</h3><p> Asynchronous I/O is a method for reading and writing data <em> without
+                                    blocking</em>. Normally, when your code makes a <code> read()</code>
+                                    call, the code blocks until there is data to be read. Likewise, a
+                                    <code> write()</code> call will block until the data can be written. </p><p> Asynchronous I/O calls, on the other hand, do not block. Instead, you
+                                    register your interest in a particular I/O event -- the arrival of
+                                    readable data, a new socket connection, and so on -- and the system tells
+                                    you when such an event occurs. </p><p> One of the advantages of asynchronous I/O is that it lets you do I/O from
+                                    a great many inputs and outputs at the same time. Synchronous programs
+                                    often have to resort to polling, or to the creation of many, many threads,
+                                    to deal with lots of connections. With asynchronous I/O, you can listen
+                                    for I/O events on an arbitrary number of channels, without polling and
+                                    without extra threads. </p><p> We'll see asynchronous I/O in action by examining an example program
+                                    called MultiPortEcho.java. This program is like the traditional <em> echo
+                                        server</em>, which takes network connections and echoes back to them
+                                    any data they might send. However, it has the added feature that it can
+                                    listen on multiple ports at the same time, and deal with connections from
+                                    all of those ports. And it does it all in a single thread. </p><h3 id="N105F1" class="ibm-h3">Selectors</h3><p> The explanation in this section corresponds to the implementation of the
+                                    <code> go()</code> method in the source code for
+                                    <code> MultiPortEcho</code>, so take a look at the source for a fuller
+                                    picture of what is going on. </p><p> The central object in asynchronous I/O is called the
+                                    <code> Selector</code>. A <code> Selector</code> is where you register
+                                    your interest in various I/O events, and it is the object that tells you
+                                    when those events occur. </p><p> So, the first thing we need to do is create a <code> Selector</code>: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">Selector selector = Selector.open();</pre></span><p> Later on, we will call the <code> register()</code> method on various
+                                    channel objects, in order to register our interest in I/O events happening
+                                    inside those objects. The first argument to <code> register()</code> is
+                                    always the <code> Selector</code>. </p><h3 id="N10619" class="ibm-h3">Opening a ServerSocketChannel</h3><p> In order to receive connections, we need a
+                                    <code> ServerSocketChannel</code>. In fact, we need one for each of the
+                                    ports on which we are going to listen. For each of the ports, we open a
+                                    <code> ServerSocketChannel</code>, as shown here: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">ServerSocketChannel ssc = ServerSocketChannel.open();
+ssc.configureBlocking( false );
+
+ServerSocket ss = ssc.socket();
+InetSocketAddress address = new InetSocketAddress( ports[i] );
+ss.bind( address );</pre></span><p> The first line creates a new <code> ServerSocketChannel</code> and the
+                                    last three lines bind it to the given port. The second line sets the
+                                    <code> ServerSocketChannel</code> to be <em> non-blocking</em>. We must
+                                    call this method on every socket channel that we're using; otherwise
+                                    asynchronous I/O won't work. </p><h3 id="N10634" class="ibm-h3">Selection keys</h3><p> Our next step is to register the newly opened
+                                    <code> ServerSocketChannels</code> with our <code> Selector</code>. We do
+                                    this using the ServerSocketChannel.register() method, as shown below: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">SelectionKey key = ssc.register( selector, SelectionKey.OP_ACCEPT );</pre></span><p> The first argument to <code> register()</code> is always the
+                                    <code> Selector</code>. The second argument, <code> OP_ACCEPT</code>, here
+                                    specifies that we want to listen for <em> accept</em> events -- that is,
+                                    the events that occur when a new connection is made. This is the only kind
+                                    of event that is appropriate for a <code> ServerSocketChannel</code>. </p><p> Note the return value of the call to <code> register()</code>. A
+                                    <code> SelectionKey</code> represents this registration of this channel
+                                    with this <code> Selector</code>. When a <code> Selector</code> notifies
+                                    you of an incoming event, it does this by supplying the
+                                    <code> SelectionKey</code> that corresponds to that event. The
+                                    <code> SelectionKey</code> can also be used to de-register the channel. </p><h3 id="N10669" class="ibm-h3">The inner loop</h3><p> Now that we have registered our interest in some I/O events, we enter the
+                                    main loop. Just about every program that uses <code> Selectors</code> uses
+                                    an inner loop much like this one: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">int num = selector.select();
+
+Set selectedKeys = selector.selectedKeys();
+Iterator it = selectedKeys.iterator();
+
+while (it.hasNext()) {
+     SelectionKey key = (SelectionKey)it.next();
+     // ... deal with I/O event ...
+}</pre></span><p> First, we call the <code> select()</code> method of our
+                                    <code> Selector</code>. This method blocks until at least one of the
+                                    registered events occurs. When one or more events occur, the
+                                    <code> select()</code> method returns the number of events that occurred. </p><p> Next, we call the <code> Selector</code> 's <code> selectedKeys()</code>
+                                    method, which returns a <code> Set</code> of the
+                                    <code> SelectionKey</code> objects for which events have occurred. </p><p> We process the events by iterating through the <code> SelectionKeys</code>
+                                    and dealing with each one in turn. For each <code> SelectionKey</code>,
+                                    you must determine what I/O event has happened and which I/O objects have
+                                    been impacted by that event. </p><h3 id="N10697" class="ibm-h3">Listening for new connections</h3><p> At this point in the execution of our program, we've only registered
+                                    <code> ServerSocketChannel</code> s, and we have only registered them for
+                                    "accept" events. To confirm this, we call the <code> readyOps()</code>
+                                    method on our <code> SelectionKey</code> and check to see what kind of
+                                    event has occurred: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">if ((key.readyOps() &amp; SelectionKey.OP_ACCEPT)
+     == SelectionKey.OP_ACCEPT) {
+
+     // Accept the new connection
+     // ...
+}</pre></span><p> Sure enough, the <code> readOps()</code> method tells us that the event is
+                                    a new connection.</p><h3 id="N106AF" class="ibm-h3">Accepting a new connection</h3><p> Because we know there is an incoming connection waiting on this server
+                                    socket, we can safely accept it; that is, without fear that the
+                                    <code> accept()</code> operation will block: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">ServerSocketChannel ssc = (ServerSocketChannel)key.channel();
+SocketChannel sc = ssc.accept();</pre></span><p> Our next step is to configure the newly-connected
+                                    <code> SocketChannel</code> to be non-blocking. And because the purpose of
+                                    accepting this connection is to read data from the socket, we must also
+                                    register the <code> SocketChannel</code> with our <code> Selector</code>,
+                                    as shown below: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">sc.configureBlocking( false );
+SelectionKey newKey = sc.register( selector, SelectionKey.OP_READ );</pre></span><p> Note that we've registered the <code> SocketChannel</code> for <em>
+                                    reading</em> rather than <em> accepting</em> new connections, using
+                                    the <code> OP_READ</code> argument to <code> register()</code>. </p><h3 id="N106DC" class="ibm-h3">Removing the processed SelectionKey</h3><p> Having processed the <code> SelectionKey</code>, we're almost ready to
+                                    return to the main loop. But first we must remove the processed
+                                    <code> SelectionKey</code> from the set of selected keys. If we do not
+                                    remove the processed key, it will still be present as an activated key in
+                                    the main set, which would lead us to attempt to process it again. We call
+                                    the iterator's <code> remove()</code> method to remove the processed
+                                    <code> SelectionKey</code>: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">it.remove();</pre></span><p> Now we're set to return to the main loop and receive incoming data (or an
+                                    incoming I/O event) on one of our sockets. </p><h3 id="N106F4" class="ibm-h3">Incoming I/O</h3><p> When data arrives from one of the sockets, it triggers an I/O event. This
+                                    causes the call to <code> Selector.select()</code>, in our main loop, to
+                                    return with an I/O event or events. This time, the
+                                    <code> SelectionKey</code> will be marked as an <code> OP_READ</code>
+                                    event, as shown below: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">} else if ((key.readyOps() &amp; SelectionKey.OP_READ)
+     == SelectionKey.OP_READ) {
+     // Read the data
+     SocketChannel sc = (SocketChannel)key.channel();
+     // ...
+}</pre></span><p> As before, we get the channel in which the I/O event occurred and process
+                                    it. In this case, because this is an echo server, we just want to read the
+                                    data from the socket and send it right back. See the source code
+                                    (MultiPortEcho.java) in <a href="#artrelatedtopics">Related topics</a> for details on
+                                    this process. </p><h3 id="N1070D" class="ibm-h3">Back to the main loop</h3><p> Each time we return to the main loop we call the <code> select()</code>
+                                    method on our <code> Selector</code>, and we get a set of
+                                    <code> SelectionKey</code> s. Each key represents an I/O event. We process
+                                    the events, remove the <code> SelectionKey</code> s from the selected set,
+                                    and go back to the top of the main loop. </p><p> This program is a bit simplistic, since it aims only to demonstrate the
+                                    techniques involved in asynchronous I/O. In a real application, you would
+                                    need to deal with closed channels by removing them from the
+                                    <code> Selector</code>. And you would probably want to use more than one
+                                    thread. This program can get away with a single thread because it's only a
+                                    demo, but in a real-world scenario it might make more sense to create a
+                                    pool of threads for taking care of the time-consuming portions of I/O
+                                    event processing. </p><h2 id="N1083F" class="ibm-h2">Character sets</h2><h3 id="N10728" class="ibm-h3">Character sets overview</h3><p> According to Sun's documentation, a <code> Charset</code> is "a named
+                                    mapping between sequences of sixteen-bit Unicode characters and sequences
+                                    of bytes." In practice, a <code> Charset</code> lets you read and write
+                                    character sequences in the most portable way possible. </p><p> The Java language is defined as being based on Unicode. In practice,
+                                    however, many people write programs under the assumption that a single
+                                    character is represented on disk, or in a network stream, as a single
+                                    byte. This assumption works in many cases, but not all, and as computers
+                                    become more Unicode-friendly, it becomes less true every day. </p><p> In this section, we'll see how to use <code> Charsets</code> to process
+                                    textual data in conformance with modern text formats. The sample program
+                                    we'll work with here is rather simple; nevertheless, it touches on all the
+                                    crucial aspects of using <code> Charset</code> s: creating a
+                                    <code> Charset</code> for a given character encoding, and using that
+                                    <code> Charset</code> to decode and encode text data. </p><h3 id="N10744" class="ibm-h3">Encoders/decoders</h3><p> To read and write text, we are going to use <code> CharsetDecoder</code> s
+                                    and <code> CharsetEncoder</code> s, respectively. There's a good reason
+                                    why these are called <em> encoders</em> and <em> decoders</em>. A <em>
+                                        character</em> no longer represents a particular bit-pattern, but
+                                    rather an entity within a character system. Thus, characters represented
+                                    by an actual bit pattern must therefore be represented in some particular
+                                    <em> encoding</em>. </p><p> A <code> CharsetDecoder</code> is used to convert the bit-by-bit
+                                    representation of a string of characters into actual <code> char</code>
+                                    values. Likewise, a <code> CharsetEncoder</code> is used to convert the
+                                    characters back to bits. </p><p>Next, we'll take a look at a program that reads and writes data using these
+                                    objects. </p><h3 id="N10769" class="ibm-h3">The right way to process text</h3><p> We'll take a look now at the example program, UseCharsets.java. This
+                                    program is very simple -- it reads some text from one file, and writes it
+                                    to another file. But it treats the data as textual data, and reads it into
+                                    a <code> CharBuffer</code> using a <code> CharsetDecoder</code>. Likewise,
+                                    it writes the data back out using a <code> CharsetEncoder</code>. </p><p> We're going to assume that our characters are stored on disk in the
+                                    ISO-8859-1 (Latin1) character set -- the standard extension of ASCII. Even
+                                    though we must be prepared for Unicode, we also must realize that
+                                    different files are stored in different formats, and ASCII is of course a
+                                    very common one. In fact, every Java implementation is required to come
+                                    complete with support for the following character encodings: </p><ul class="ibm-bullet-list"><li> US-ASCII </li><li> ISO-8859-1 </li><li> UTF-8 </li><li> UTF-16BE </li><li> UTF-16LE </li><li> UTF-16 </li></ul><h3 id="N10787" class="ibm-h3">The sample program</h3><p> After opening the appropriate files reading the input data into a
+                                    <code> ByteBuffer</code> called <code> inputData</code>, our program must
+                                    create an instance of an ISO-8859-1 (Latin1) character set: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">Charset latin1 = Charset.forName( "ISO-8859-1" );</pre></span><p> Then, we create a decoder (for reading) and encoder (for writing): </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">CharsetDecoder decoder = latin1.newDecoder();
+CharsetEncoder encoder = latin1.newEncoder();</pre></span><p> To decode our byte data into a set of characters, we pass our
+                                    <code> ByteBuffer</code> to the <code> CharsetDecoder</code>, resulting in
+                                    a <code> CharBuffer</code>: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">CharBuffer cb = decoder.decode( inputData );</pre></span><p> If we wanted to process our characters, we could do it at this point in
+                                    the program. But we only want to write it back out unchanged, so there's
+                                    nothing to do. </p><p> To write the data back out, we must convert it back to bytes, using the
+                                    <code> CharsetEncoder</code>: </p><span class="dw-code-nohighlight"><pre data-widget="syntaxhighlighter" class="brush: js; html-script: true; gutter: true;">ByteBuffer outputData = encoder.encode( cb );</pre></span><p> After the conversion is complete we can write the data out to a file. </p><h2 id="N108E4" class="ibm-h2">Summary</h2><h3 id="N107BD" class="ibm-h3">Summary</h3><p> As you've seen, there are a lot of features in the NIO library. While some
+                                    of the new features -- file locking and character sets, for example --
+                                    provide new capabilities, many of the features excel in the area of
+                                    optimization. </p><p> At a fundamental level, there's nothing that channels and buffers can do
+                                    that we couldn't do using the old stream-oriented classes. But channels
+                                    and buffers allow for the possibility of doing the same old operations
+                                    <em> much faster</em> -- approaching the maximum allowed by the
+                                    system, in fact. </p><p> But one of the greatest strengths of NIO is that it provides a new -- and
+                                    much needed -- structuring metaphor for doing input/output in the Java
+                                    language. Along with such new conceptual (and realizable) entities as
+                                    buffers, channels, and asynchronous I/O comes the opportunity to rethink
+                                    I/O procedures in your Java programs. In this way, NIO breathes new life
+                                    into even the most familiar procedures of I/O and gives us the opportunity
+                                    to do them differently, and better, than we have before.</p><!--CMA ID: 482400--><!--Site ID: 1--><!--XSLT stylesheet used to transform this file: dw-document-html-8.0.xsl-->
+                                    <!-- Article Quiz -->
+
+                                    <!-- Article Resources -->
+                                    <div class="ibm-alternate-rule"><hr/></div><h4 id="artdownload" class="ibm-h4">Downloadable resources</h4><ul class="ibm-link-list"><li><a class="ibm-pdf-link" href="j-nio-pdf.pdf">PDF of this content</a></li></ul><div class="ibm-alternate-rule"><hr/></div><h4 id="artrelatedtopics" class="ibm-h4">Related topics</h4><ul><li> Download <a href="http://public.dhe.ibm.com/software/dw/education/j-nio/nio-src.zip">nio-src.zip</a>, the complete source for the examples in this
+                                    tutorial. </li><li> See the <a href="http://java.sun.com/j2se/1.4/docs/index.html"> SDK
+                                    Documentation</a> for more information about installing and
+                                    configuring JDK 1.4. </li><li>The online <a href="http://java.sun.com/j2se/1.4/docs/api/index.html"> API
+                                    specification</a> describes the classes and methods of NIO, in the
+                                    autodoc format that you know and love. </li><li><a href="http://jcp.org/en/jsr/detail?id=051"> JSR 51</a> is the Java
+                                    Community Process document that first specified the new features of NIO.
+                                    In fact, NIO, as implemented in JDK 1.4, is a subset of the features
+                                    described in this document. </li><li> John Zukowski has written some good
+                                    articles about NIO for his <em> Magic with Merlin</em> column: <ul class="ibm-bullet-list"><li> "<a href="http://www.ibm.com/developerworks/java/library/j-mer03253.html"> The ins and outs of Merlin's new I/O buffers</a> " (<em>
+                                        developerWorks</em>, March 2003) is another look at buffer
+                                        basics. </li></ul></li><li>Get a little deeper into NIO with Aruna
+                                    Kalagnanam and Balu G's "<a href="http://www.ibm.com/developerworks/java/library/j-javaio/">
+                                        Merlin brings nonblocking I/O to the Java platform</a> " (<em>
+                                        developerWorks</em>, March 2002). </li><li>Greg Travis examines NIO in his book, <a href="http://www.manning.com/travis/"><em> JDK 1.4 Tutorial</em></a>
+                                    (Manning Publications, March 2002). </li></ul>
+                                    <!-- Commenting -->
+                                    <!-- INLINE_COMMENTS_BEGIN: -->
+                                    <div class="ibm-alternate-rule"><hr/></div>
+                                    <div id="dw-article-cmts-top" class="ibm-columns">
+                                        <div class="ibm-col-6-2">
+                                            <h4 id="icomments" class="ibm-h4">Comments</h4>
+                                            <div id="dw-article-cmts-login">
+                                                <p><a onClick="window.location=userLinks[0].url;" tabindex="0" role="link">Sign in</a> or
+                                                    <a onClick="window.location=userLinks[1].url;" tabindex="0" role="link">register</a> to add and subscribe to comments.</p>
+                                            </div>
+                                        </div>
+                                        <div class="ibm-col-6-2" id="dw-notify">
+                                            <input type="checkbox" value="1" name="comment_notification" id="comment_notification" disabled="disabled">
+                                            <label for="comment_notification">Subscribe me to comment notifications</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="dw-article-cmts-container">
+                                        <div class="ibm-no-print" id="dw-icomments-container">
+
+                                        </div>
+                                    </div>
+                                    <!-- INLINE_COMMENTS_END -->                                        <!-- CENTER_6_4_CONTENT_COLUMN_END -->
+                                </div>
+                            </div>
+                            <!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Java development</div><div class="metavalue">ArticleID=482400</div><div class="metavalue">ArticleTitle=Getting started with new I/O (NIO)</div><div class="metavalue">publish-date=07092003</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href.replace(/</g,  '%3C')+'</div>');</script><!--Rating_Meta_END-->
+                        </div>
+                        <!-- END_IBM-CONTENT-MAIN -->
+                    </div>
+                    <!-- END_IBM-CONTENT-BODY -->
+                </div>
+                <!-- END_IBM-CONTENT -->
+            </div>
+            <!-- END_IBM-PCON -->
+        </main>
+        <!-- MAIN_CONTENT_END -->
+
+        <!-- END_CONTENT-WRAPPER -->
+    </div>
+    <!-- FOOTER_BEGIN -->
+    <footer role="contentinfo" aria-label="IBM developerWorks">
+        <div id="dw-footer-module" class="dw-footer-home">
+            <section aria-label="Resources" role="contentinfo">
+                <div class="ibm-columns">
+                    <div class="ibm-col-6-1 dw-footer-col-1">
+                        <ul>
+                            <li class="dw-footer-heading" aria-label="developerWorks">developerWorks</li>
+                            <li><a href="//www.ibm.com/developerworks/aboutdw/">About</a></li>
+                            <li><a href="//www.ibm.com/developerworks/feedback">Help</a></li>
+                            <li class="dw-footer-newline"><a href="//www.ibm.com/developerworks/ideas">Submit content</a></li>
+                            <li class="dw-footer-newline"><a href="//www.ibm.com/developerworks/secure/report/">Report abuse</a></li>
+                            <li class="dw-footer-newline"><a href="//www.ibm.com/developerworks/community/terms/thirdparty/">Third-party notice</a></li>
+                        </ul>
+                        <ul>
+                            <li class="dw-footer-heading" aria-label="Community">Community</li>
+                            <li class="dw-footer-newline"><a href="//www.ibm.com/developerworks/rfe/">Product feedback</a></li>
+                            <li class="dw-footer-newline"><a href="//www.ibm.com/developerworks/connect/">Developer Centers</a></li>
+                        </ul>
+                        <ul>
+                            <li class="dw-footer-heading dw-follow-us" aria-label="Follow us">Follow us</li>
+                        </ul>
+                        <p class="dw-footer-social">
+                            <a href="//twitter.com/developerWorks">
+                                <img width="28" height="27" alt="Twitter" src="//dw1.s81c.com/developerworks/i/mf/dw-footer-icon-twitter.png"/>
+                            </a>
+                        </p>
+                        <p class="dw-footer-social-right">
+                            <a href="//www.facebook.com/developerworks">
+                                <img width="28" height="27" alt="Facebook" src="//dw1.s81c.com/developerworks/i/mf/dw-footer-icon-facebook.png"/>
+                            </a>
+                        </p>
+                        <br/>
+                        <p class="dw-footer-social">
+                            <a href="//www.linkedin.com/groups/IBM-developerWorks-8137234">
+                                <img width="28" height="27" alt="LinkedIn" src="//dw1.s81c.com/developerworks/i/mf/dw-footer-icon-linkedin.png"/>
+                            </a>
+                        </p>
+                        <p class="dw-footer-social-right">
+                            <a href="//www.youtube.com/user/developerworks">
+                                <img width="28" height="27" alt="YouTube" src="//dw1.s81c.com/developerworks/i/mf/dw-footer-icon-youtube.png"/>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="ibm-col-6-1 dw-footer-col-2">
+                        <ul>
+                            <li class="dw-footer-heading" aria-label="Join">Join</li>
+                            <li><a href="//developer.ibm.com/academic/">Faculty</a></li>
+                            <li><a href="//developer.ibm.com/students/">Students</a></li>
+                            <li><a href="//developer.ibm.com/startups/">Startups</a></li>
+                            <li class="dw-footer-newline"><a href="//www.ibm.com/isv/">Business Partners</a></li>
+                        </ul>
+                        <ul class="dw-footer-lang" aria-label="Select a language">
+                            <li class="dw-footer-heading">Select a language</li>
+                            <li><a href="//www.ibm.com/developerworks/">English</a></li>
+                            <li><a href="//www.ibm.com/developerworks/cn/" lang="zh">中文</a></li>
+                            <li><a href="//www.ibm.com/developerworks/jp/" lang="ja">日本語</a></li>
+                            <li><a href="//www.ibm.com/developerworks/ru/" lang="ru">Русский</a></li>
+                            <li class="dw-footer-newline"><a href="//www.ibm.com/developerworks/br/" lang="pt">Português (Brasil)</a></li>
+                            <li><a href="//www.ibm.com/developerworks/ssa/" lang="es">Español</a></li>
+                            <li><a href="//developer.ibm.com/kr/" lang="kr">한글</a></li>
+                        </ul>
+                    </div>
+                    <div class="ibm-col-6-1 dw-footer-col-3"> </div>
+                    <div class="ibm-col-6-1 dw-footer-col-4">
+                        <ul class="dw-footer-categories">
+                            <li class="dw-footer-category">
+                                <a href="//www.ibm.com/developerworks/learn/">Tutorials &amp; training</a>
+                            </li>
+                            <li class="dw-footer-category">
+                                <a href="//developer.ibm.com/accelerate/">Demos &amp; sample code</a>
+                            </li>
+                            <li class="dw-footer-category">
+                                <a href="//developer.ibm.com/answers">Q&amp;A forums</a>
+                            </li>
+                            <li class="dw-footer-category">
+                                <a href="//developer.ibm.com/dwblog/">dW Blog</a>
+                            </li>
+                            <li class="dw-footer-category">
+                                <a href="//developer.ibm.com/events/">Events</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ibm-col-6-1 dw-footer-col-5">
+                        <ul class="dw-footer-categories">
+                            <li class="dw-footer-category">
+                                <a href="//developer.ibm.com/courses/">Courses</a>
+                            </li>
+                            <li class="dw-footer-category">
+                                <a href="//developer.ibm.com/open/">Open source projects</a>
+                            </li>
+                            <li class="dw-footer-category">
+                                <a href="//developer.ibm.com/tv/">Videos</a>
+                            </li>
+                            <li class="dw-footer-category">
+                                <a href="//developer.ibm.com/recipes/">Recipes</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ibm-col-6-1 dw-footer-col-6">
+                        <ul class="dw-footer-categories">
+                            <li class="dw-footer-category">
+                                <a href="//www.ibm.com/developerworks/develop/">Downloads</a>
+                            </li>
+                            <li class="dw-footer-category">
+                                <a href="//developer.ibm.com/api/">APIs</a>
+                            </li>
+                            <li class="dw-footer-category">
+                                <a href="//www.ibm.com/developerworks/newsletter/">Newsletters</a>
+                            </li>
+                            <li class="dw-footer-category">
+                                <a href="//www.ibm.com/developerworks/feeds/">Feeds</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div id="dw-footer" class="ibm-padding-normal ibm-alternate">
+            <div class="ibm-columns">
+                <div class="ibm-col-1-1">
+                    <div class="dw-footer-corporate-links">
+                        <ul>
+                            <li><a href="//www.ibm.com/developerworks/aboutdw/contacts.html">Contact</a></li>
+                            <li><a href="//www.ibm.com/privacy/us/en/">Privacy</a></li>
+                            <li><a href="//www.ibm.com/developerworks/community/terms/use/">Terms of use</a></li>
+                            <li><a href="//www.ibm.com/accessibility/us/en/">Accessibility</a></li>
+                            <li class="ibm-feedbacklink"><a href="#">Feedback</a></li>
+                            <li id="ibm-truste-cp"><a onclick="truste.eu.clickListener();return false;" href="#">Cookie Preferences</a></li>
+                        </ul>
+                    </div>
+                    <div id="ibm-footer-locale-selector"></div>
+                </div>
+            </div>
+        </div>
+    </footer> <!-- FOOTER_END -->
+
+    <!-- END_IBM-TOP -->
+</div>
+
+<!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- Styles -->
+<link rel="stylesheet" type="text/css" href="/developerworks/maverick/css/plugin/comments/jquery-comments.css">
+<link rel="stylesheet" href="/developerworks/maverick/fonts/awesome-4.5.0/css/font-awesome.min.css">
+
+<!-- Libraries -->
+<script type="text/javascript" src="/developerworks/maverick/js/plugin/comments/jquery-comments.min.js"></script>
+<script type="text/javascript" src="/developerworks/maverick/js/plugin/formatter/moment-with-locales.js"></script>
+<script type="text/javascript" src="/developerworks/maverick/js/ContentComments.js"></script>
+<script type="text/javascript" src="/developerworks/js/v18/ContentCommentsFormatter.js"></script>
+<script type="text/javascript" language="JavaScript">
+
+    IBMCore.common.module.masthead.subscribe("ready", "customjs", setupCommentsPlugin).runAsap(setupCommentsPlugin);
+
+    function setupCommentsPlugin(){
+        //debugger;
+        //alert(userLinks);
+        var commentsInitInfo = {
+            contentId : $("div[class=metavalue]:contains('ArticleID=')").text().split("=")[1],
+            siteId :  $("div[class=metavalue]:contains('SITE_ID=')").text().split("=")[1],
+            pluginDivId : '#dw-icomments-container',
+            notifyElementId : "#comment_notification",
+            loginMessageDivId : "#dw-article-cmts-login",
+            totalCommentsDivId : "#nCmts",
+            isIdea:false
+
+        };
+
+        ContentComments.Setup(commentsInitInfo);
+    }
+</script>
+<script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create','UA-41146412-3','auto');ga('require','linkid','linkid.js');var dcdate="2003-07-09";var cmaid="482400";ga('set','dimension1',dcdate);ga('set','dimension2',cmaid);var dw_canonical="http://www.ibm.com/developerworks/java/tutorials/j-nio/j-nio.html";dw_canonical=dw_canonical.substring(dw_canonical.indexOf(".ibm.com")+8);ga('send','pageview',{'page':dw_canonical,'dimension1':dcdate,'dimension2':cmaid});var trkOBL=function(url,id){id=id.split("-");var cat="v18 article";var act="Bluemix";if(id[2]=="dwpremium")act="Premium";if(id[2]=="dwopen")act="dWOpen";if(id[2]=="devops")act="Devops";act=act+' '+id[3];if(id[4]){var label=id[4];if(label=="btn")label="button";if(label=="txt")label="text link";if(label=="bnr")label="banner";if(label=="tl")label="tile";if(label=="regbar")label="registration bar";if(label=="vp")label="video promotion"}var ab=0;if(id[5]){if(id[5]=="ABa")ab=1;if(id[5]=="ABb")ab=2;if(id[5]=="ABc")ab=3;if(id[5]=="ABd")ab=4;if(id[5]=="ABe")ab=5;if(id[5]=="ABf")ab=6;if(id[5]=="ABg")ab=7;if(id[5]=="ABh")ab=8}ga('send','event',cat,act,label,ab,{'page':dw_canonical,'hitCallback':function(){document.location=url}})}</script><!-- Hotjar Tracking Code for ibm.com -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:42920,hjsv:5};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<!-- SCRIPTS_INCLUDE_END -->
+
+</body>
+</html>
