@@ -25,7 +25,7 @@ public class CrunchifyNIOServer {
         socketChannel.configureBlocking(false);
 
         int ops = socketChannel.validOps();
-        SelectionKey selectKy = socketChannel.register(selector, ops, null);
+        socketChannel.register(selector, ops, null);
         while (true) {
             System.out.println("======================");
             int select = selector.select();
