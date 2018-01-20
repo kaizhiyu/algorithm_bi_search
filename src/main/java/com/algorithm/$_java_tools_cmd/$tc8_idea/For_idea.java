@@ -1,5 +1,7 @@
 package com.algorithm.$_java_tools_cmd.$tc8_idea;
 
+import com.algorithm.$8_annotation.single.ann.SearchKeyWord;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,8 @@ import java.util.List;
  * @author fanhb on 2018/1/13
  * @desc xxxx
  */
+@SearchKeyWord(" idea ") //https://www.imooc.com/video/16221
+
 public class For_idea {
     //1:    live Template  ctrl + shift + A: searchKey Live Template
     //PIC

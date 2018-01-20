@@ -44,19 +44,29 @@ public class $2018_01_19_ForkJoinPool {
      */
     /**
      * 7: 算法复杂度分析中的符号（Θ、Ο、ο、Ω、ω）简介  //http://blog.csdn.net/liyuming0000/article/details/46929493
-     *
-     *
-     *   原创 2015年07月17日 16:42:49 标签：算法复杂度分析 5064
-     *   Θ，读音：theta、西塔；既是上界也是下界(tight)，等于的意思。
-     *   Ο，读音：big-oh、欧米可荣（大写）；表示上界(tightness unknown)，小于等于的意思。
-     *   ο，读音：small-oh、欧米可荣（小写）；表示上界(not tight)，小于的意思。
-     *   Ω，读音：big omega、欧米伽（大写）；表示下界(tightness unknown)，大于等于的意思。
-     *   ω，读音：small omega、欧米伽（小写）；表示下界(not tight)，大于的意思。
+     * <p>
+     * <p>
+     * 原创 2015年07月17日 16:42:49 标签：算法复杂度分析 5064
+     * Θ，读音：theta、西塔；既是上界也是下界(tight)，等于的意思。
+     * Ο，读音：big-oh、欧米可荣（大写）；表示上界(tightness unknown)，小于等于的意思。
+     * ο，读音：small-oh、欧米可荣（小写）；表示上界(not tight)，小于的意思。
+     * Ω，读音：big omega、欧米伽（大写）；表示下界(tightness unknown)，大于等于的意思。
+     * ω，读音：small omega、欧米伽（小写）；表示下界(not tight)，大于的意思。
      */
 
-//    插入排序
     public static void main(String[] args) {
 
+//        insertSort();
+        StringBuilder he = new StringBuilder("he");
+        User user = new User("main", "age");
+        printBuild(he, user);
+        System.out.println(user);
+        System.out.println(he);
+
+    }
+
+    //    插入排序
+    private static void insertSort() {
         Integer[] a = {34, 8, 64, 51, 32, 21};
         for (int i = 1; i < a.length; i++) {
             int j;
@@ -68,8 +78,37 @@ public class $2018_01_19_ForkJoinPool {
         }
 
         System.out.println(Arrays.asList(a));
+    }
 
+    public static void printBuild(StringBuilder stringBuilder, User user) {
+        stringBuilder = new StringBuilder(" 222");
+
+        stringBuilder.append("world!");
+
+        System.out.println(stringBuilder);
+
+        user = new User("method", "11");
+        System.out.println(user);
 
     }
 
+    static class User {
+        /**  */
+        private String name;
+        /**  */
+        private String age;
+
+//        @Override
+//        public String toString() {
+//            return "User{" +
+//                    "name='" + name + '\'' +
+//                    ", age='" + age + '\'' +
+//                    '}';
+//        }
+
+        public User(String name, String age) {
+            this.name = name;
+            this.age = age;
+        }
+    }
 }
