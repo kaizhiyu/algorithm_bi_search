@@ -13,60 +13,29 @@ public class $2018_01_21_RightLeftDeadLock {
     private final Object left = new Object();
 
 
-    int hashRight = System.identityHashCode(right);
-    int hashLeft = System.identityHashCode(left);
-
     public void getRightLeft() {
-        if (hashRight > hashLeft) {
-
-            synchronized (right) {
-                synchronized (left) {
-                    IAmRightRleft();
+        synchronized (right) {
+            synchronized(left){
+                System.out.println("i am rightLeft ");
+                try {
+                    Thread.sleep(1000L);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-        } else {
-
-            synchronized (left) {
-                synchronized (right) {
-                    IAmRightRleft();
-                }
-            }
-        }
-    }
-
-    private void IAmRightRleft() {
-        System.out.println("i am rightLeft ");
-        try {
-            Thread.sleep(1000L);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     public void getLeftRight() {
-        if (hashRight < hashLeft) {
-
-            synchronized (left) {
-                synchronized (right) {
-                    iAmLeftRigt();
+        synchronized (left) {
+            synchronized (right){
+                try {
+                    System.out.println("i am leftRight ");
+                    Thread.sleep(1000L);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-        } else {
-
-            synchronized (right) {
-                synchronized (left) {
-                    iAmLeftRigt();
-                }
-            }
-        }
-    }
-
-    private void iAmLeftRigt() {
-        try {
-            System.out.println("i am leftRight ");
-            Thread.sleep(1000L);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
