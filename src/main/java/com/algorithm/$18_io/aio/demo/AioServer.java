@@ -13,6 +13,8 @@ import java.nio.charset.CharsetDecoder;
 /**
  * Created by pc on 2015/1/5.
  */
+
+//https://tech.meituan.com/nio.html
 public class AioServer {
     static int PORT = 8080;
     static int BUFFER_SIZE = 1024;
