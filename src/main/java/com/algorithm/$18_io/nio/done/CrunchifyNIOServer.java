@@ -27,7 +27,6 @@ public class CrunchifyNIOServer {
         int ops = socketChannel.validOps();
         socketChannel.register(selector, ops, null);
         while (true) {
-            System.out.println("======================");
             int select = selector.select();
             Set<SelectionKey> crunchifyKeys = selector.selectedKeys();
             Iterator<SelectionKey> crunchifyIterator = crunchifyKeys.iterator();
@@ -44,9 +43,11 @@ public class CrunchifyNIOServer {
                     ByteBuffer crunchifyBuffer = ByteBuffer.allocate(256);
                     crunchifyClient.read(crunchifyBuffer);
                     String result = new String(crunchifyBuffer.array()).trim();
-                    System.out.println("accept " + result);
-                    if (result.equals("Crunchify")) {
+
+                    if (result.contains("Crunchify")) {
                         crunchifyClient.close();
+                    }else {
+                        System.out.println( result);
                     }
                 }
                 crunchifyIterator.remove();
