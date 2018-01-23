@@ -31,6 +31,8 @@ public class For_idea {
     //11: call hierarchy :method调用
     //12: 光标: http://picawen.leanote.com/post/IntelliJ-IDEA快捷键
 
+    //13: idea 更新git  vcs，ctrl + T
+
     private static void sss(String name) {
         System.out.printf("name:%s%n", name);
     }
