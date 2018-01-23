@@ -5,40 +5,24 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class DelayItem<T> implements Delayed {
-    /**
-     * Base of nanosecond timings, to avoid wrapping
-     */
     private static final long NANO_ORIGIN = System.nanoTime();
 
-    /**
-     * Returns nanosecond time offset by origin
-     */
     final static long now() {
         return System.nanoTime() - NANO_ORIGIN;
     }
 
-    /**
-     * Sequence number to break scheduling ties, and in turn to guarantee FIFO order among tied
-     * entries.
-     */
-    private static final AtomicLong sequencer = new AtomicLong(0);
+//    private static final AtomicLong sequencer = new AtomicLong(0);
 
-    /**
-     * Sequence number to break ties FIFO
-     */
-    private final long sequenceNumber;
+//    private final long sequenceNumber;
 
-    /**
-     * The time the task is enabled to execute in nanoTime units
-     */
     private final long time;
 
     private final T item;
 
-    public DelayItem(T submit, long timeout) {
-        this.time = now() + timeout;
+    public DelayItem(T submit, long timeout,TimeUnit unit) {
+        this.time = now() + unit.convert(timeout, TimeUnit.NANOSECONDS);;
         this.item = submit;
-        this.sequenceNumber = sequencer.getAndIncrement();
+//        this.sequenceNumber = sequencer.getAndIncrement();
     }
 
     public T getItem() {
@@ -60,8 +44,8 @@ public class DelayItem<T> implements Delayed {
                 return -1;
             else if (diff > 0)
                 return 1;
-            else if (sequenceNumber < x.sequenceNumber)
-                return -1;
+//            else if (sequenceNumber < x.sequenceNumber)
+//                return -1;
             else
                 return 1;
         }

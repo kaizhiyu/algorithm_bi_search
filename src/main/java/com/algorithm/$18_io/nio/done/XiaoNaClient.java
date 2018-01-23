@@ -64,7 +64,7 @@ public class XiaoNaClient implements Runnable {
                         byteBuffer.flip();
 //                        CharBuffer charBuffer = XiaoNaCharsetHelper.decode(byteBuffer);
 //                        String answer = charBuffer.toString();
-//                        System.out.println(Thread.currentThread().getId() + "---" + answer);
+//                        System.out.println(Thread.currentThread().getIdentity() + "---" + answer);
 
                         String word = getWord();
                         if (word != null) {

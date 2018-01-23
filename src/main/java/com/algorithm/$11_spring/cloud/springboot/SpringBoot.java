@@ -8,4 +8,6 @@ package com.algorithm.$11_spring.cloud.springboot;
  */
 
 public class SpringBoot {
+
+    //启用sql显示，该日志记录为debug
 }
