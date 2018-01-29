@@ -9,5 +9,12 @@ package com.algorithm.$11_spring.cloud.springboot;
 
 public class SpringBoot {
 
-    //启用sql显示，该日志记录为debug
+    //1: 启用sql显示，该日志记录为debug
+    /**
+     * 2: spring boot 在Linux中的启动方式
+     * // https://www.cnblogs.com/woms/p/6145688.html
+     *
+     *
+     * */
+    
 }
