@@ -1,4 +1,4 @@
-package com.algorithm.$11_spring.cloud.springboot;
+package com.algorithm.$11_spring.springboot;
 
 /**
  * xxx
