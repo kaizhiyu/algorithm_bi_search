@@ -10,4 +10,12 @@ import com.algorithm.$8_annotation.single.ann.SearchKeyWord;
 public class $2018_01_30_Romain_Rolland {
 
 
+/**
+ * 1: circuit	英[ˈsɜ:kɪt]美[ˈsɜ:rkɪt]n.	巡回; 电路，线路; 唤醒，环形道; 〔电〕电流;vt.	巡回，周游;
+ * Any attempts to cut through the cabling will break the electrical circuit.
+ * 只要一割断电缆，电路就中断。
+ */
+
+
+
 }
