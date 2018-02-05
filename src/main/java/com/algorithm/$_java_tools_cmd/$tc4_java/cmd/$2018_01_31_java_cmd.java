@@ -74,41 +74,39 @@ public class $2018_01_31_java_cmd {
         if (file.isDirectory()) {
             Arrays.stream(file.listFiles()).parallel().forEach($2018_01_31_java_cmd::recurseUpdateFile);
         } else {
-            randomAccessFileHead(file.getAbsolutePath(), "rw");
+            randomAccessFile(file.getAbsolutePath(), "rw");
         }
 
 
     }
-    static String pathName = "C:\\opt\\logs\\src\\com\\sun\\corba\\se\\impl\\corba\\ExceptionListImpl.java";
+    static String pathName = "C:\\opt\\logs\\src\\com\\sun\\corba\\se\\impl\\corba\\RequestImpl.java";
 
     public static void randomAccessFile(String path, String rwMode) {
         StringBuilder htmlHeader = new StringBuilder("<!DOCTYPE html><html><head>    <meta charset=\"UTF-8\">    <title>text</title>    <style>            </style></head><body>");
 
         StringBuilder htmlFoot = new StringBuilder("</body></html>");
-        try (RandomAccessFile randomAccessFile = new RandomAccessFile(path, rwMode)) {
+        String newAbsPath = path.replaceAll("\\.java", "\\.html");
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile(path, rwMode);RandomAccessFile newFile = new RandomAccessFile(newAbsPath, rwMode)) {
             String line = null;
             long lastPointer = 0;
 //            randomAccessFile.readUTF()
             while ((line = randomAccessFile.readLine()) != null) {
                 final long filePointer = randomAccessFile.getFilePointer();
 
+                if (line.startsWith("import")){
+                    continue;
+                }
                 String replaceAll = line
 //                        .replaceAll("/\\*\\*", "<\\\\b>");
 //                        .replaceAll("\\*/", "<\\\\b>")
-                        .replaceAll(" /* ", " <\\\\b> ");
 
-                if (lastPointer == 0) {
-                    replaceAll = htmlHeader.append(replaceAll).toString();
-                }
-                randomAccessFile.seek(lastPointer);
-                randomAccessFile.writeBytes(replaceAll);
-                lastPointer = filePointer;
-                if (lastPointer == 0) {
-                    lastPointer = randomAccessFile.getFilePointer();
-                }
+                        .replaceAll("\\*", "</br> ");
+                htmlHeader.append(replaceAll).append("</br> \n");
+
             }
-            randomAccessFile.seek(lastPointer);
-            randomAccessFile.writeBytes(htmlFoot.toString());
+            htmlHeader.append(htmlFoot);
+            newFile.seek(0L);
+            newFile.writeBytes(htmlHeader.toString());
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -119,21 +117,4 @@ public class $2018_01_31_java_cmd {
     }
 
 
-    public static void randomAccessFileHead(String path, String rwMode) {
-        StringBuilder htmlHeader = new StringBuilder("<!DOCTYPE html><html><head>    <meta charset=\"UTF-8\">    <title>text</title>    <style>            </style></head><body>");
-
-        StringBuilder htmlFoot = new StringBuilder("</body></html>");
-        try (RandomAccessFile randomAccessFile = new RandomAccessFile(path, rwMode)) {
-
-            long filePointer = randomAccessFile.getFilePointer();
-            randomAccessFile.seek(filePointer);
-            randomAccessFile.writeBytes(htmlHeader.toString());
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 }
