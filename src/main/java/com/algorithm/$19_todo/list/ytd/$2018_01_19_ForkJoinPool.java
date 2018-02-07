@@ -58,28 +58,7 @@ public class $2018_01_19_ForkJoinPool {
 
 //        insertSort();
         StringBuilder he = new StringBuilder("he");
-        User user = new User("main", "age");
-        printBuild(he, user);
-        System.out.println(user);
-        System.out.println(he);
-
     }
-
-    //    插入排序
-    private static void insertSort() {
-        Integer[] a = {34, 8, 64, 51, 32, 21};
-        for (int i = 1; i < a.length; i++) {
-            int j;
-            Integer temp = a[i];
-            for (j = i; j > 0 && temp.compareTo(a[j - 1]) < 0; j--) {
-                a[j] = a[j - 1];
-            }
-            a[j] = temp;
-        }
-
-        System.out.println(Arrays.asList(a));
-    }
-
     public static void printBuild(StringBuilder stringBuilder, User user) {
         stringBuilder = new StringBuilder(" 222");
 
