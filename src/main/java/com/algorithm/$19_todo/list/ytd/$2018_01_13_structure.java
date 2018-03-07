@@ -44,6 +44,18 @@ public class $2018_01_13_structure {
 
     }
 
+    public static void quickSort(int[] a,int left, int right){
+
+
+
+
+
+    }
+
+    public static int media3(int[] a, int element1,int element2){
+        
+    }
+
 
 
 
