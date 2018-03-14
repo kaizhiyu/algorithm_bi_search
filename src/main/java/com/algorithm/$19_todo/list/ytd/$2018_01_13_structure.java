@@ -53,7 +53,7 @@ public class $2018_01_13_structure {
     }
 
     public static int media3(int[] a, int element1,int element2){
-        
+       return 0;
     }
 
 
