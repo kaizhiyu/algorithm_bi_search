@@ -1,7 +1,9 @@
 package com.question.q1_demo;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @auth v_fanhaibo on   2018/3/14
@@ -80,9 +82,39 @@ public class MyLRU<K, V> {
 
 }
 
+class MyLRUCacheLinkedHashMap<K, V> {
+    public Map<K, V> cacheMap;
+    private int capacity;
+    private boolean accessOrder;
+    private float FACTOR = 0.75f;
+
+    public MyLRUCacheLinkedHashMap(int capacity) {
+        this(capacity, true);
+    }
+
+    public MyLRUCacheLinkedHashMap(int capacity, boolean accessOrder) {
+        this.capacity = capacity;
+        this.accessOrder = accessOrder;
+        this.cacheMap = new LinkedHashMap<K, V>(capacity, FACTOR, accessOrder) {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry eldest) {
+                return size() > capacity;
+            }
+        };
+    }
+
+    public void set(K key, V val) {
+        cacheMap.put(key, val);
+    }
+
+    public V get(K key) {
+        return cacheMap.get(key);
+    }
+}
+
 class LRUCacheLinkedHashMap {
     private int capacity;
-    private Map<Integer, Integer> cache;
+    public Map<Integer, Integer> cache;
 
     public LRUCacheLinkedHashMap(int capacity) {
         this.capacity = capacity;
@@ -105,4 +137,22 @@ class LRUCacheLinkedHashMap {
     public void set(int key, int value) {
         cache.put(key, value);
     }
+
+    public static void main(String[] args) throws InterruptedException {
+        MyLRUCacheLinkedHashMap lruCache = new MyLRUCacheLinkedHashMap(10);
+
+        for (int i = 0; i < 10000; i++) {
+            Thread.sleep(1000L);
+            lruCache.set(i % 10, i);
+
+            System.out.print("json: " );
+            Set<Map.Entry<Integer, Integer>> entries = lruCache.cacheMap.entrySet();
+            for (Map.Entry<Integer, Integer> entry : entries) {
+                System.out.print(entry.getValue() +" ");
+            }
+            System.out.println();
+        }
+    }
 }
+
+
