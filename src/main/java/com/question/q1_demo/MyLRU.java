@@ -1,9 +1,11 @@
 package com.question.q1_demo;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.*;
 
 /**
  * @auth v_fanhaibo on   2018/3/14
@@ -104,6 +106,24 @@ class MyLRUCacheLinkedHashMap<K, V> {
     }
 
     public void set(K key, V val) {
+
+//        ExecutorService service = Executors.newCachedThreadPool();
+//        Future<Integer> f = service.submit(new Callable<Integer>() {
+//            @Override
+//            public Integer call() throws Exception {
+//                return 1;
+//            }
+//        });
+//        f.get(1000L,TimeUnit.SECONDS);
+//        f.cancel(true);
+
+        BigInteger p = BigInteger.ONE;
+        p.nextProbablePrime();
+
+        Thread thread = new Thread();
+        thread.start();
+        thread.interrupt();
+        Thread.currentThread().isInterrupted();
         cacheMap.put(key, val);
     }
 
@@ -145,10 +165,10 @@ class LRUCacheLinkedHashMap {
             Thread.sleep(1000L);
             lruCache.set(i % 10, i);
 
-            System.out.print("json: " );
+            System.out.print("json: ");
             Set<Map.Entry<Integer, Integer>> entries = lruCache.cacheMap.entrySet();
             for (Map.Entry<Integer, Integer> entry : entries) {
-                System.out.print(entry.getValue() +" ");
+                System.out.print(entry.getValue() + " ");
             }
             System.out.println();
         }
