@@ -8,7 +8,7 @@ import com.algorithm.$8_annotation.single.ann.Location;
  */
 
 @Location("JVM_param JVM")
-@Doc4Desc("JVM 命令行工具")
+@Doc4Desc("虚拟机性能监控和命令行工具  ---第四章")
 public class JVM_configuration_param {
 
     /**
@@ -18,6 +18,7 @@ public class JVM_configuration_param {
      ***** https://blog.csdn.net/u014227228/article/details/41858031  *****
      **********************************************************************
      *
+     * 命令  jamp -heap -pid
      Heap Configuration:
      MinHeapFreeRatio         = 40                                  :
      MaxHeapFreeRatio         = 70                                  :JVM堆最大空闲比率
