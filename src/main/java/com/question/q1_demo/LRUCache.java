@@ -4,6 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LRUCache {
+
+
+    public static void main(String[] args) {
+        System.out.println(1 << 30);
+        Integer integer = Integer.valueOf(1 << 30);
+        System.out.println(integer.toString().length());
+    }
     class Node {
         Node pre;
         Node next;
