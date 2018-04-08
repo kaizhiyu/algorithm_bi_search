@@ -28,11 +28,37 @@ import com.algorithm.$8_annotation.single.ann.Location;
  *
  * 强制让maven检查更新;
  *
+ * always
+ *
+ * snapshotPolicy
  */
 
 
 /**
  * https://www.cnblogs.com/zhaoyan001/p/8735196.html
+ *
+ *
+ * https://blog.csdn.net/lxlmycsdnfree/article/details/77835771
+ *
+ * setting.xml
+ *
+ *  <profile>
+ *       <id>jdk-1.4</id>
+ *
+ *       <activation>
+ *         <jdk>1.4</jdk>
+ *       </activation>
+ *
+ *       <repositories>
+ *         <repository>
+ *           <id>jdk14</id>
+ *           <name>Repository for JDK 1.4 builds</name>
+ *           <url>http://www.myhost.com/maven/jdk14</url>
+ *           <layout>default</layout>
+ *           <snapshotPolicy>always</snapshotPolicy>
+ *         </repository>
+ *       </repositories>
+ *     </profile>
  */
 
 //        -am,--also-make                        If project list is specified, also
